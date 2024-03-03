@@ -13,11 +13,14 @@ use Timeular\Timeular;
     ->setCode(function (InputInterface $input, OutputInterface $output) {
         $timeular = new Timeular();
 
-        $response = $timeular->getToken(
+        $response = $timeular->me(
             $input->getArgument('key'),
             $input->getArgument('secret'),
         );
 
-        $output->write(json_decode($response->getBody()->getContents())->token);
+        $data = json_decode($response->getBody()->getContents())->data;
+
+        $output->writeln(sprintf('Name: %s', $data->name));
+        $output->writeln(sprintf('Email: %s', $data->email));
     })
     ->run();

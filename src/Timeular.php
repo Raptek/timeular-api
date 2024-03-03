@@ -17,13 +17,30 @@ class Timeular
         $this->httpClient = $httpClient ?? new Client('https://api.timeular.com/api/v3');
     }
 
-    public function getToken(string $apiKey, string $apiSecret): ResponseInterface
+    public function getToken(string $apiKey, string $apiSecret): string
     {
-        return $this->httpClient->post(
+        $response = $this->httpClient->request(
+            'POST',
             'developer/sign-in',
             [
                 'apiKey' => $apiKey,
                 'apiSecret' => $apiSecret,
+            ]
+        );
+
+        return json_decode($response->getBody()->getContents())->token;
+    }
+
+    public function me(string $apiKey, string $apiSecret): ResponseInterface
+    {
+        $token = $this->getToken($apiKey, $apiSecret);
+
+        return $this->httpClient->request(
+            'GET',
+            'me',
+            [],
+            [
+                'Authorization' => sprintf('Bearer %s', $token),
             ]
         );
     }

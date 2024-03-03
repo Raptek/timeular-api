@@ -24,22 +24,19 @@ class Client
         $this->httpRequestFactory = $httpRequestFactory ?? Psr17FactoryDiscovery::findRequestFactory();
     }
 
-    public function get(string $uri, array $payload): ResponseInterface
+    public function request(string $method, string $uri, array $payload = [], array $headers = []): ResponseInterface
     {
-        $request = ($this->httpRequestFactory->createRequest('GET', sprintf('%s/%s', $this->baseUri, ltrim($uri, '/'))))
-            ->withHeader('Content-Type', 'application/json');
+        $request = ($this->httpRequestFactory->createRequest(strtoupper($method), sprintf('%s/%s', rtrim($this->baseUri, '/'), ltrim($uri, '/'))))
+            ->withHeader('Content-Type', 'application/json')
+        ;
 
-        $request->getBody()->write(json_encode($payload));
+        if ([] !== $payload) {
+            $request->getBody()->write(json_encode($payload));
+        }
 
-        return $this->httpClient->sendRequest($request);
-    }
-
-    public function post(string $uri, array $payload): ResponseInterface
-    {
-        $request = ($this->httpRequestFactory->createRequest('POST', sprintf('%s/%s', $this->baseUri, ltrim($uri, '/'))))
-            ->withHeader('Content-Type', 'application/json');
-
-        $request->getBody()->write(json_encode($payload));
+        foreach ($headers as $header => $value) {
+            $request = $request->withHeader($header, $value);
+        }
 
         return $this->httpClient->sendRequest($request);
     }
