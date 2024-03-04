@@ -4,44 +4,62 @@ declare(strict_types=1);
 
 namespace Timeular;
 
-use Psr\Http\Message\ResponseInterface;
+use Psr\SimpleCache\CacheInterface;
 use Timeular\Http\Client;
 
 class Timeular
 {
+    private const string CACHE_KEY = 'timeular-token';
+
     private Client $httpClient;
 
     public function __construct(
+        private string $apiKey,
+        private string $apiSecret,
+        private CacheInterface $cache,
         ?Client $httpClient = null,
     ) {
         $this->httpClient = $httpClient ?? new Client('https://api.timeular.com/api/v3');
     }
 
-    public function getToken(string $apiKey, string $apiSecret): string
+    public function signIn(): string
     {
         $response = $this->httpClient->request(
             'POST',
             'developer/sign-in',
             [
-                'apiKey' => $apiKey,
-                'apiSecret' => $apiSecret,
+                'apiKey' => $this->apiKey,
+                'apiSecret' => $this->apiSecret,
             ]
         );
 
         return json_decode($response->getBody()->getContents())->token;
     }
 
-    public function me(string $apiKey, string $apiSecret): ResponseInterface
+    private function getToken(): string
     {
-        $token = $this->getToken($apiKey, $apiSecret);
+        $token = $this->cache->get(self::CACHE_KEY);
 
-        return $this->httpClient->request(
+        if (null === $token) {
+            $token = $this->signIn();
+
+            $this->cache->set(self::CACHE_KEY, $token, 300);
+        }
+
+        return $token;
+    }
+
+    public function me(): array
+    {
+        $response = $this->httpClient->request(
             'GET',
             'me',
             [],
             [
-                'Authorization' => sprintf('Bearer %s', $token),
+                'Authorization' => sprintf('Bearer %s', $this->getToken()),
             ]
         );
+
+        return json_decode($response->getBody()->getContents(), true)['data'];
     }
 }

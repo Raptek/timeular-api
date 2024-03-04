@@ -21,6 +21,3 @@ ENV COMPOSER_ALLOW_SUPERUSER=1
 ENV PATH="${PATH}:/root/.composer/vendor/bin"
 
 WORKDIR /srv/app
-
-# prevent the reinstallation of vendors at every changes in the source code
-COPY composer.* ./

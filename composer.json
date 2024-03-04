@@ -7,7 +7,8 @@
         "php-http/discovery": "^1.17",
         "psr/http-client-implementation": "*",
         "psr/http-factory-implementation": "*",
-        "psr/http-message-implementation": "*"
+        "psr/http-message-implementation": "*",
+        "psr/simple-cache-implementation": "*"
     },
     "autoload": {
         "psr-4": {
@@ -28,6 +29,8 @@
     "require-dev": {
         "nyholm/psr7": "^1.8",
         "guzzlehttp/guzzle": "^7.8",
-        "symfony/console": "^7.0"
+        "symfony/console": "^7.0",
+        "symfony/cache": "^7.0",
+        "psr/simple-cache": "*"
     }
 }
