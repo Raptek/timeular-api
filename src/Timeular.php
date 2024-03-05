@@ -33,7 +33,7 @@ class Timeular
             ]
         );
 
-        return json_decode($response->getBody()->getContents())->token;
+        return $response['token'];
     }
 
     private function getToken(): string
@@ -60,6 +60,6 @@ class Timeular
             ]
         );
 
-        return json_decode($response->getBody()->getContents(), true)['data'];
+        return $response['data'];
     }
 }
