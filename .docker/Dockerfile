@@ -1,18 +1,13 @@
-# the different stages of this Dockerfile are meant to be built into separate images
-# https://docs.docker.com/develop/develop-images/multistage-build/#stop-at-a-specific-build-stage
-# https://docs.docker.com/compose/compose-file/#target
-
-
-# https://docs.docker.com/engine/reference/builder/#understand-how-arg-and-from-interact
 ARG PHP_VERSION=8.3
 ARG ALPINE_VERSION=3.18
 
-# "php" stage
 FROM php:${PHP_VERSION}-fpm-alpine${ALPINE_VERSION}
 
-# install gnu-libiconv and set LD_PRELOAD env to make iconv work fully on Alpine image.
-# see https://github.com/docker-library/php/issues/240#issuecomment-763112749
-ENV LD_PRELOAD /usr/lib/preloadable_libiconv.so
+ADD --chmod=0755 https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions /usr/local/bin/
+
+RUN install-php-extensions xdebug-^3@stable
+
+COPY .docker/conf.d /usr/local/etc/php/conf.d
 
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
