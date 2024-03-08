@@ -6,7 +6,7 @@ namespace Timeular\Serializer;
 
 class JsonSerializer implements SerializerInterface
 {
-    #[\Override] public function serialize(mixed $data): string
+    public function serialize(mixed $data): string
     {
         try {
             return json_encode($data, JSON_THROW_ON_ERROR);
@@ -19,10 +19,10 @@ class JsonSerializer implements SerializerInterface
         }
     }
 
-    #[\Override] public function deserialize(string $data): array
+    public function deserialize(string $data): ?array
     {
         try {
-            return json_decode($data, true);
+            return json_decode($data, true, flags: JSON_THROW_ON_ERROR);
         } catch (\JsonException $exception) {
             throw new DeserializeException(
                 sprintf('Unable to deserialize: %s', $exception->getMessage()),
