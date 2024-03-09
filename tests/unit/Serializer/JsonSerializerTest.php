@@ -87,6 +87,8 @@ class JsonSerializerTest extends TestCase
 
     public static function dataProviderUnsuccessfulDeserialize(): \Generator
     {
+        yield 'empty string' => [''];
+        yield 'single space' => [' '];
         yield 'incorrect json' => ['{'];
         yield 'missing quotes' => ['{"string": test}'];
     }

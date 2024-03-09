@@ -22,6 +22,9 @@ class Timeular
         $this->httpClient = $httpClient ?? new Client('https://api.timeular.com/api/v3');
     }
 
+    /**
+     * @see https://developers.timeular.com/#12de6e46-4b3a-437b-94b2-39b7782eb24c
+     */
     public function signIn(): string
     {
         $response = $this->httpClient->request(
@@ -30,10 +33,25 @@ class Timeular
             [
                 'apiKey' => $this->apiKey,
                 'apiSecret' => $this->apiSecret,
-            ]
+            ],
         );
 
         return $response['token'];
+    }
+
+    /**
+     * @see https://developers.timeular.com/#b2a18382-8f61-4222-bb5d-fa58c2c260a9
+     */
+    public function logout(): void
+    {
+        $this->httpClient->request(
+            'POST',
+            'developer/logout',
+            [],
+            [
+                'Authorization' => sprintf('Bearer %s', $this->getToken()),
+            ],
+        );
     }
 
     private function getToken(): string
@@ -49,6 +67,9 @@ class Timeular
         return $token;
     }
 
+    /**
+     * @see https://developers.timeular.com/#bbf459e2-ff90-4aeb-b064-7febaa4eba70
+     */
     public function me(): array
     {
         $response = $this->httpClient->request(
@@ -57,7 +78,7 @@ class Timeular
             [],
             [
                 'Authorization' => sprintf('Bearer %s', $this->getToken()),
-            ]
+            ],
         );
 
         return $response['data'];

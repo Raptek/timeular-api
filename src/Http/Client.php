@@ -48,6 +48,12 @@ class Client
 
     private function handleResponse(ResponseInterface $response): array
     {
-        return $this->serializer->deserialize($response->getBody()->getContents());
+        $body = $response->getBody()->getContents();
+
+        if ('' === $body) {
+            return [];
+        }
+
+        return $this->serializer->deserialize($body);
     }
 }
