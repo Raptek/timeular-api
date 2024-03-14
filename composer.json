@@ -37,6 +37,8 @@
         "symfony/console": "^7.0",
         "symfony/cache": "^7.0",
         "psr/simple-cache": "*",
-        "phpunit/phpunit": "^11.0"
+        "phpunit/phpunit": "^11.0",
+        "symfony/dependency-injection": "^7.0",
+        "symfony/config": "^7.0"
     }
 }
