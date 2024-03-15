@@ -1,14 +1,14 @@
 #!/usr/bin/env php
 <?php
 
-require __DIR__.'/vendor/autoload.php';
-require __DIR__.'/container.php';
+require __DIR__.'/bootstrap.php';
 
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\SingleCommandApplication;
 use Timeular\Api\AuthApi;
 use Timeular\Api\TimeularApi;
+use Timeular\Http\ApiClient;
 use Timeular\Http\Client;
 use Timeular\Timeular;
 
@@ -29,18 +29,7 @@ use Timeular\Timeular;
 //            new AuthMiddleware($authApi),
 //        );
 
-        $httpClient = new Client($container->getParameter('http.base_uri'));
-        $auth = new AuthApi(
-            $input->getArgument('key'),
-            $input->getArgument('secret'),
-            $httpClient,
-        );
-        $api = new TimeularApi(
-            $httpClient,
-            $auth,
-        );
-
-        $timeular = new Timeular($api);
+        $timeular = $container->get(Timeular::class);
 
         $data = $timeular->me();
 
