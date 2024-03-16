@@ -13,8 +13,6 @@ use Timeular\Http\Client;
 use Timeular\Timeular;
 
 (new SingleCommandApplication())
-    ->addArgument('key')
-    ->addArgument('secret')
     ->setCode(function (InputInterface $input, OutputInterface $output) use ($container) {
 //        $apiClient = new ApiClient();
 //        $authApi = new AuthApi(

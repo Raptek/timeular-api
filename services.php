@@ -22,8 +22,6 @@ use Timeular\Serializer\JsonSerializer;
 use Timeular\Serializer\SerializerInterface;
 use Timeular\Timeular;
 
-use function Symfony\Component\DependencyInjection\Loader\Configurator\env;
-
 return static function (ContainerConfigurator $container): void {
     $container->parameters()
         ->set('http.base_uri', 'https://api.timeular.com/api/v3')
@@ -53,8 +51,8 @@ return static function (ContainerConfigurator $container): void {
 
     $services
         ->set(AuthApi::class)
-        ->arg('$apiKey', '%env(API_KEY)%')
-        ->arg('$apiSecret', env('API_SECRET'))
+        ->arg('$apiKey', getenv('API_KEY'))
+        ->arg('$apiSecret', getenv('API_SECRET'))
         ->public()
     ;
 
