@@ -19,7 +19,7 @@ use Timeular\Timeular;
 //            $input->getArgument('key'),
 //            $input->getArgument('secret'),
 //            $apiClient,
-//        );
+//        ); 
 //        $httpClient = Psr18ClientDiscovery::find();
 //        $middlewareClient = new MiddlewareAwareClient(
 //            new HandlerStack(new RequestMiddleware()),
