@@ -8,7 +8,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\SingleCommandApplication;
 use Timeular\Api\AuthApi;
 use Timeular\Api\TimeularApi;
-use Timeular\Http\ApiClient;
+use Timeular\Http\HttpClient;
 use Timeular\Http\Client;
 use Timeular\Timeular;
 

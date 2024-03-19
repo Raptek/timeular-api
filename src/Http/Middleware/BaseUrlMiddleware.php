@@ -28,8 +28,8 @@ class BaseUrlMiddleware implements MiddlewareInterface
             return $handler->handle($request);
         }
 
-        $request->withUri($this->uriFactory->createUri(sprintf('%s/%s', $this->baseUri, $request->getUri())));
+        $uri = $this->uriFactory->createUri(sprintf('%s/%s', $this->baseUri, $request->getUri()));
 
-        return $handler->handle($request);
+        return $handler->handle($request->withUri($uri));
     }
 }

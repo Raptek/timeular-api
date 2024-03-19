@@ -11,12 +11,9 @@ use Psr\Http\Message\ResponseInterface;
 
 class RequestMiddleware implements ClientInterface, MiddlewareInterface
 {
-    private ClientInterface $httpClient;
-
     public function __construct(
-        ?ClientInterface $httpClient = null,
+        private ClientInterface $httpClient,
     ) {
-        $this->httpClient = $httpClient ?? Psr18ClientDiscovery::find();
     }
 
     public function sendRequest(RequestInterface $request): ResponseInterface

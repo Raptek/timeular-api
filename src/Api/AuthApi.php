@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace Timeular\Api;
 
-use Timeular\Http\Client;
+use Timeular\Http\MiddlewareAwareHttpClient;
 
 class AuthApi
 {
     public function __construct(
         private string $apiKey,
         private string $apiSecret,
-        private Client $httpClient,
+        private MiddlewareAwareHttpClient $httpClient,
     ) {
     }
 
@@ -40,10 +40,6 @@ class AuthApi
         $this->httpClient->request(
             'POST',
             'developer/logout',
-            [],
-            [
-                'Authorization' => sprintf('Bearer %s', $this->signIn()),
-            ],
         );
     }
 }
