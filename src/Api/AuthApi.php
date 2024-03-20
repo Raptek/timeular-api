@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace Timeular\Api;
 
-use Timeular\Http\MiddlewareAwareHttpClient;
+use Timeular\Http\HttpClient;
 
 class AuthApi
 {
     public function __construct(
         private string $apiKey,
         private string $apiSecret,
-        private MiddlewareAwareHttpClient $httpClient,
+        private HttpClient $httpClient,
     ) {
     }
 

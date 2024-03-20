@@ -10,15 +10,11 @@ use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigura
 use Symfony\Component\DependencyInjection\Reference;
 use Timeular\Api\AuthApi;
 use Timeular\Api\TimeularApi;
-use Timeular\Http\HttpClient;
 use Timeular\Http\Middleware\AuthMiddleware;
-use Timeular\Http\Middleware\BaseUrlMiddleware;
 use Timeular\Http\Middleware\HandlerStack;
 use Timeular\Http\Middleware\RequestHandlerStackInterface;
 use Timeular\Http\Middleware\RequestMiddleware;
-use Timeular\Http\MiddlewareAwareClient;
-use Timeular\Http\MiddlewareAwareClientInterface;
-use Timeular\Http\MiddlewareAwareHttpClient;
+use Timeular\Http\HttpClient;
 use Timeular\Serializer\JsonSerializer;
 use Timeular\Serializer\SerializerInterface;
 use Timeular\Timeular;
@@ -46,14 +42,7 @@ return static function (ContainerConfigurator $container): void {
         ->alias(SerializerInterface::class, JsonSerializer::class);
 
     $services
-        ->alias(MiddlewareAwareClientInterface::class, MiddlewareAwareClient::class);
-
-    $services
         ->set(HttpClient::class)
-    ;
-
-    $services
-        ->set(MiddlewareAwareHttpClient::class)
         ->arg('$baseUri', '%http.base_uri%')
         ->call('setMiddlewares', [
 //            new Reference(BaseUrlMiddleware::class),
@@ -65,12 +54,11 @@ return static function (ContainerConfigurator $container): void {
         ->set(AuthApi::class)
         ->arg('$apiKey', getenv('API_KEY'))
         ->arg('$apiSecret', getenv('API_SECRET'))
-        ->public()
     ;
 
-    $services
-        ->set(BaseUrlMiddleware::class)
-        ->args(['%http.base_uri%']);
+//    $services
+//        ->set(BaseUrlMiddleware::class)
+//        ->args(['%http.base_uri%']);
     $services
         ->set(AuthMiddleware::class);
     $services
@@ -82,25 +70,9 @@ return static function (ContainerConfigurator $container): void {
         ->alias(RequestHandlerStackInterface::class, HandlerStack::class);
 
     $services
-        ->set(MiddlewareAwareClient::class)
-        ->args(
-            [
-                new Reference(RequestHandlerStackInterface::class),
-                new Reference(BaseUrlMiddleware::class),
-                new Reference(AuthMiddleware::class),
-            ]
-        );
-
-
-//    $services
-//        ->set(Client::class)
-//        ->args(['%http.base_uri%'])
-//        ;
-    $services
         ->set(TimeularApi::class)
         ;
     $services
         ->set(Timeular::class)
         ->public();
-
 };

@@ -5,12 +5,11 @@ declare(strict_types=1);
 namespace Timeular\Api;
 
 use Timeular\Http\HttpClient;
-use Timeular\Http\MiddlewareAwareHttpClient;
 
 class TimeularApi
 {
     public function __construct(
-        private MiddlewareAwareHttpClient $httpClient,
+        private HttpClient $httpClient,
     ) {
     }
 
