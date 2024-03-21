@@ -4,32 +4,25 @@ declare(strict_types=1);
 
 namespace Timeular\Http;
 
+use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\RequestFactoryInterface;
 use Psr\Http\Message\ResponseInterface;
-use Timeular\Http\Middleware\MiddlewareInterface;
-use Timeular\Http\Middleware\RequestHandlerStackInterface;
+use Timeular\Http\RequestModifier\RequestModifierInterface;
 use Timeular\Serializer\SerializerInterface;
 
 class HttpClient implements HttpClientInterface
 {
     public function __construct(
-        private string $baseUri,
+        private ClientInterface $httpClient,
         private RequestFactoryInterface $httpRequestFactory,
         private SerializerInterface $serializer,
-        private RequestHandlerStackInterface $handler,
+        private RequestModifierInterface $requestModifier,
     ) {
-    }
-
-    public function setMiddlewares(MiddlewareInterface ...$middlewares): void
-    {
-        foreach ($middlewares as $middleware) {
-            $this->handler->add($middleware);
-        }
     }
 
     public function request(string $method, string $uri, array $payload = [], array $headers = []): array
     {
-        $request = ($this->httpRequestFactory->createRequest(strtoupper($method), sprintf('%s/%s', $this->baseUri, ltrim($uri, '/'))))
+        $request = ($this->httpRequestFactory->createRequest(strtoupper($method), ltrim($uri, '/')))
             ->withHeader('Content-Type', 'application/json')
         ;
 
@@ -41,9 +34,9 @@ class HttpClient implements HttpClientInterface
             $request = $request->withHeader($header, $value);
         }
 
-        $response = $this->handler->handle($request);
+        $request = $this->requestModifier->enrich($request);
 
-        return $this->handleResponse($response);
+        return $this->handleResponse($this->httpClient->sendRequest($request));
     }
 
     private function handleResponse(ResponseInterface $response): array
