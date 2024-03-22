@@ -30,21 +30,21 @@ return static function (ContainerConfigurator $container): void {
         ->defaults()
         ->autowire();
 
-    $services
-        ->set(BaseUriModifier::class)
-        ->arg('$baseUri', '%http.base_uri%');
-    $services
-        ->set(AuthModifier::class);
-    $services
-        ->set(CompositeModifier::class)
-        ->args(
-            [
-                new Reference(BaseUriModifier::class),
-                new Reference(AuthModifier::class),
-            ]
-        );
-    $services
-        ->alias(RequestModifierInterface::class, CompositeModifier::class);
+//    $services
+//        ->set(BaseUriModifier::class)
+//        ->arg('$baseUri', '%http.base_uri%');
+//    $services
+//        ->set(AuthModifier::class);
+//    $services
+//        ->set(CompositeModifier::class)
+//        ->args(
+//            [
+//                new Reference(BaseUriModifier::class),
+//                new Reference(AuthModifier::class),
+//            ]
+//        );
+//    $services
+//        ->alias(RequestModifierInterface::class, CompositeModifier::class);
 
     $services
         ->set(ClientInterface::class)
@@ -59,12 +59,15 @@ return static function (ContainerConfigurator $container): void {
 
     $services
         ->set(HttpClient::class)
-    ;
-
-    $services
-        ->set(AuthApi::class)
+        ->arg('$baseUri', '%http.base_uri%')
         ->arg('$apiKey', getenv('API_KEY'))
         ->arg('$apiSecret', getenv('API_SECRET'))
+    ;
+
+//    $services
+//        ->set(AuthApi::class)
+//        ->arg('$apiKey', getenv('API_KEY'))
+//        ->arg('$apiSecret', getenv('API_SECRET'))
     ;
 
     $services
