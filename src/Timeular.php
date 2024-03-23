@@ -17,4 +17,9 @@ class Timeular
     {
         return $this->api->me();
     }
+
+    public function devicesList(): array
+    {
+        return $this->api->devicesList();
+    }
 }
