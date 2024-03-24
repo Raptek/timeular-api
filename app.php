@@ -28,7 +28,7 @@ use Timeular\Timeular;
 
         $style->section('Devices');
 
-        $devices = $timeular->devicesList();
+        $devices = $timeular->devices();
 
         $style->table(
             ['Serial', 'Name', 'Active', 'Disabled'],

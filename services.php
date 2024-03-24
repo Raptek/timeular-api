@@ -9,6 +9,7 @@ use Psr\Http\Message\RequestFactoryInterface;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symfony\Component\DependencyInjection\Reference;
 use Timeular\Api\AuthApi;
+use Timeular\Api\TimeTracking\DevicesApi;
 use Timeular\Api\TimeularApi;
 use Timeular\Http\HttpClient;
 use Timeular\Http\RequestModifier\AuthModifier;
@@ -30,22 +31,6 @@ return static function (ContainerConfigurator $container): void {
         ->defaults()
         ->autowire();
 
-//    $services
-//        ->set(BaseUriModifier::class)
-//        ->arg('$baseUri', '%http.base_uri%');
-//    $services
-//        ->set(AuthModifier::class);
-//    $services
-//        ->set(CompositeModifier::class)
-//        ->args(
-//            [
-//                new Reference(BaseUriModifier::class),
-//                new Reference(AuthModifier::class),
-//            ]
-//        );
-//    $services
-//        ->alias(RequestModifierInterface::class, CompositeModifier::class);
-
     $services
         ->set(ClientInterface::class)
         ->factory([Psr18ClientDiscovery::class, 'find']);
@@ -64,15 +49,10 @@ return static function (ContainerConfigurator $container): void {
         ->arg('$apiSecret', getenv('API_SECRET'))
     ;
 
-//    $services
-//        ->set(AuthApi::class)
-//        ->arg('$apiKey', getenv('API_KEY'))
-//        ->arg('$apiSecret', getenv('API_SECRET'))
-    ;
-
     $services
-        ->set(TimeularApi::class)
-        ;
+        ->set(TimeularApi::class);
+    $services
+        ->set(DevicesApi::class);
     $services
         ->set(Timeular::class)
         ->public();
