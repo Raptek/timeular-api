@@ -51,4 +51,57 @@ class DevicesApi
 
         return $response;
     }
+
+    /**
+     * @see https://developers.timeular.com/#78ab7505-587f-469a-974f-781647bc4900
+     */
+    public function edit(string $id, string $name): array
+    {
+        $response = $this->httpClient->request(
+            'PATCH',
+            sprintf('devices/%s', $id),
+            [
+                'name' => $name,
+            ]
+        );
+
+        return $response;
+    }
+
+    /**
+     * @see https://developers.timeular.com/#08024987-8f56-41d4-8653-97cbf1202809
+     */
+    public function forget(string $id): void
+    {
+        $this->httpClient->request(
+            'DELETE',
+            sprintf('devices/%s', $id),
+        );
+    }
+
+    /**
+     * @see https://developers.timeular.com/#985dae45-b3db-4993-a4b1-5847044388bd
+     */
+    public function disable(string $id): array
+    {
+        $response = $this->httpClient->request(
+            'POST',
+            sprintf('devices/%s/disable', $id),
+        );
+
+        return $response;
+    }
+
+    /**
+     * @see https://developers.timeular.com/#96f1eb5b-5aa6-43eb-9176-fd8b7bd5b16f
+     */
+    public function enable(string $id): array
+    {
+        $response = $this->httpClient->request(
+            'POST',
+            sprintf('devices/%s/enable', $id),
+        );
+
+        return $response;
+    }
 }
