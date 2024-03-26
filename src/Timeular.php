@@ -6,6 +6,7 @@ namespace Timeular;
 
 use Timeular\Api\TimeTracking;
 use Timeular\Api\TimeularApi;
+use Timeular\Model\Device;
 
 class Timeular
 {
@@ -25,13 +26,33 @@ class Timeular
         return $this->devices->list();
     }
 
-    public function activateDevice(string $id): array
+    public function activateDevice(string $serial): Device
     {
-        return $this->devices->activate($id);
+        return $this->devices->activate($serial);
     }
 
-    public function deactivateDevice(string $id): array
+    public function deactivateDevice(string $serial): Device
     {
-        return $this->devices->deactivate($id);
+        return $this->devices->deactivate($serial);
+    }
+
+    public function forgetDevice(string $serial): void
+    {
+        $this->devices->forget($serial);
+    }
+
+    public function disableDevice(string $serial): Device
+    {
+        return $this->devices->disable($serial);
+    }
+
+    public function enableDevice(string $serial): Device
+    {
+        return $this->devices->enable($serial);
+    }
+
+    public function editDevice(string $serial, string $name): Device
+    {
+        return $this->devices->edit($serial, $name);
     }
 }

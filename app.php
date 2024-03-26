@@ -7,6 +7,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\SingleCommandApplication;
 use Symfony\Component\Console\Style\SymfonyStyle;
+use Timeular\Model\Device;
 use Timeular\Timeular;
 
 (new SingleCommandApplication())
@@ -32,7 +33,7 @@ use Timeular\Timeular;
 
         $style->table(
             ['Serial', 'Name', 'Active', 'Disabled'],
-            $devices,
+            array_map(static fn (Device $device): array => $device->toArray(), $devices),
         );
     })
     ->run();
