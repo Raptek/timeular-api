@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Timeular\Api;
 
 use Timeular\Http\HttpClient;
+use Timeular\Model\User;
 
 class TimeularApi
 {
@@ -16,13 +17,13 @@ class TimeularApi
     /**
      * @see https://developers.timeular.com/#bbf459e2-ff90-4aeb-b064-7febaa4eba70
      */
-    public function me(): array
+    public function me(): User
     {
         $response = $this->httpClient->request(
             'GET',
             'me',
         );
 
-        return $response['data'];
+        return User::fromArray($response['data']);
     }
 }

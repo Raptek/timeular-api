@@ -16,14 +16,14 @@ use Timeular\Timeular;
 
         $timeular = $container->get(Timeular::class);
 
-        $data = $timeular->me();
+        $user = $timeular->me();
 
         $style->section('User');
 
         $style->horizontalTable(
-            ['Name', 'Email'],
+            ['User ID', 'Name', 'Email', 'Default Space ID'],
             [
-                [$data['name'], $data['email']]
+                $user->toArray()
             ]
         );
 

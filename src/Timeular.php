@@ -7,6 +7,7 @@ namespace Timeular;
 use Timeular\Api\TimeTracking;
 use Timeular\Api\TimeularApi;
 use Timeular\Model\Device;
+use Timeular\Model\User;
 
 class Timeular
 {
@@ -16,7 +17,7 @@ class Timeular
     ) {
     }
 
-    public function me(): array
+    public function me(): User
     {
         return $this->api->me();
     }
