@@ -2,6 +2,7 @@
     "name": "raptek/timeular-api",
     "description": "Consume Timeular API using PSR compliant HTTP libraries",
     "type": "library",
+    "license": ["MIT"],
     "require": {
         "php": "^8.3",
         "php-http/discovery": "^1.17",
@@ -41,5 +42,8 @@
         "symfony/dependency-injection": "^7.0",
         "symfony/config": "^7.0",
         "symfony/dotenv": "^7.0"
+    },
+    "scripts": {
+        "unit-tests": "vendor/bin/phpunit"
     }
 }
