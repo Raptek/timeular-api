@@ -3,29 +3,33 @@ name: Tests
 on:
     push:
         branches: [ "main" ]
+    pull_request:
+        branches: [ "main" ]
 
 permissions:
     contents: read
 
 jobs:
-    build:
-
+    test:
         runs-on: ubuntu-latest
+
+        strategy:
+            fail-fast: true
+            matrix:
+                php: [8.3]
+
+        name: Run tests on ${{ matrix.php }}
 
         steps:
             - uses: actions/checkout@v3
 
-            - name: Cache Composer packages
-              id: composer-cache
-              uses: actions/cache@v3
+            - uses: shivammathur/setup-php@v2
               with:
-                  path: vendor
-                  key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
-                  restore-keys: |
-                      ${{ runner.os }}-php-
+                  php-version: ${{ matrix.php }}
+                  coverage: none
 
             - name: Install dependencies
-              run: composer install --prefer-dist --no-progress
+              run: composer install --prefer-dist --no-interaction --no-progress
 
             - name: Run unit tests
               run: composer run-script unit-tests
