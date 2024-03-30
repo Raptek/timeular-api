@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Timeular\Model;
+namespace Timeular\Model\TimeTracking;
 
 use Timeular\Exception\MissingArrayKeyException;
 

@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Timeular\Model;
+namespace Timeular\Model\UserProfile;
 
 use Timeular\Exception\MissingArrayKeyException;
 
-readonly class User
+readonly class Me
 {
     private function __construct(
         public string $userId,

@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Timeular\Model;
+namespace Tests\Unit\Timeular\Model\TimeTracking;
 
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 use Timeular\Exception\MissingArrayKeyException;
-use Timeular\Model\Device;
+use Timeular\Model\TimeTracking\Device;
 
 class DeviceTest extends TestCase
 {

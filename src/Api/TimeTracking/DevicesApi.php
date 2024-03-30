@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Timeular\Api\TimeTracking;
 
 use Timeular\Http\HttpClient;
-use Timeular\Model\Device;
+use Timeular\Model\TimeTracking\Device;
 
 class DevicesApi
 {

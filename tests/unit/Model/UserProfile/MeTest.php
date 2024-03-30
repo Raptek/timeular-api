@@ -2,20 +2,20 @@
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Timeular\Model;
+namespace Tests\Unit\Timeular\Model\UserProfile;
 
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 use Timeular\Exception\MissingArrayKeyException;
-use Timeular\Model\User;
+use Timeular\Model\UserProfile\Me;
 
-class UserTest extends TestCase
+class MeTest extends TestCase
 {
     #[Test]
     public function it_creates_user_from_array():void
     {
-        $user = User::fromArray(
+        $user = Me::fromArray(
             [
                 'userId' => '1',
                 'name' => 'my name',
@@ -37,7 +37,7 @@ class UserTest extends TestCase
         self::expectException(MissingArrayKeyException::class);
         self::expectExceptionMessage(sprintf('Missing "%s" key for "User" object.', $key));
 
-        User::fromArray($data);
+        Me::fromArray($data);
     }
 
     #[Test]
@@ -50,7 +50,7 @@ class UserTest extends TestCase
             'defaultSpaceId' => '1',
         ];
 
-        $user = User::fromArray($data);
+        $user = Me::fromArray($data);
 
         self::assertSame($user->toArray(), $data);
     }
