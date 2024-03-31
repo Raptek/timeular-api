@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Timeular\Api;
+namespace Timeular\Api\UserProfile;
 
 use Timeular\Http\HttpClient;
 use Timeular\Model\UserProfile\Me;
 
-class TimeularApi
+class UserApi
 {
     public function __construct(
         private HttpClient $httpClient,

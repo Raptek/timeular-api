@@ -11,6 +11,8 @@ use Symfony\Component\DependencyInjection\Reference;
 use Timeular\Api\AuthApi;
 use Timeular\Api\TimeTracking\DevicesApi;
 use Timeular\Api\TimeularApi;
+use Timeular\Api\UserProfile\SpaceApi;
+use Timeular\Api\UserProfile\UserApi;
 use Timeular\Http\HttpClient;
 use Timeular\Http\RequestModifier\AuthModifier;
 use Timeular\Http\RequestModifier\BaseUriModifier;
@@ -50,7 +52,9 @@ return static function (ContainerConfigurator $container): void {
     ;
 
     $services
-        ->set(TimeularApi::class);
+        ->set(UserApi::class);
+    $services
+        ->set(SpaceApi::class);
     $services
         ->set(DevicesApi::class);
     $services

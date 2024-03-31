@@ -35,5 +35,7 @@ use Timeular\Timeular;
             ['Serial', 'Name', 'Active', 'Disabled'],
             array_map(static fn (Device $device): array => $device->toArray(), $devices),
         );
+
+        $spaces = $timeular->spacesWithMembers();
     })
     ->run();

@@ -5,21 +5,22 @@ declare(strict_types=1);
 namespace Timeular;
 
 use Timeular\Api\TimeTracking;
-use Timeular\Api\TimeularApi;
+use Timeular\Api\UserProfile;
 use Timeular\Model\TimeTracking\Device;
 use Timeular\Model\UserProfile\Me;
 
 class Timeular
 {
     public function __construct(
-        private TimeularApi $api,
+        private UserProfile\UserApi $user,
+        private UserProfile\SpaceApi $space,
         private TimeTracking\DevicesApi $devices,
     ) {
     }
 
     public function me(): Me
     {
-        return $this->api->me();
+        return $this->user->me();
     }
 
     public function devices(): array
@@ -55,5 +56,10 @@ class Timeular
     public function editDevice(string $serial, string $name): Device
     {
         return $this->devices->edit($serial, $name);
+    }
+
+    public function spacesWithMembers(): array
+    {
+        return $this->space->spacesWithMembers();
     }
 }
