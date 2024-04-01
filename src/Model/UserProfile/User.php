@@ -6,7 +6,7 @@ namespace Timeular\Model\UserProfile;
 
 use Timeular\Exception\MissingArrayKeyException;
 
-class User
+readonly class User
 {
     private function __construct(
         public string $id,
