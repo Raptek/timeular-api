@@ -37,5 +37,6 @@ use Timeular\Timeular;
         );
 
         $spaces = $timeular->spacesWithMembers();
+        $tagsAndMentions = $timeular->tagsAndMentions();
     })
     ->run();

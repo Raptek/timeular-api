@@ -15,6 +15,7 @@ class Timeular
         private UserProfile\UserApi $user,
         private UserProfile\SpaceApi $space,
         private TimeTracking\DevicesApi $devices,
+        private TimeTracking\TagsAndMentionsApi $tagsAndMentions,
     ) {
     }
 
@@ -61,5 +62,10 @@ class Timeular
     public function spacesWithMembers(): array
     {
         return $this->space->spacesWithMembers();
+    }
+
+    public function tagsAndMentions(): array
+    {
+        return $this->tagsAndMentions->tagsAndMentions();
     }
 }
