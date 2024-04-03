@@ -8,6 +8,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\SingleCommandApplication;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Timeular\Model\TimeTracking\Device;
+use Timeular\Model\UserProfile\Space;
 use Timeular\Timeular;
 
 (new SingleCommandApplication())
@@ -37,6 +38,12 @@ use Timeular\Timeular;
         );
 
         $spaces = $timeular->spacesWithMembers();
+
+        $style->table(
+            ['ID', 'Name'],
+            array_map(static fn (Space $space): array => [$space->toArray()['id'], $space->toArray()['name']], $spaces)
+        );
+
         $tagsAndMentions = $timeular->tagsAndMentions();
     })
     ->run();

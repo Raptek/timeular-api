@@ -36,4 +36,14 @@ readonly class User
 
         return new self($data['id'], $data['name'], $data['email'], Role::from($data['role']));
     }
+
+    public function toArray(): array
+    {
+        return [
+            'id' => $this->id,
+            'name' => $this->name,
+            'email' => $this->email,
+            'role' => $this->role->value,
+        ];
+    }
 }

@@ -44,4 +44,15 @@ readonly class Space
 
         return new self($data['id'], $data['name'], $data['default'], $members, $retiredMembers);
     }
+
+    public function toArray(): array
+    {
+        return [
+            'id' => $this->id,
+            'name' => $this->name,
+            'default' => $this->default,
+            'members' => array_map(static fn (User $user): array => $user->toArray(), $this->members),
+            'retiredMembers' => array_map(static fn (RetiredUser $retiredUser): array => $retiredUser->toArray(), $this->retiredMembers),
+        ];
+    }
 }
