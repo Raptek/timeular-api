@@ -9,6 +9,7 @@ use Psr\Http\Message\RequestFactoryInterface;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symfony\Component\DependencyInjection\Reference;
 use Timeular\Api\AuthApi;
+use Timeular\Api\TimeTracking\ActivitiesApi;
 use Timeular\Api\TimeTracking\DevicesApi;
 use Timeular\Api\TimeTracking\TagsAndMentionsApi;
 use Timeular\Api\TimeularApi;
@@ -60,6 +61,8 @@ return static function (ContainerConfigurator $container): void {
         ->set(DevicesApi::class);
     $services
         ->set(TagsAndMentionsApi::class);
+    $services
+        ->set(ActivitiesApi::class);
     $services
         ->set(Timeular::class)
         ->public();

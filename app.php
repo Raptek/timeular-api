@@ -45,5 +45,6 @@ use Timeular\Timeular;
         );
 
         $tagsAndMentions = $timeular->tagsAndMentions();
+        $activities = $timeular->activities();
     })
     ->run();

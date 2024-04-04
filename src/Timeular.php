@@ -6,6 +6,7 @@ namespace Timeular;
 
 use Timeular\Api\TimeTracking;
 use Timeular\Api\UserProfile;
+use Timeular\Model\TimeTracking\Activity;
 use Timeular\Model\TimeTracking\Device;
 use Timeular\Model\UserProfile\Me;
 
@@ -16,6 +17,7 @@ class Timeular
         private UserProfile\SpaceApi $space,
         private TimeTracking\DevicesApi $devices,
         private TimeTracking\TagsAndMentionsApi $tagsAndMentions,
+        private TimeTracking\ActivitiesApi $activities,
     ) {
     }
 
@@ -67,5 +69,35 @@ class Timeular
     public function tagsAndMentions(): array
     {
         return $this->tagsAndMentions->tagsAndMentions();
+    }
+
+    public function activities(): array
+    {
+        return $this->activities->list();
+    }
+
+    public function createActivity(string $name, string $color, string $integration, string $spaceId): Activity
+    {
+        return $this->activities->create($name, $color, $integration, $spaceId);
+    }
+
+    public function editActivity(string $id, string $name, string $color): Activity
+    {
+        return $this->activities->edit($id, $name, $color);
+    }
+
+    public function archiveActivity(string $id): array
+    {
+        return $this->activities->archive($id);
+    }
+
+    public function assignActivityToDeviceSide(string $id, int $deviceSide): Activity
+    {
+        return $this->activities->assign($id, $deviceSide);
+    }
+
+    public function unassignActivityFromDeviceSide(string $id, int $deviceSide): Activity
+    {
+        return $this->activities->unassign($id, $deviceSide);
     }
 }
