@@ -8,6 +8,8 @@ use Timeular\Api\TimeTracking;
 use Timeular\Api\UserProfile;
 use Timeular\Model\TimeTracking\Activity;
 use Timeular\Model\TimeTracking\Device;
+use Timeular\Model\TimeTracking\Mention;
+use Timeular\Model\TimeTracking\Tag;
 use Timeular\Model\UserProfile\Me;
 
 class Timeular
@@ -69,6 +71,50 @@ class Timeular
     public function tagsAndMentions(): array
     {
         return $this->tagsAndMentions->tagsAndMentions();
+    }
+
+    public function createTag(
+        string $key,
+        string $label,
+        string $scope,
+        string $spaceId,
+    ): Tag {
+        return $this->tagsAndMentions->createTag($key, $label, $scope, $spaceId);
+    }
+
+    public function updateTag(
+        string $id,
+        string $label,
+    ): Tag {
+        return $this->tagsAndMentions->updateTag($id, $label);
+    }
+
+    public function deleteTag(
+        string $id,
+    ): array {
+        return $this->tagsAndMentions->deleteTag($id);
+    }
+
+    public function createMention(
+        string $key,
+        string $label,
+        string $scope,
+        string $spaceId,
+    ): Mention {
+        return $this->tagsAndMentions->createMention($key, $label, $scope, $spaceId);
+    }
+
+    public function updateMention(
+        string $id,
+        string $label,
+    ): Mention {
+        return $this->tagsAndMentions->updateMention($id, $label);
+    }
+
+    public function deleteMention(
+        string $id,
+    ): array {
+        return $this->tagsAndMentions->deleteMention($id);
     }
 
     public function activities(): array
