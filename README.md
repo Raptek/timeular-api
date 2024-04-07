@@ -4,7 +4,13 @@ Timeular API is a PHP library for consuming https://timeular.com/ API.
 
 ## Installation
 
-Use the package manager [composer](https://getcomposer.org/) to install.
+1. Create `.env` file and fill it with credentials from https://profile.timeular.com/
+
+```bash
+cp .env.dist .env
+```
+
+2. Use the package manager [composer](https://getcomposer.org/) to install dependencies
 
 ```bash
 composer install
@@ -18,14 +24,15 @@ docker compose run php composer install
 
 ## Usage
 
+Run script with 
 ```bash
-php app.php API_KEY API_SECRET
+php app.php
 ```
 
 or using docker compose
 
 ```bash
-docker compose run php php app.php API_KEY API_SECRET
+docker compose run php php app.php
 ```
 
 ## Contributing
