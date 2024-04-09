@@ -9,7 +9,7 @@ use Timeular\Exception\MissingArrayKeyException;
 readonly class Note
 {
     private function __construct(
-        public string $text,
+        public string|null $text,
         public array $tags = [],
         public array $mentions = [],
     ) {

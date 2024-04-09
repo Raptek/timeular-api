@@ -10,6 +10,7 @@ use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigura
 use Symfony\Component\DependencyInjection\Reference;
 use Timeular\Api\AuthApi;
 use Timeular\Api\TimeTracking\ActivitiesApi;
+use Timeular\Api\TimeTracking\CurrentTrackingApi;
 use Timeular\Api\TimeTracking\DevicesApi;
 use Timeular\Api\TimeTracking\TagsAndMentionsApi;
 use Timeular\Api\TimeularApi;
@@ -63,6 +64,8 @@ return static function (ContainerConfigurator $container): void {
         ->set(TagsAndMentionsApi::class);
     $services
         ->set(ActivitiesApi::class);
+    $services
+        ->set(CurrentTrackingApi::class);
     $services
         ->set(Timeular::class)
         ->public();

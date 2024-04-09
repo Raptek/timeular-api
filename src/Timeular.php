@@ -6,10 +6,12 @@ namespace Timeular;
 
 use Timeular\Api\TimeTracking;
 use Timeular\Api\UserProfile;
+use Timeular\Model\TimeTracking\ActiveTimeEntry;
 use Timeular\Model\TimeTracking\Activity;
 use Timeular\Model\TimeTracking\Device;
 use Timeular\Model\TimeTracking\Mention;
 use Timeular\Model\TimeTracking\Tag;
+use Timeular\Model\TimeTracking\TimeEntry;
 use Timeular\Model\UserProfile\Me;
 
 class Timeular
@@ -20,6 +22,7 @@ class Timeular
         private TimeTracking\DevicesApi $devices,
         private TimeTracking\TagsAndMentionsApi $tagsAndMentions,
         private TimeTracking\ActivitiesApi $activities,
+        private TimeTracking\CurrentTrackingApi $currentTracking,
     ) {
     }
 
@@ -145,5 +148,25 @@ class Timeular
     public function unassignActivityFromDeviceSide(string $id, int $deviceSide): Activity
     {
         return $this->activities->unassign($id, $deviceSide);
+    }
+
+    public function showCurrentTracking(): ActiveTimeEntry|null
+    {
+        return $this->currentTracking->show();
+    }
+
+    public function startTracking(string $activityId, \DateTimeInterface $startedAt): ActiveTimeEntry
+    {
+        return $this->currentTracking->start($activityId, $startedAt);
+    }
+
+    public function editTracking(string $activityId, \DateTimeInterface|null $startedAt = null, string|null $note = null): ActiveTimeEntry
+    {
+        return $this->currentTracking->edit($activityId, $startedAt, $note);
+    }
+
+    public function stopTracking(\DateTimeInterface $stoppedAt): TimeEntry
+    {
+        return $this->currentTracking->stop($stoppedAt);
     }
 }

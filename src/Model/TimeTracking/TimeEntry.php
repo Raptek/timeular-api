@@ -9,9 +9,9 @@ use Timeular\Exception\MissingArrayKeyException;
 readonly class TimeEntry
 {
     private function __construct(
-        public int $id,
+        public string $id,
         public string $activityId,
-        public \DateTimeInterface $startedAt,
+        public Duration $duration,
         public Note $note,
     ) {
     }
@@ -26,14 +26,14 @@ readonly class TimeEntry
             throw MissingArrayKeyException::forObjectAndKey('TimeEntry', 'activityId');
         }
 
-        if (false === array_key_exists('startedAt', $data)) {
-            throw MissingArrayKeyException::forObjectAndKey('TimeEntry', 'startedAt');
+        if (false === array_key_exists('duration', $data)) {
+            throw MissingArrayKeyException::forObjectAndKey('TimeEntry', 'duration');
         }
 
         if (false === array_key_exists('note', $data)) {
             throw MissingArrayKeyException::forObjectAndKey('TimeEntry', 'note');
         }
 
-        return new self($data['id'], $data['activityId'], new \DateTimeImmutable($data['startedAt']), Note::fromArray($data['note']));
+        return new self($data['id'], $data['activityId'], Duration::fromArray($data['duration']), Note::fromArray($data['note']));
     }
 }
