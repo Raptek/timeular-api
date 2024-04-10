@@ -8,6 +8,8 @@ use Timeular\Exception\MissingArrayKeyException;
 
 readonly class Duration
 {
+    public const string FORMAT = 'Y-m-d\TH:i:s.v';
+
     private function __construct(
         public \DateTimeInterface $startedAt,
         public \DateTimeInterface $stoppedAt,
@@ -25,5 +27,13 @@ readonly class Duration
         }
 
         return new self(new \DateTimeImmutable($data['startedAt']), new \DateTimeImmutable($data['stoppedAt']));
+    }
+
+    public function toArray(): array
+    {
+        return [
+            'startedAt' => $this->startedAt,
+            'stoppedAt' => $this->stoppedAt,
+        ];
     }
 }

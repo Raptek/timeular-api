@@ -36,6 +36,18 @@ class RetiredUserTest extends TestCase
         RetiredUser::fromArray($data);
     }
 
+    #[Test]
+    public function it_converts_to_array(): void
+    {
+        $data = [
+            'id' => '1',
+            'name' => 'my name',
+        ];
+
+        $user = RetiredUser::fromArray($data);
+
+        self::assertSame($user->toArray(), $data);
+    }
 
     public static function missingKeyData(): \Generator
     {

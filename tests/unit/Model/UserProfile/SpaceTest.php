@@ -42,6 +42,21 @@ class SpaceTest extends TestCase
         Space::fromArray($data);
     }
 
+    #[Test]
+    public function it_converts_to_array(): void
+    {
+        $data = [
+            'id' => '1',
+            'name' => 'My Personal Space',
+            'default' => $default = (bool)rand(0, 1),
+            'members' => [],
+            'retiredMembers' => [],
+        ];
+
+        $user = Space::fromArray($data);
+
+        self::assertSame($user->toArray(), $data);
+    }
 
     public static function missingKeyData(): \Generator
     {

@@ -41,6 +41,21 @@ class UserTest extends TestCase
         User::fromArray($data);
     }
 
+    #[Test]
+    public function it_converts_to_array(): void
+    {
+        $data = [
+            'id' => '1',
+            'name' => 'my name',
+            'email' => 'my-name@example.com',
+            'role' => Role::Admin->value,
+        ];
+
+        $user = User::fromArray($data);
+
+        self::assertSame($user->toArray(), $data);
+    }
+
 
     public static function missingKeyData(): \Generator
     {
