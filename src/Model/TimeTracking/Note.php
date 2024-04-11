@@ -17,9 +17,7 @@ readonly class Note
 
     public static function fromArray(array $data): self
     {
-        if (false === array_key_exists('text', $data)) {
-            throw MissingArrayKeyException::forObjectAndKey('Note', 'text');
-        }
+        $text = array_key_exists('text', $data) ? $data['text'] : '';
 
         $tags = [];
 
@@ -41,6 +39,15 @@ readonly class Note
             }
         }
 
-        return new self($data['text'], $tags, $mentions);
+        return new self($text, $tags, $mentions);
+    }
+
+    public function toArray(): array
+    {
+        return [
+            'text' => $this->text,
+            'tags' => array_map(static fn (Tag $tag): array => $tag->toArray(), $this->tags),
+            'mentions' => array_map(static fn (Mention $mention): array => $mention->toArray(), $this->mentions),
+        ];
     }
 }

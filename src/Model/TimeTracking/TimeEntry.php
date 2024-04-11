@@ -34,6 +34,21 @@ readonly class TimeEntry
             throw MissingArrayKeyException::forObjectAndKey('TimeEntry', 'note');
         }
 
-        return new self($data['id'], $data['activityId'], Duration::fromArray($data['duration']), Note::fromArray($data['note']));
+        return new self(
+            $data['id'],
+            $data['activityId'],
+            Duration::fromArray($data['duration']),
+            Note::fromArray($data['note'])
+        );
+    }
+
+    public function toArray(): array
+    {
+        return [
+            'id' => $this->id,
+            'activityId' => $this->activityId,
+            'duration' => $this->duration->toArray(),
+            'note' => $this->note->toArray(),
+        ];
     }
 }
