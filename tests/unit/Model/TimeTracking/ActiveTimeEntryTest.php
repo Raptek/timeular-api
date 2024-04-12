@@ -9,24 +9,29 @@ use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 use Timeular\Exception\MissingArrayKeyException;
 use Timeular\Model\TimeTracking\Duration;
+use Timeular\Model\TimeTracking\Note;
+use Timeular\Model\TimeTracking\ActiveTimeEntry;
 
-class DurationTest extends TestCase
+class ActiveTimeEntryTest extends TestCase
 {
     #[Test]
-    public function it_creates_duration_from_array():void
+    public function it_creates_active_time_entry_from_array():void
     {
         $startedAt = (new \DateTimeImmutable())->format(Duration::FORMAT);
-        $stoppedAt = (new \DateTimeImmutable())->format(Duration::FORMAT);
 
-        $duration = Duration::fromArray(
+        $activeTimeEntry = ActiveTimeEntry::fromArray(
             [
+                'id' => 34714420,
+                'activityId' => '1217348',
                 'startedAt' => $startedAt,
-                'stoppedAt' => $stoppedAt,
+                'note' => [],
             ]
         );
 
-        self::assertEquals(new \DateTimeImmutable($startedAt), $duration->startedAt);
-        self::assertEquals(new \DateTimeImmutable($stoppedAt), $duration->stoppedAt);
+        self::assertEquals(34714420, $activeTimeEntry->id);
+        self::assertEquals('1217348', $activeTimeEntry->activityId);
+        self::assertEquals(new \DateTimeImmutable($startedAt), $activeTimeEntry->startedAt);
+        self::assertEquals(Note::fromArray([]), $activeTimeEntry->note);
     }
 
     #[Test]
@@ -34,30 +39,31 @@ class DurationTest extends TestCase
     public function it_throws_exception_on_missing_array_key(array $data, string $key): void
     {
         self::expectException(MissingArrayKeyException::class);
-        self::expectExceptionMessage(sprintf('Missing "%s" key for "Duration" object.', $key));
+        self::expectExceptionMessage(sprintf('Missing "%s" key for "ActiveTimeEntry" object.', $key));
 
-        Duration::fromArray($data);
+        ActiveTimeEntry::fromArray($data);
     }
 
     #[Test]
     public function it_converts_to_array(): void
     {
         $startedAt = (new \DateTimeImmutable())->format(Duration::FORMAT);
-        $stoppedAt = (new \DateTimeImmutable())->format(Duration::FORMAT);
 
         $data = [
+            'id' => 34714420,
+            'activityId' => '1217348',
             'startedAt' => $startedAt,
-            'stoppedAt' => $stoppedAt,
+            'note' => Note::fromArray([])->toArray(),
         ];
 
-        $duration = Duration::fromArray($data);
+        $activeTimeEntry = ActiveTimeEntry::fromArray($data);
 
-        self::assertSame($duration->toArray(), $data);
+        self::assertSame($activeTimeEntry->toArray(), $data);
     }
 
     public static function missingKeyData(): \Generator
     {
-        $fields = ['startedAt', 'stoppedAt'];
+        $fields = ['id', 'activityId', 'startedAt', 'note'];
 
         foreach ($fields as $field) {
             yield sprintf('Missing "%s" key', $field) => [array_fill_keys(array_diff($fields, [$field]), 'test'), $field];

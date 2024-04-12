@@ -36,4 +36,14 @@ readonly class ActiveTimeEntry
 
         return new self($data['id'], $data['activityId'], new \DateTimeImmutable($data['startedAt']), Note::fromArray($data['note']));
     }
+
+    public function toArray(): array
+    {
+        return [
+            'id' => $this->id,
+            'activityId' => $this->activityId,
+            'startedAt' => $this->startedAt->format(Duration::FORMAT),
+            'note' => $this->note->toArray(),
+        ];
+    }
 }

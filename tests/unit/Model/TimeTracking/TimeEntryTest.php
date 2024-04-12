@@ -55,30 +55,30 @@ class TimeEntryTest extends TestCase
         TimeEntry::fromArray($data);
     }
 
-//    #[Test]
-//    public function it_converts_to_array(): void
-//    {
-//        $startedAt = (new \DateTimeImmutable())->format(Duration::FORMAT);
-//        $stoppedAt = (new \DateTimeImmutable())->format(Duration::FORMAT);
-//
-//        $duration = Duration::fromArray(
-//            [
-//                'startedAt' => $startedAt,
-//                'stoppedAt' => $stoppedAt,
-//            ]
-//        );
-//
-//        $data = [
-//            'id' => '34714420',
-//            'activityId' => '1217348',
-//            'duration' => $duration->toArray(),
-//            'note' => Note::fromArray([])->toArray(),
-//        ];
-//
-//        $timeEntry = TimeEntry::fromArray($data);
-//
-//        self::assertSame($timeEntry->toArray(), $data);
-//    }
+    #[Test]
+    public function it_converts_to_array(): void
+    {
+        $startedAt = (new \DateTimeImmutable())->format(Duration::FORMAT);
+        $stoppedAt = (new \DateTimeImmutable())->format(Duration::FORMAT);
+
+        $duration = Duration::fromArray(
+            [
+                'startedAt' => $startedAt,
+                'stoppedAt' => $stoppedAt,
+            ]
+        );
+
+        $data = [
+            'id' => '34714420',
+            'activityId' => '1217348',
+            'duration' => $duration->toArray(),
+            'note' => Note::fromArray([])->toArray(),
+        ];
+
+        $timeEntry = TimeEntry::fromArray($data);
+
+        self::assertSame($timeEntry->toArray(), $data);
+    }
 
     public static function missingKeyData(): \Generator
     {

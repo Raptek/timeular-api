@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Timeular\Model\TimeTracking;
 
-use Timeular\Exception\MissingArrayKeyException;
-
 readonly class Note
 {
     private function __construct(
@@ -17,7 +15,7 @@ readonly class Note
 
     public static function fromArray(array $data): self
     {
-        $text = array_key_exists('text', $data) ? $data['text'] : '';
+        $text = array_key_exists('text', $data) ? $data['text'] : null;
 
         $tags = [];
 

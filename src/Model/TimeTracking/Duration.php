@@ -32,8 +32,8 @@ readonly class Duration
     public function toArray(): array
     {
         return [
-            'startedAt' => $this->startedAt,
-            'stoppedAt' => $this->stoppedAt,
+            'startedAt' => $this->startedAt->format(Duration::FORMAT),
+            'stoppedAt' => $this->stoppedAt->format(Duration::FORMAT),
         ];
     }
 }
