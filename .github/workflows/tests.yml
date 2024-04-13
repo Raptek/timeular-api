@@ -33,3 +33,6 @@ jobs:
 
             - name: Run unit tests
               run: composer run-script unit-tests
+
+            - name: Run mutation tests
+              run: composer run-script mutation-tests
