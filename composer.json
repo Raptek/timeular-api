@@ -43,10 +43,10 @@
         "symfony/dependency-injection": "^7.0",
         "symfony/config": "^7.0",
         "symfony/dotenv": "^7.0",
-        "infection/infection": "^0.28.1"
+        "infection/infection": "^0.28"
     },
     "scripts": {
         "unit-tests": "vendor/bin/phpunit",
-        "mutation-tests": "vendor/bin/infection --threads=4"
+        "mutation-tests": "vendor/bin/infection --threads=4 --show-mutations"
     }
 }
