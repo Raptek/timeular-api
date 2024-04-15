@@ -23,6 +23,7 @@ class Timeular
         private TimeTracking\TagsAndMentionsApi $tagsAndMentions,
         private TimeTracking\ActivitiesApi $activities,
         private TimeTracking\CurrentTrackingApi $currentTracking,
+        private TimeTracking\TimeEntriesApi $timeEntries,
     ) {
     }
 
@@ -168,5 +169,30 @@ class Timeular
     public function stopTracking(\DateTimeInterface $stoppedAt): TimeEntry
     {
         return $this->currentTracking->stop($stoppedAt);
+    }
+
+    public function findTimeEntries(\DateTimeInterface $startedAt, \DateTimeInterface $stoppedAt): array
+    {
+        return $this->timeEntries->find($startedAt, $stoppedAt);
+    }
+
+    public function createTimeEntry(string $activityId, \DateTimeInterface $startedAt, \DateTimeInterface $stoppedAt, string|null $note): TimeEntry
+    {
+        return $this->timeEntries->create($activityId, $startedAt, $stoppedAt, $note);
+    }
+
+    public function findTimeEntry(string $id): TimeEntry
+    {
+        return $this->timeEntries->findById($id);
+    }
+
+    public function editTimeEntry(string $id, string $activityId, \DateTimeInterface $startedAt, \DateTimeInterface $stoppedAt, string|null $note): TimeEntry
+    {
+        return $this->timeEntries->edit($id, $activityId, $startedAt, $stoppedAt, $note);
+    }
+
+    public function deleteTimeEntry(string $id): array
+    {
+        return $this->timeEntries->delete($id);
     }
 }
