@@ -24,6 +24,7 @@ class Timeular
         private TimeTracking\ActivitiesApi $activities,
         private TimeTracking\CurrentTrackingApi $currentTracking,
         private TimeTracking\TimeEntriesApi $timeEntries,
+        private TimeTracking\ReportsApi $reports,
     ) {
     }
 
@@ -194,5 +195,10 @@ class Timeular
     public function deleteTimeEntry(string $id): array
     {
         return $this->timeEntries->delete($id);
+    }
+
+    public function getEntriesInDateRange(\DateTimeInterface $startedAt, \DateTimeInterface $stoppedAt): array
+    {
+        return $this->reports->getAllData($startedAt, $stoppedAt);
     }
 }

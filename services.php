@@ -12,6 +12,7 @@ use Timeular\Api\AuthApi;
 use Timeular\Api\TimeTracking\ActivitiesApi;
 use Timeular\Api\TimeTracking\CurrentTrackingApi;
 use Timeular\Api\TimeTracking\DevicesApi;
+use Timeular\Api\TimeTracking\ReportsApi;
 use Timeular\Api\TimeTracking\TagsAndMentionsApi;
 use Timeular\Api\TimeTracking\TimeEntriesApi;
 use Timeular\Api\TimeularApi;
@@ -69,6 +70,8 @@ return static function (ContainerConfigurator $container): void {
         ->set(CurrentTrackingApi::class);
     $services
         ->set(TimeEntriesApi::class);
+    $services
+        ->set(ReportsApi::class);
     $services
         ->set(Timeular::class)
         ->public();

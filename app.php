@@ -44,12 +44,14 @@ use Timeular\Timeular;
             array_map(static fn (Space $space): array => [$space->toArray()['id'], $space->toArray()['name']], $spaces)
         );
 
-        $tagsAndMentions = $timeular->tagsAndMentions();
-        $activities = $timeular->activities();
-        $current = $timeular->showCurrentTracking();
+//        $tagsAndMentions = $timeular->tagsAndMentions();
+//        $activities = $timeular->activities();
+//        $current = $timeular->showCurrentTracking();
+//
+//        $started = $timeular->startTracking('1769634', (new \DateTime())->modify('- 5minutes'));
+//        $edited = $timeular->editTracking('1769634', note: 'test');
+//        $stopped = $timeular->stopTracking(new \DateTime());
 
-        $started = $timeular->startTracking('1769634', (new \DateTime())->modify('- 5minutes'));
-        $edited = $timeular->editTracking('1769634', note: 'test');
-        $stopped = $timeular->stopTracking(new \DateTime());
+        $entries = $timeular->getEntriesInDateRange((new \DateTime())->modify('-1 month'), new \DateTime());
     })
     ->run();
