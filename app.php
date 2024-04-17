@@ -51,7 +51,8 @@ use Timeular\Timeular;
 //        $started = $timeular->startTracking('1769634', (new \DateTime())->modify('- 5minutes'));
 //        $edited = $timeular->editTracking('1769634', note: 'test');
 //        $stopped = $timeular->stopTracking(new \DateTime());
-
-        $entries = $timeular->getEntriesInDateRange((new \DateTime())->modify('-1 month'), new \DateTime());
+//
+//        $entries = $timeular->getEntriesInDateRange((new \DateTime())->modify('-1 month'), new \DateTime());
+        $entries = $timeular->generateReport((new \DateTime())->modify('-1 month'), new \DateTime(), 'Europe/Warsaw');
     })
     ->run();
