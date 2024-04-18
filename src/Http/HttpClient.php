@@ -22,7 +22,7 @@ class HttpClient implements HttpClientInterface
     ) {
     }
 
-    public function request(string $method, string $uri, array $payload = [], array $headers = []): array
+    public function request(string $method, string $uri, array $payload = [], array $headers = []): mixed
     {
         $request = $this->createRequest($method, $uri, $payload);
 
@@ -41,13 +41,14 @@ class HttpClient implements HttpClientInterface
             ->withHeader('Content-Type', 'application/json');
 
         if ([] !== $payload) {
-            $request->getBody()->write($this->serializer->serialize($payload));
+            $contentType = $request->getHeaderLine('Content-Type');
+            $request->getBody()->write($this->serializer->serialize($payload, $this->parseContentType($contentType)));
         }
 
         return $request;
     }
 
-    private function handleResponse(ResponseInterface $response): array
+    private function handleResponse(ResponseInterface $response): mixed
     {
         $body = $response->getBody()->getContents();
 
@@ -55,7 +56,9 @@ class HttpClient implements HttpClientInterface
             return [];
         }
 
-        return $this->serializer->deserialize($body);
+        $contentType = $response->getHeaderLine('Content-Type');
+
+        return $this->serializer->deserialize($body, $this->parseContentType($contentType));
     }
 
     private function handleAuthorization(RequestInterface $request): RequestInterface
@@ -72,5 +75,12 @@ class HttpClient implements HttpClientInterface
         $token = $this->handleResponse($this->httpClient->sendRequest($authRequest))['token'];
 
         return $request->withHeader('Authorization', sprintf('Bearer %s', $token));
+    }
+
+    private function parseContentType(string $contentType): string
+    {
+        [$format, ] = explode(';', $contentType);
+
+        return $format;
     }
 }

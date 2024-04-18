@@ -23,7 +23,10 @@ use Timeular\Http\RequestModifier\AuthModifier;
 use Timeular\Http\RequestModifier\BaseUriModifier;
 use Timeular\Http\RequestModifier\CompositeModifier;
 use Timeular\Http\RequestModifier\RequestModifierInterface;
+use Timeular\Serializer\CsvEncoder;
+use Timeular\Serializer\JsonEncoder;
 use Timeular\Serializer\JsonSerializer;
+use Timeular\Serializer\Serializer;
 use Timeular\Serializer\SerializerInterface;
 use Timeular\Timeular;
 
@@ -44,10 +47,19 @@ return static function (ContainerConfigurator $container): void {
     $services
         ->set(RequestFactoryInterface::class)
         ->factory([Psr17FactoryDiscovery::class, 'findRequestFactory']);
+
     $services
-        ->set(JsonSerializer::class);
+        ->set(JsonEncoder::class);
     $services
-        ->alias(SerializerInterface::class, JsonSerializer::class);
+        ->set(CsvEncoder::class);
+    $services
+        ->set(Serializer::class)
+        ->arg('$encoders', [
+            'application/json' => new Reference(JsonEncoder::class),
+            'text/csv' => new Reference(CsvEncoder::class),
+        ]);
+    $services
+        ->alias(SerializerInterface::class, Serializer::class);
 
     $services
         ->set(HttpClient::class)

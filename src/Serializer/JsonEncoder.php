@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Timeular\Serializer;
 
-class JsonSerializer implements SerializerInterface
+class JsonEncoder implements EncoderInterface
 {
-    public function serialize(mixed $data): string
+    public function encode(mixed $data): string
     {
         try {
             return json_encode($data, JSON_THROW_ON_ERROR);
@@ -19,7 +19,7 @@ class JsonSerializer implements SerializerInterface
         }
     }
 
-    public function deserialize(string $data): ?array
+    public function decode(string $data): ?array
     {
         try {
             return json_decode($data, true, flags: JSON_THROW_ON_ERROR);

@@ -202,7 +202,7 @@ class Timeular
         return $this->reports->getAllData($startedAt, $stoppedAt);
     }
 
-    public function generateReport(\DateTimeInterface $startedAt, \DateTimeInterface $stoppedAt, string $timezone, string|null $activityId = null, string|null $noteQuery = null, string|null $fileType = 'csv'): string
+    public function generateReport(\DateTimeInterface $startedAt, \DateTimeInterface $stoppedAt, string $timezone, string|null $activityId = null, string|null $noteQuery = null, string|null $fileType = 'csv'): mixed
     {
         return $this->reports->generateReport($startedAt, $stoppedAt, $timezone, $activityId, $noteQuery, $fileType);
     }

@@ -4,7 +4,7 @@ namespace Timeular\Serializer;
 
 interface SerializerInterface
 {
-    public function serialize(mixed $data): string;
+    public function serialize(mixed $data, string $format): string;
 
-    public function deserialize(string $data): mixed;
+    public function deserialize(string $data, string $format): mixed;
 }
