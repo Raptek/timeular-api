@@ -16,7 +16,7 @@ class Serializer implements SerializerInterface
         $encoder = $this->encoders[$format] ?? null;
 
         if ($encoder === null) {
-            throw new MissingEncoderException();
+            throw MissingEncoderException::createForFormat($format);
         }
 
         return $encoder->encode($data);
@@ -27,7 +27,7 @@ class Serializer implements SerializerInterface
         $encoder = $this->encoders[$format] ?? null;
 
         if ($encoder === null) {
-            throw new MissingEncoderException();
+            throw MissingEncoderException::createForFormat($format);
         }
 
         return $encoder->decode($data);

@@ -8,24 +8,17 @@ use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\RequestFactoryInterface;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symfony\Component\DependencyInjection\Reference;
-use Timeular\Api\AuthApi;
 use Timeular\Api\TimeTracking\ActivitiesApi;
 use Timeular\Api\TimeTracking\CurrentTrackingApi;
 use Timeular\Api\TimeTracking\DevicesApi;
 use Timeular\Api\TimeTracking\ReportsApi;
 use Timeular\Api\TimeTracking\TagsAndMentionsApi;
 use Timeular\Api\TimeTracking\TimeEntriesApi;
-use Timeular\Api\TimeularApi;
 use Timeular\Api\UserProfile\SpaceApi;
 use Timeular\Api\UserProfile\UserApi;
 use Timeular\Http\HttpClient;
-use Timeular\Http\RequestModifier\AuthModifier;
-use Timeular\Http\RequestModifier\BaseUriModifier;
-use Timeular\Http\RequestModifier\CompositeModifier;
-use Timeular\Http\RequestModifier\RequestModifierInterface;
-use Timeular\Serializer\CsvEncoder;
 use Timeular\Serializer\JsonEncoder;
-use Timeular\Serializer\JsonSerializer;
+use Timeular\Serializer\PassthroughEncoder;
 use Timeular\Serializer\Serializer;
 use Timeular\Serializer\SerializerInterface;
 use Timeular\Timeular;
@@ -51,12 +44,13 @@ return static function (ContainerConfigurator $container): void {
     $services
         ->set(JsonEncoder::class);
     $services
-        ->set(CsvEncoder::class);
+        ->set(PassthroughEncoder::class);
     $services
         ->set(Serializer::class)
         ->arg('$encoders', [
             'application/json' => new Reference(JsonEncoder::class),
-            'text/csv' => new Reference(CsvEncoder::class),
+            'text/csv' => new Reference(PassthroughEncoder::class),
+            'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' => new Reference(PassthroughEncoder::class),
         ]);
     $services
         ->alias(SerializerInterface::class, Serializer::class);

@@ -4,11 +4,12 @@ declare(strict_types=1);
 
 namespace Timeular\Serializer;
 
-class CsvEncoder implements EncoderInterface
+class PassthroughEncoder implements EncoderInterface
 {
+
     public function encode(mixed $data): string
     {
-        // TODO: Implement encode() method.
+        throw EncodingNotSupportedException::create();
     }
 
     public function decode(string $data): mixed

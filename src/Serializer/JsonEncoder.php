@@ -11,11 +11,7 @@ class JsonEncoder implements EncoderInterface
         try {
             return json_encode($data, JSON_THROW_ON_ERROR);
         } catch (\JsonException $exception) {
-            throw new SerializeException(
-                sprintf('Unable to serialize: %s', $exception->getMessage()),
-                $exception->getCode(),
-                $exception,
-            );
+            throw SerializeException::create($exception);
         }
     }
 
@@ -24,11 +20,7 @@ class JsonEncoder implements EncoderInterface
         try {
             return json_decode($data, true, flags: JSON_THROW_ON_ERROR);
         } catch (\JsonException $exception) {
-            throw new DeserializeException(
-                sprintf('Unable to deserialize: %s', $exception->getMessage()),
-                $exception->getCode(),
-                $exception,
-            );
+            throw DeserializeException::create($exception);
         }
     }
 }
