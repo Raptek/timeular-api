@@ -53,6 +53,6 @@ use Timeular\Timeular;
 //        $stopped = $timeular->stopTracking(new \DateTime());
 //
 //        $entries = $timeular->getEntriesInDateRange((new \DateTime())->modify('-1 month'), new \DateTime());
-        $entries = $timeular->generateReport((new \DateTime())->modify('-1 month'), new \DateTime(), 'Europe/Warsaw', fileType: 'xlsx');
+//        $entries = $timeular->generateReport((new \DateTime())->modify('-1 month'), new \DateTime(), 'Europe/Warsaw', fileType: 'xlsx');
     })
     ->run();

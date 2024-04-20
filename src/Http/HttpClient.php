@@ -56,9 +56,15 @@ class HttpClient implements HttpClientInterface
             return [];
         }
 
+        $statusCode = $response->getStatusCode();
         $contentType = $response->getHeaderLine('Content-Type');
+        $response = $this->serializer->deserialize($body, $this->parseContentType($contentType));
 
-        return $this->serializer->deserialize($body, $this->parseContentType($contentType));
+        if (200 !== $statusCode) {
+            throw new HttpException($response['message'], $statusCode);
+        }
+
+        return $response;
     }
 
     private function handleAuthorization(RequestInterface $request): RequestInterface
