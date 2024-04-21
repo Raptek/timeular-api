@@ -46,6 +46,8 @@ use Timeular\Timeular;
 
 //        $tagsAndMentions = $timeular->tagsAndMentions();
 //        $activities = $timeular->activities();
+        $activity = $timeular->editActivity(123, 'Test activity', '#a1b2c3');
+        $a = 2;
 //        $current = $timeular->showCurrentTracking();
 //
 //        $started = $timeular->startTracking('1769634', (new \DateTime())->modify('- 5minutes'));

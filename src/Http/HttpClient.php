@@ -50,18 +50,28 @@ class HttpClient implements HttpClientInterface
 
     private function handleResponse(ResponseInterface $response): mixed
     {
+        $statusCode = $response->getStatusCode();
+
+        if (401 === $statusCode) {
+            throw UnauthorizedException::withMessage();
+        }
+
         $body = $response->getBody()->getContents();
 
         if ('' === $body) {
             return [];
         }
 
-        $statusCode = $response->getStatusCode();
         $contentType = $response->getHeaderLine('Content-Type');
         $response = $this->serializer->deserialize($body, $this->parseContentType($contentType));
 
         if (200 !== $statusCode) {
-            throw new HttpException($response['message'], $statusCode);
+            throw match ($statusCode) {
+                400 => BadRequestException::withMessage($response['message']),
+                403 => AccessDeniedException::withMessage($response['message']),
+                404 => NotFoundException::withMessage($response['message']),
+                default => new HttpException($response['message'], $statusCode),
+            };
         }
 
         return $response;
