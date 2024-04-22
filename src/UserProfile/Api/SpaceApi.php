@@ -1,0 +1,35 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Timeular\UserProfile\Api;
+
+use Timeular\Http\HttpClient;
+use Timeular\UserProfile\Model\Space;
+
+class SpaceApi
+{
+    public function __construct(
+        private HttpClient $httpClient,
+    ) {
+    }
+
+    /**
+     * @see https://developers.timeular.com/#a5bba235-9229-48cb-a5f9-ee557a0bacf9
+     */
+    public function spacesWithMembers(): array
+    {
+        $response = $this->httpClient->request(
+            'GET',
+            'space',
+        );
+
+        $spaces = [];
+
+        foreach ($response['data'] as $spaceData) {
+            $spaces[] = Space::fromArray($spaceData);
+        }
+
+        return $spaces;
+    }
+}

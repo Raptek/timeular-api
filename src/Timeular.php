@@ -4,27 +4,25 @@ declare(strict_types=1);
 
 namespace Timeular;
 
-use Timeular\Api\TimeTracking;
-use Timeular\Api\UserProfile;
-use Timeular\Model\TimeTracking\ActiveTimeEntry;
-use Timeular\Model\TimeTracking\Activity;
-use Timeular\Model\TimeTracking\Device;
-use Timeular\Model\TimeTracking\Mention;
-use Timeular\Model\TimeTracking\Tag;
-use Timeular\Model\TimeTracking\TimeEntry;
-use Timeular\Model\UserProfile\Me;
+use Timeular\TimeTracking\Model\ActiveTimeEntry;
+use Timeular\TimeTracking\Model\Activity;
+use Timeular\TimeTracking\Model\Device;
+use Timeular\TimeTracking\Model\Mention;
+use Timeular\TimeTracking\Model\Tag;
+use Timeular\TimeTracking\Model\TimeEntry;
+use Timeular\UserProfile\Model\Me;
 
 class Timeular
 {
     public function __construct(
-        private UserProfile\UserApi $user,
-        private UserProfile\SpaceApi $space,
-        private TimeTracking\DevicesApi $devices,
-        private TimeTracking\TagsAndMentionsApi $tagsAndMentions,
-        private TimeTracking\ActivitiesApi $activities,
-        private TimeTracking\CurrentTrackingApi $currentTracking,
-        private TimeTracking\TimeEntriesApi $timeEntries,
-        private TimeTracking\ReportsApi $reports,
+        private UserProfile\Api\UserApi $user,
+        private UserProfile\Api\SpaceApi $space,
+        private TimeTracking\Api\DevicesApi $devices,
+        private TimeTracking\Api\TagsAndMentionsApi $tagsAndMentions,
+        private TimeTracking\Api\ActivitiesApi $activities,
+        private TimeTracking\Api\CurrentTrackingApi $currentTracking,
+        private TimeTracking\Api\TimeEntriesApi $timeEntries,
+        private TimeTracking\Api\ReportsApi $reports,
     ) {
     }
 

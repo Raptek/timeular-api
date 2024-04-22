@@ -8,20 +8,20 @@ use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\RequestFactoryInterface;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symfony\Component\DependencyInjection\Reference;
-use Timeular\Api\TimeTracking\ActivitiesApi;
-use Timeular\Api\TimeTracking\CurrentTrackingApi;
-use Timeular\Api\TimeTracking\DevicesApi;
-use Timeular\Api\TimeTracking\ReportsApi;
-use Timeular\Api\TimeTracking\TagsAndMentionsApi;
-use Timeular\Api\TimeTracking\TimeEntriesApi;
-use Timeular\Api\UserProfile\SpaceApi;
-use Timeular\Api\UserProfile\UserApi;
 use Timeular\Http\HttpClient;
-use Timeular\Serializer\JsonEncoder;
-use Timeular\Serializer\PassthroughEncoder;
-use Timeular\Serializer\Serializer;
-use Timeular\Serializer\SerializerInterface;
+use Timeular\Http\Serializer\JsonEncoder;
+use Timeular\Http\Serializer\PassthroughEncoder;
+use Timeular\Http\Serializer\Serializer;
+use Timeular\Http\Serializer\SerializerInterface;
+use Timeular\TimeTracking\Api\ActivitiesApi;
+use Timeular\TimeTracking\Api\CurrentTrackingApi;
+use Timeular\TimeTracking\Api\DevicesApi;
+use Timeular\TimeTracking\Api\ReportsApi;
+use Timeular\TimeTracking\Api\TagsAndMentionsApi;
+use Timeular\TimeTracking\Api\TimeEntriesApi;
 use Timeular\Timeular;
+use Timeular\UserProfile\Api\SpaceApi;
+use Timeular\UserProfile\Api\UserApi;
 
 return static function (ContainerConfigurator $container): void {
     $container->parameters()

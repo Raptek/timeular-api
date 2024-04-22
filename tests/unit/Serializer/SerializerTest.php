@@ -7,12 +7,12 @@ namespace Tests\Unit\Timeular\Serializer;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
-use Timeular\Serializer\DeserializeException;
-use Timeular\Serializer\JsonEncoder;
-use Timeular\Serializer\MissingEncoderException;
-use Timeular\Serializer\PassthroughEncoder;
-use Timeular\Serializer\SerializeException;
-use Timeular\Serializer\Serializer;
+use Timeular\Http\Serializer\DeserializeException;
+use Timeular\Http\Serializer\JsonEncoder;
+use Timeular\Http\Serializer\MissingEncoderException;
+use Timeular\Http\Serializer\PassthroughEncoder;
+use Timeular\Http\Serializer\SerializeException;
+use Timeular\Http\Serializer\Serializer;
 
 class SerializerTest extends TestCase
 {

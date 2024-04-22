@@ -8,7 +8,12 @@ use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\RequestFactoryInterface;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
-use Timeular\Serializer\SerializerInterface;
+use Timeular\Http\Exception\AccessDeniedException;
+use Timeular\Http\Exception\BadRequestException;
+use Timeular\Http\Exception\HttpException;
+use Timeular\Http\Exception\NotFoundException;
+use Timeular\Http\Exception\UnauthorizedException;
+use Timeular\Http\Serializer\SerializerInterface;
 
 class HttpClient implements HttpClientInterface
 {
