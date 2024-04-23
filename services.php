@@ -9,6 +9,8 @@ use Psr\Http\Message\RequestFactoryInterface;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symfony\Component\DependencyInjection\Reference;
 use Timeular\Http\HttpClient;
+use Timeular\Http\MediaTypeResolver;
+use Timeular\Http\MediaTypeResolverInterface;
 use Timeular\Http\Serializer\JsonEncoder;
 use Timeular\Http\Serializer\PassthroughEncoder;
 use Timeular\Http\Serializer\Serializer;
@@ -54,6 +56,9 @@ return static function (ContainerConfigurator $container): void {
         ]);
     $services
         ->alias(SerializerInterface::class, Serializer::class);
+    $services
+        ->set(MediaTypeResolver::class)
+        ->alias(MediaTypeResolverInterface::class, MediaTypeResolver::class);
 
     $services
         ->set(HttpClient::class)

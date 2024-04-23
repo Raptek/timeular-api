@@ -43,18 +43,5 @@ use Timeular\UserProfile\Model\Space;
             ['ID', 'Name'],
             array_map(static fn (Space $space): array => [$space->toArray()['id'], $space->toArray()['name']], $spaces)
         );
-
-//        $tagsAndMentions = $timeular->tagsAndMentions();
-//        $activities = $timeular->activities();
-        $activity = $timeular->editActivity(123, 'Test activity', '#a1b2c3');
-        $a = 2;
-//        $current = $timeular->showCurrentTracking();
-//
-//        $started = $timeular->startTracking('1769634', (new \DateTime())->modify('- 5minutes'));
-//        $edited = $timeular->editTracking('1769634', note: 'test');
-//        $stopped = $timeular->stopTracking(new \DateTime());
-//
-//        $entries = $timeular->getEntriesInDateRange((new \DateTime())->modify('-1 month'), new \DateTime());
-//        $entries = $timeular->generateReport((new \DateTime())->modify('-1 month'), new \DateTime(), 'Europe/Warsaw', fileType: 'xlsx');
     })
     ->run();

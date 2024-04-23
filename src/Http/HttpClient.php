@@ -24,6 +24,7 @@ class HttpClient implements HttpClientInterface
         private ClientInterface $httpClient,
         private RequestFactoryInterface $httpRequestFactory,
         private SerializerInterface $serializer,
+        private MediaTypeResolverInterface $mediaTypeResolver,
     ) {
     }
 
@@ -46,8 +47,7 @@ class HttpClient implements HttpClientInterface
             ->withHeader('Content-Type', 'application/json');
 
         if ([] !== $payload) {
-            $contentType = $request->getHeaderLine('Content-Type');
-            $request->getBody()->write($this->serializer->serialize($payload, $this->parseContentType($contentType)));
+            $request->getBody()->write($this->serializer->serialize($payload, $this->mediaTypeResolver->getMediaTypeFromMessage($request)));
         }
 
         return $request;
@@ -67,8 +67,7 @@ class HttpClient implements HttpClientInterface
             return [];
         }
 
-        $contentType = $response->getHeaderLine('Content-Type');
-        $response = $this->serializer->deserialize($body, $this->parseContentType($contentType));
+        $response = $this->serializer->deserialize($body, $this->mediaTypeResolver->getMediaTypeFromMessage($response));
 
         if (200 !== $statusCode) {
             throw match ($statusCode) {
@@ -96,12 +95,5 @@ class HttpClient implements HttpClientInterface
         $token = $this->handleResponse($this->httpClient->sendRequest($authRequest))['token'];
 
         return $request->withHeader('Authorization', sprintf('Bearer %s', $token));
-    }
-
-    private function parseContentType(string $contentType): string
-    {
-        [$format, ] = explode(';', $contentType);
-
-        return $format;
     }
 }
