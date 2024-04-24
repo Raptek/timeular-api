@@ -99,7 +99,7 @@ class SerializerTest extends TestCase
 
     public static function dataProviderSuccessfulDeserialize(): \Generator
     {
-        yield 'null' => ['null', null, 'application/json'];
+        yield 'null' => ['null', [], 'application/json'];
         yield 'empty array' => ['[]', [], 'application/json'];
         yield 'empty object' => ['{}', [], 'application/json'];
         yield 'object with properties' => ['{"string":"test","int":456,"bool":true}', [

@@ -22,7 +22,7 @@ class Serializer implements SerializerInterface
         return $encoder->encode($data);
     }
 
-    public function deserialize(string $data, string $format): mixed
+    public function deserialize(string $data, string $format): string|array
     {
         $encoder = $this->encoders[$format] ?? null;
 

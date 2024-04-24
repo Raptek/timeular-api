@@ -11,7 +11,7 @@ class BadRequestException extends HttpException
         parent::__construct($message, 400);
     }
 
-    public static function withMessage(string $message = 'Bad request'): self
+    public static function withMessage(string $message = 'Bad request.'): self
     {
         return new self($message);
     }

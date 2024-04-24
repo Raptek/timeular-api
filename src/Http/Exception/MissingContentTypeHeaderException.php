@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Timeular\Http\Exception;
 
-class UnauthorizedException extends HttpException
+class MissingContentTypeHeaderException extends \InvalidArgumentException
 {
     private function __construct()
     {
-        parent::__construct('Unauthorized.', 401);
+        parent::__construct('Missing "Content-Type" header.');
     }
 
     public static function create(): self

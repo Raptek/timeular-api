@@ -12,7 +12,7 @@ class PassthroughEncoder implements EncoderInterface
         throw EncodingNotSupportedException::create();
     }
 
-    public function decode(string $data): mixed
+    public function decode(string $data): string
     {
         return $data;
     }

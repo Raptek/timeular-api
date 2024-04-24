@@ -58,7 +58,7 @@ class HttpClient implements HttpClientInterface
         $statusCode = $response->getStatusCode();
 
         if (401 === $statusCode) {
-            throw UnauthorizedException::withMessage();
+            throw UnauthorizedException::create();
         }
 
         $body = $response->getBody()->getContents();

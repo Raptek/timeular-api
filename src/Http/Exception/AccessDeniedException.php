@@ -11,7 +11,7 @@ class AccessDeniedException extends HttpException
         parent::__construct($message, 403);
     }
 
-    public static function withMessage(string $message = 'Access denied'): self
+    public static function withMessage(string $message = 'Access denied.'): self
     {
         return new self($message);
     }

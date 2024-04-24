@@ -11,7 +11,7 @@ class NotFoundException extends HttpException
         parent::__construct($message, 404);
     }
 
-    public static function withMessage(string $message = 'Not found'): self
+    public static function withMessage(string $message = 'Not found.'): self
     {
         return new self($message);
     }

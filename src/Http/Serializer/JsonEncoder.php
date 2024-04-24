@@ -15,10 +15,16 @@ class JsonEncoder implements EncoderInterface
         }
     }
 
-    public function decode(string $data): ?array
+    public function decode(string $data): array
     {
         try {
-            return json_decode($data, true, flags: JSON_THROW_ON_ERROR);
+            $decoded = json_decode($data, true, flags: JSON_THROW_ON_ERROR);
+
+            if (null === $decoded) {
+                return [];
+            }
+
+            return $decoded;
         } catch (\JsonException $exception) {
             throw DeserializeException::create($exception);
         }

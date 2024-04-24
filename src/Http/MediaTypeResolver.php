@@ -5,22 +5,27 @@ declare(strict_types=1);
 namespace Timeular\Http;
 
 use Psr\Http\Message\MessageInterface;
+use Timeular\Http\Exception\MissingContentTypeHeaderException;
+use Timeular\Http\Exception\MultipleContentTypeValuesException;
 
+/**
+ * @internal
+ */
 class MediaTypeResolver implements MediaTypeResolverInterface
 {
     public function getMediaTypeFromMessage(MessageInterface $message): string
     {
         if (false === $message->hasHeader('Content-Type')) {
-            throw new \InvalidArgumentException('Missing "Content-Type" header');
+            throw MissingContentTypeHeaderException::create();
         }
 
         $contentTypes = $message->getHeader('Content-Type');
 
         if (1 !== \count($contentTypes)) {
-            // Content-Type can have only one value!
+            throw MultipleContentTypeValuesException::create();
         }
 
-        $contentType = $contentTypes[0];
+        $contentType = array_pop($contentTypes);
 
         [$mediaType, ] = explode(';', $contentType, 2);
 
