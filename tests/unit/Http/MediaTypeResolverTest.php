@@ -10,6 +10,8 @@ use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\MessageInterface;
 use PsrMock\Psr7\Request;
 use PsrMock\Psr7\Response;
+use Timeular\Http\Exception\MissingContentTypeHeaderException;
+use Timeular\Http\Exception\MultipleContentTypeValuesException;
 use Timeular\Http\MediaTypeResolver;
 use Timeular\Http\MediaTypeResolverInterface;
 
@@ -36,5 +38,27 @@ class MediaTypeResolverTest extends TestCase
     public function it_returns_correct_media_type(MessageInterface $message, string $mediaType): void
     {
         self::assertSame($this->mediaTypeResolver->getMediaTypeFromMessage($message), $mediaType);
+    }
+
+    #[Test]
+    public function it_throws_exception_on_missing_header(): void
+    {
+        $response = new Response();
+
+        self::expectException(MissingContentTypeHeaderException::class);
+        self::expectExceptionMessage('Missing "Content-Type" header.');
+
+        $this->mediaTypeResolver->getMediaTypeFromMessage($response);
+    }
+
+    #[Test]
+    public function it_throws_exception_on_multiple_header_values(): void
+    {
+        $response = (new Response())->withAddedHeader('Content-Type', 'application/json')->withAddedHeader('Content-Type', 'text/html');
+
+        self::expectException(MultipleContentTypeValuesException::class);
+        self::expectExceptionMessage('Using multiple "Content-Type" headers is not supported.');
+
+        $this->mediaTypeResolver->getMediaTypeFromMessage($response);
     }
 }
