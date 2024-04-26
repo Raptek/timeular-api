@@ -34,7 +34,7 @@ readonly class ResponseHandler
 
         try {
             $mediaType = $this->mediaTypeResolver->getMediaTypeFromMessage($response);
-        } catch (MissingContentTypeHeaderException | MultipleContentTypeValuesException $exception) {
+        } catch (MissingContentTypeHeaderException | MultipleContentTypeValuesException | \Throwable $exception) {
             throw BadRequestException::withMessage($exception->getMessage());
         }
 
@@ -50,7 +50,7 @@ readonly class ResponseHandler
             throw match ($statusCode) {
                 400 => BadRequestException::withMessage($data['message']),
                 403 => AccessDeniedException::withMessage($data['message']),
-                404 => NotFoundException::withMessage($response['message']),
+                404 => NotFoundException::withMessage($data['message']),
                 default => new HttpException($data['message'], $statusCode),
             };
         }

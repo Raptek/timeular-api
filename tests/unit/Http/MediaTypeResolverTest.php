@@ -18,6 +18,7 @@ use Timeular\Http\MediaTypeResolverInterface;
 class MediaTypeResolverTest extends TestCase
 {
     private MediaTypeResolverInterface $mediaTypeResolver;
+
     protected function setUp(): void
     {
         $this->mediaTypeResolver = new MediaTypeResolver();
