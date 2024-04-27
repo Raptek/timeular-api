@@ -17,13 +17,14 @@ use Timeular\Http\Exception\UnauthorizedException;
 use Timeular\Http\Exception\UnsupportedMediaTypeException;
 use Timeular\Http\MediaTypeResolver;
 use Timeular\Http\ResponseHandler;
+use Timeular\Http\ResponseHandlerInterface;
 use Timeular\Http\Serializer\JsonEncoder;
 use Timeular\Http\Serializer\PassthroughEncoder;
 use Timeular\Http\Serializer\Serializer;
 
 class ResponseHandlerTest extends TestCase
 {
-    private ResponseHandler $responseHandler;
+    private ResponseHandlerInterface $responseHandler;
 
     public static function returnTypePerMediaType(): \Generator
     {
@@ -78,7 +79,30 @@ class ResponseHandlerTest extends TestCase
             ->withStatus(401)
         ;
 
-        self::expectExceptionObject(UnauthorizedException::create());
+        self::expectExceptionObject(UnauthorizedException::withMessage());
+
+        $this->responseHandler->handle($response);
+    }
+
+    #[Test]
+    public function it_throws_bad_request_exception_on_missing_header(): void
+    {
+        $response = (new Response());
+
+        self::expectExceptionObject(BadRequestException::withMessage('Missing "Content-Type" header.'));
+
+        $this->responseHandler->handle($response);
+    }
+
+    #[Test]
+    public function it_throws_bad_request_exception_on_multiple_header_values(): void
+    {
+        $response = (new Response())
+            ->withHeader('Content-Type', 'application/json')
+            ->withAddedHeader('Content-Type', 'text/html')
+        ;
+
+        self::expectExceptionObject(BadRequestException::withMessage('Using multiple "Content-Type" headers is not supported.'));
 
         $this->responseHandler->handle($response);
     }

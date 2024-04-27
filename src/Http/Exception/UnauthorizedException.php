@@ -6,13 +6,8 @@ namespace Timeular\Http\Exception;
 
 class UnauthorizedException extends HttpException
 {
-    private function __construct()
+    public static function withMessage(string $message = 'Unauthorized.'): self
     {
-        parent::__construct('Unauthorized.', 401);
-    }
-
-    public static function create(): self
-    {
-        return new self();
+        return self::create($message, 401);
     }
 }

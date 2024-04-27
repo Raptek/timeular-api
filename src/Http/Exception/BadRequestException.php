@@ -6,13 +6,8 @@ namespace Timeular\Http\Exception;
 
 class BadRequestException extends HttpException
 {
-    private function __construct(string $message)
-    {
-        parent::__construct($message, 400);
-    }
-
     public static function withMessage(string $message = 'Bad request.'): self
     {
-        return new self($message);
+        return self::create($message, 400);
     }
 }

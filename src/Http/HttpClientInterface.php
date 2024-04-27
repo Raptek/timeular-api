@@ -6,5 +6,5 @@ namespace Timeular\Http;
 
 interface HttpClientInterface
 {
-    public function request(string $method, string $uri, array $payload = [], array $headers = []): mixed;
+    public function request(string $method, string $uri, array $payload = []): mixed;
 }

@@ -6,13 +6,8 @@ namespace Timeular\Http\Exception;
 
 class NotFoundException extends HttpException
 {
-    private function __construct(string $message)
-    {
-        parent::__construct($message, 404);
-    }
-
     public static function withMessage(string $message = 'Not found.'): self
     {
-        return new self($message);
+        return self::create($message, 404);
     }
 }

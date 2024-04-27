@@ -16,7 +16,7 @@ use Timeular\Http\Exception\UnsupportedMediaTypeException;
 use Timeular\Http\Serializer\MissingEncoderException;
 use Timeular\Http\Serializer\SerializerInterface;
 
-readonly class ResponseHandler
+readonly class ResponseHandler implements ResponseHandlerInterface
 {
     public function __construct(
         private SerializerInterface $serializer,
@@ -29,7 +29,7 @@ readonly class ResponseHandler
         $statusCode = $response->getStatusCode();
 
         if (401 === $statusCode) {
-            throw UnauthorizedException::create();
+            throw UnauthorizedException::withMessage();
         }
 
         try {
@@ -51,7 +51,7 @@ readonly class ResponseHandler
                 400 => BadRequestException::withMessage($data['message']),
                 403 => AccessDeniedException::withMessage($data['message']),
                 404 => NotFoundException::withMessage($data['message']),
-                default => new HttpException($data['message'], $statusCode),
+                default => HttpException::create($data['message'], $statusCode),
             };
         }
 

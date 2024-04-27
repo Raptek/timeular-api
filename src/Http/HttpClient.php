@@ -7,12 +7,6 @@ namespace Timeular\Http;
 use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\RequestFactoryInterface;
 use Psr\Http\Message\RequestInterface;
-use Psr\Http\Message\ResponseInterface;
-use Timeular\Http\Exception\AccessDeniedException;
-use Timeular\Http\Exception\BadRequestException;
-use Timeular\Http\Exception\HttpException;
-use Timeular\Http\Exception\NotFoundException;
-use Timeular\Http\Exception\UnauthorizedException;
 use Timeular\Http\Serializer\SerializerInterface;
 
 class HttpClient implements HttpClientInterface
@@ -25,20 +19,17 @@ class HttpClient implements HttpClientInterface
         private RequestFactoryInterface $httpRequestFactory,
         private SerializerInterface $serializer,
         private MediaTypeResolverInterface $mediaTypeResolver,
+        private ResponseHandlerInterface $responseHandler,
     ) {
     }
 
-    public function request(string $method, string $uri, array $payload = [], array $headers = []): mixed
+    public function request(string $method, string $uri, array $payload = []): mixed
     {
         $request = $this->createRequest($method, $uri, $payload);
-
-        foreach ($headers as $header => $value) {
-            $request = $request->withHeader($header, $value);
-        }
-
         $request = $this->handleAuthorization($request);
+        $response = $this->httpClient->sendRequest($request);
 
-        return $this->handleResponse($this->httpClient->sendRequest($request));
+        return $this->responseHandler->handle($response);
     }
 
     private function createRequest(string $method, string $uri, array $payload = []): RequestInterface
@@ -53,34 +44,6 @@ class HttpClient implements HttpClientInterface
         return $request;
     }
 
-    private function handleResponse(ResponseInterface $response): mixed
-    {
-        $statusCode = $response->getStatusCode();
-
-        if (401 === $statusCode) {
-            throw UnauthorizedException::create();
-        }
-
-        $body = $response->getBody()->getContents();
-
-        if ('' === $body) {
-            return [];
-        }
-
-        $response = $this->serializer->deserialize($body, $this->mediaTypeResolver->getMediaTypeFromMessage($response));
-
-        if (200 !== $statusCode) {
-            throw match ($statusCode) {
-                400 => BadRequestException::withMessage($response['message']),
-                403 => AccessDeniedException::withMessage($response['message']),
-                404 => NotFoundException::withMessage($response['message']),
-                default => new HttpException($response['message'], $statusCode),
-            };
-        }
-
-        return $response;
-    }
-
     private function handleAuthorization(RequestInterface $request): RequestInterface
     {
         if ('' !== $request->getHeaderLine('Authorization') || true === str_ends_with($request->getUri()->getPath(), 'developer/sign-in')) {
@@ -92,8 +55,9 @@ class HttpClient implements HttpClientInterface
             'apiSecret' => $this->apiSecret,
         ]);
 
-        $token = $this->handleResponse($this->httpClient->sendRequest($authRequest))['token'];
+        $response = $this->httpClient->sendRequest($authRequest);
+        $data = $this->responseHandler->handle($response);
 
-        return $request->withHeader('Authorization', sprintf('Bearer %s', $token));
+        return $request->withHeader('Authorization', sprintf('Bearer %s', $data['token']));
     }
 }
