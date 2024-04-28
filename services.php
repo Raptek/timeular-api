@@ -5,12 +5,16 @@ declare(strict_types=1);
 use Http\Discovery\Psr17FactoryDiscovery;
 use Http\Discovery\Psr18ClientDiscovery;
 use Psr\Http\Client\ClientInterface;
-use Psr\Http\Message\RequestFactoryInterface;
+use Psr\Http\Message\RequestFactoryInterface as PsrRequestFactoryInterface;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symfony\Component\DependencyInjection\Reference;
 use Timeular\Http\HttpClient;
 use Timeular\Http\MediaTypeResolver;
 use Timeular\Http\MediaTypeResolverInterface;
+use Timeular\Http\RequestFactory;
+use Timeular\Http\RequestFactoryInterface;
+use Timeular\Http\ResponseHandler;
+use Timeular\Http\ResponseHandlerInterface;
 use Timeular\Http\Serializer\JsonEncoder;
 use Timeular\Http\Serializer\PassthroughEncoder;
 use Timeular\Http\Serializer\Serializer;
@@ -26,10 +30,6 @@ use Timeular\UserProfile\Api\SpaceApi;
 use Timeular\UserProfile\Api\UserApi;
 
 return static function (ContainerConfigurator $container): void {
-    $container->parameters()
-        ->set('http.base_uri', 'https://api.timeular.com/api/v3')
-    ;
-
     $services = $container->services();
 
     $services
@@ -40,7 +40,7 @@ return static function (ContainerConfigurator $container): void {
         ->set(ClientInterface::class)
         ->factory([Psr18ClientDiscovery::class, 'find']);
     $services
-        ->set(RequestFactoryInterface::class)
+        ->set(PsrRequestFactoryInterface::class)
         ->factory([Psr17FactoryDiscovery::class, 'findRequestFactory']);
 
     $services
@@ -59,10 +59,15 @@ return static function (ContainerConfigurator $container): void {
     $services
         ->set(MediaTypeResolver::class)
         ->alias(MediaTypeResolverInterface::class, MediaTypeResolver::class);
+    $services
+        ->set(RequestFactory::class)
+        ->alias(RequestFactoryInterface::class, RequestFactory::class);
+    $services
+        ->set(ResponseHandler::class)
+        ->alias(ResponseHandlerInterface::class, ResponseHandler::class);
 
     $services
         ->set(HttpClient::class)
-        ->arg('$baseUri', '%http.base_uri%')
         ->arg('$apiKey', getenv('API_KEY'))
         ->arg('$apiSecret', getenv('API_SECRET'))
     ;
