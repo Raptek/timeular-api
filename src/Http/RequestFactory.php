@@ -10,7 +10,7 @@ use Timeular\Http\Serializer\SerializerInterface;
 
 readonly class RequestFactory implements RequestFactoryInterface
 {
-    private const string BASE_URI = 'https://api.timeular.com/api/v3';
+    public const string BASE_URI = 'https://api.timeular.com/api/v3';
 
     public function __construct(
         private PsrRequestFactoryInterface $requestFactory,
