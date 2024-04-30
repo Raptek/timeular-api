@@ -6,17 +6,20 @@ namespace Timeular\Http;
 
 use Psr\Http\Message\RequestFactoryInterface as PsrRequestFactoryInterface;
 use Psr\Http\Message\RequestInterface;
+use Timeular\Builders\Http\SerializerBuilder;
 use Timeular\Http\Serializer\SerializerInterface;
 
 readonly class RequestFactory implements RequestFactoryInterface
 {
     public const string BASE_URI = 'https://api.timeular.com/api/v3';
 
+    private SerializerInterface $serializer;
+
     public function __construct(
         private PsrRequestFactoryInterface $requestFactory,
-        private SerializerInterface $serializer,
         private MediaTypeResolverInterface $mediaTypeResolver,
     ) {
+        $this->serializer = (new SerializerBuilder())->defaults()->getSerializer();
     }
 
     public function create(string $method, string $uri, array $payload = []): RequestInterface

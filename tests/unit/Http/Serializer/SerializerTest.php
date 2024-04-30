@@ -2,15 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Timeular\Serializer;
+namespace Tests\Unit\Timeular\Http\Serializer;
 
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
+use Timeular\Builders\Http\SerializerBuilder;
 use Timeular\Http\Serializer\DeserializeException;
-use Timeular\Http\Serializer\JsonEncoder;
 use Timeular\Http\Serializer\MissingEncoderException;
-use Timeular\Http\Serializer\PassthroughEncoder;
 use Timeular\Http\Serializer\SerializeException;
 use Timeular\Http\Serializer\Serializer;
 
@@ -20,13 +19,9 @@ class SerializerTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->serializer = new Serializer(
-            [
-                'application/json' => new JsonEncoder(),
-                'text/csv' => new PassthroughEncoder(),
-                'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' => new PassthroughEncoder(),
-            ]
-        );
+        $this->serializer = (new SerializerBuilder())
+            ->defaults()
+            ->getSerializer();
     }
 
     #[Test]
@@ -107,6 +102,8 @@ class SerializerTest extends TestCase
             'int' => 456,
             'bool' => true,
         ], 'application/json'];
+        yield 'csv as string' => ['test', 'test', 'text/csv'];
+        yield 'xlsx as string' => ['test', 'test', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'];
     }
 
     public static function dataProviderUnsuccessfulSerialize(): \Generator

@@ -18,9 +18,6 @@ use Timeular\Http\Exception\UnsupportedMediaTypeException;
 use Timeular\Http\MediaTypeResolver;
 use Timeular\Http\ResponseHandler;
 use Timeular\Http\ResponseHandlerInterface;
-use Timeular\Http\Serializer\JsonEncoder;
-use Timeular\Http\Serializer\PassthroughEncoder;
-use Timeular\Http\Serializer\Serializer;
 
 class ResponseHandlerTest extends TestCase
 {
@@ -44,13 +41,6 @@ class ResponseHandlerTest extends TestCase
     protected function setUp(): void
     {
         $this->responseHandler = new ResponseHandler(
-            new Serializer(
-                [
-                    'application/json' => new JsonEncoder(),
-                    'text/csv' => new PassthroughEncoder(),
-                    'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' => new PassthroughEncoder(),
-                ]
-            ),
             new MediaTypeResolver(),
         );
     }

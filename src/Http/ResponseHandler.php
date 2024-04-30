@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Timeular\Http;
 
 use Psr\Http\Message\ResponseInterface;
+use Timeular\Builders\Http\SerializerBuilder;
 use Timeular\Http\Exception\AccessDeniedException;
 use Timeular\Http\Exception\BadRequestException;
 use Timeular\Http\Exception\HttpException;
@@ -18,10 +19,12 @@ use Timeular\Http\Serializer\SerializerInterface;
 
 readonly class ResponseHandler implements ResponseHandlerInterface
 {
+    private SerializerInterface $serializer;
+
     public function __construct(
-        private SerializerInterface $serializer,
         private MediaTypeResolverInterface $mediaTypeResolver,
     ) {
+        $this->serializer = (new SerializerBuilder())->defaults()->getSerializer();
     }
 
     public function handle(ResponseInterface $response): string|array

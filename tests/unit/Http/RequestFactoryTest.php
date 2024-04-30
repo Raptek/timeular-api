@@ -10,16 +10,11 @@ use PHPUnit\Framework\TestCase;
 use Timeular\Http\MediaTypeResolver;
 use Timeular\Http\RequestFactory;
 use Timeular\Http\RequestFactoryInterface;
-use Timeular\Http\Serializer\JsonEncoder;
-use Timeular\Http\Serializer\PassthroughEncoder;
-use Timeular\Http\Serializer\Serializer;
-use Timeular\Http\Serializer\SerializerInterface;
 use PsrMock\Psr17\RequestFactory as Psr17RequestFactory;
 
 class RequestFactoryTest extends TestCase
 {
     private RequestFactoryInterface $requestFactory;
-    private SerializerInterface $serializer;
 
     public static function prepareRequest(): \Generator
     {
@@ -32,16 +27,8 @@ class RequestFactoryTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->serializer =  new Serializer(
-            [
-                'application/json' => new JsonEncoder(),
-                'text/csv' => new PassthroughEncoder(),
-                'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' => new PassthroughEncoder(),
-            ]
-        );
         $this->requestFactory = new RequestFactory(
             new Psr17RequestFactory(),
-            $this->serializer,
             new MediaTypeResolver(),
         );
     }

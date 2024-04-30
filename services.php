@@ -7,7 +7,6 @@ use Http\Discovery\Psr18ClientDiscovery;
 use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\RequestFactoryInterface as PsrRequestFactoryInterface;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-use Symfony\Component\DependencyInjection\Reference;
 use Timeular\Http\HttpClient;
 use Timeular\Http\MediaTypeResolver;
 use Timeular\Http\MediaTypeResolverInterface;
@@ -17,8 +16,6 @@ use Timeular\Http\ResponseHandler;
 use Timeular\Http\ResponseHandlerInterface;
 use Timeular\Http\Serializer\JsonEncoder;
 use Timeular\Http\Serializer\PassthroughEncoder;
-use Timeular\Http\Serializer\Serializer;
-use Timeular\Http\Serializer\SerializerInterface;
 use Timeular\TimeTracking\Api\ActivitiesApi;
 use Timeular\TimeTracking\Api\CurrentTrackingApi;
 use Timeular\TimeTracking\Api\DevicesApi;
@@ -47,15 +44,6 @@ return static function (ContainerConfigurator $container): void {
         ->set(JsonEncoder::class);
     $services
         ->set(PassthroughEncoder::class);
-    $services
-        ->set(Serializer::class)
-        ->arg('$encoders', [
-            'application/json' => new Reference(JsonEncoder::class),
-            'text/csv' => new Reference(PassthroughEncoder::class),
-            'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' => new Reference(PassthroughEncoder::class),
-        ]);
-    $services
-        ->alias(SerializerInterface::class, Serializer::class);
     $services
         ->set(MediaTypeResolver::class)
         ->alias(MediaTypeResolverInterface::class, MediaTypeResolver::class);
