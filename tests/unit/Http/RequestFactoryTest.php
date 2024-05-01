@@ -7,10 +7,9 @@ namespace Tests\Unit\Timeular\Http;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
-use Timeular\Http\MediaTypeResolver;
+use Timeular\Builders\Http\RequestFactoryBuilder;
 use Timeular\Http\RequestFactory;
 use Timeular\Http\RequestFactoryInterface;
-use PsrMock\Psr17\RequestFactory as Psr17RequestFactory;
 
 class RequestFactoryTest extends TestCase
 {
@@ -27,10 +26,7 @@ class RequestFactoryTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->requestFactory = new RequestFactory(
-            new Psr17RequestFactory(),
-            new MediaTypeResolver(),
-        );
+        $this->requestFactory = (new RequestFactoryBuilder())->defaults()->getRequestFactory();
     }
 
     #[Test]

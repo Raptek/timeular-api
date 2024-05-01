@@ -48,9 +48,6 @@ return static function (ContainerConfigurator $container): void {
         ->set(MediaTypeResolver::class)
         ->alias(MediaTypeResolverInterface::class, MediaTypeResolver::class);
     $services
-        ->set(RequestFactory::class)
-        ->alias(RequestFactoryInterface::class, RequestFactory::class);
-    $services
         ->set(ResponseHandler::class)
         ->alias(ResponseHandlerInterface::class, ResponseHandler::class);
 
