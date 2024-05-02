@@ -7,7 +7,7 @@ namespace Tests\Unit\Timeular\Http;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
-use Timeular\Builders\Http\RequestFactoryBuilder;
+use Tests\Builders\Timeular\Http\RequestFactoryBuilder;
 use Timeular\Http\RequestFactory;
 use Timeular\Http\RequestFactoryInterface;
 
@@ -26,7 +26,7 @@ class RequestFactoryTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->requestFactory = (new RequestFactoryBuilder())->defaults()->getRequestFactory();
+        $this->requestFactory = (new RequestFactoryBuilder())->build();
     }
 
     #[Test]

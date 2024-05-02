@@ -9,6 +9,7 @@ use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 use PsrMock\Psr7\Response;
 use PsrMock\Psr7\Stream;
+use Tests\Builders\Timeular\Http\SerializerBuilder;
 use Timeular\Http\Exception\AccessDeniedException;
 use Timeular\Http\Exception\BadRequestException;
 use Timeular\Http\Exception\HttpException;
@@ -42,6 +43,7 @@ class ResponseHandlerTest extends TestCase
     {
         $this->responseHandler = new ResponseHandler(
             new MediaTypeResolver(),
+            (new SerializerBuilder())->build(),
         );
     }
 

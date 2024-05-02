@@ -18,7 +18,8 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Tests\\Unit\\Timeular\\": "tests/unit/"
+            "Tests\\Unit\\Timeular\\": "tests/unit/",
+            "Tests\\Builders\\Timeular\\": "tests/builders/"
         }
     },
     "authors": [

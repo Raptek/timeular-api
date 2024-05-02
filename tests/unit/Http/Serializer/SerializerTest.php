@@ -7,7 +7,7 @@ namespace Tests\Unit\Timeular\Http\Serializer;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
-use Timeular\Builders\Http\SerializerBuilder;
+use Tests\Builders\Timeular\Http\SerializerBuilder;
 use Timeular\Http\Serializer\DeserializeException;
 use Timeular\Http\Serializer\MissingEncoderException;
 use Timeular\Http\Serializer\SerializeException;
@@ -19,9 +19,7 @@ class SerializerTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->serializer = (new SerializerBuilder())
-            ->defaults()
-            ->getSerializer();
+        $this->serializer = (new SerializerBuilder())->build();
     }
 
     #[Test]

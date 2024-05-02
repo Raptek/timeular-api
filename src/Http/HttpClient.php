@@ -6,19 +6,16 @@ namespace Timeular\Http;
 
 use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\RequestInterface;
-use Timeular\Builders\Http\RequestFactoryBuilder;
 
 class HttpClient implements HttpClientInterface
 {
-    private RequestFactoryInterface $requestFactory;
-
     public function __construct(
         private string $apiKey,
         private string $apiSecret,
         private ClientInterface $httpClient,
         private ResponseHandlerInterface $responseHandler,
+        private RequestFactoryInterface $requestFactory,
     ) {
-        $this->requestFactory = (new RequestFactoryBuilder())->defaults()->getRequestFactory();
     }
 
     public function request(string $method, string $uri, array $payload = []): mixed
