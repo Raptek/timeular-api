@@ -11,7 +11,7 @@ use Timeular\Http\Exception\MultipleContentTypeValuesException;
 /**
  * @internal
  */
-class MediaTypeResolver implements MediaTypeResolverInterface
+readonly class MediaTypeResolver implements MediaTypeResolverInterface
 {
     public function getMediaTypeFromMessage(MessageInterface $message): string
     {

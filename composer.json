@@ -46,7 +46,8 @@
         "symfony/dotenv": "^7.0",
         "infection/infection": "^0.28",
         "psr-mock/http-message-implementation": "^1.0",
-        "psr-mock/http-factory-implementation": "^1.0"
+        "psr-mock/http-factory-implementation": "^1.0",
+        "psr-mock/http-client-implementation": "^1.0"
     },
     "scripts": {
         "unit-tests": "vendor/bin/phpunit",

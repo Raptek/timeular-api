@@ -7,6 +7,7 @@ namespace Tests\Builders\Timeular\Http;
 use Http\Discovery\Psr17FactoryDiscovery;
 use Psr\Http\Message\RequestFactoryInterface as PsrRequestFactoryInterface;
 use Tests\Builders\Timeular\BuilderInterface;
+use Tests\Builders\Timeular\Http\Serializer\SerializerBuilder;
 use Timeular\Http\MediaTypeResolver;
 use Timeular\Http\MediaTypeResolverInterface;
 use Timeular\Http\RequestFactory;
@@ -40,17 +41,9 @@ class RequestFactoryBuilder implements BuilderInterface
 
     private function defaults(): void
     {
-        if (false === array_key_exists('psr-request-factory', $this->dependencies)) {
-            $this->withPsrRequestFactory(Psr17FactoryDiscovery::findRequestFactory());
-        }
-
-        if (false === array_key_exists('media-type-resolver', $this->dependencies)) {
-            $this->withMediaTypeResolver(new MediaTypeResolver());
-        }
-
-        if (false === array_key_exists('serializer', $this->dependencies)) {
-            $this->withSerializer((new SerializerBuilder())->build());
-        }
+        $this->dependencies['psr-request-factory'] ??= Psr17FactoryDiscovery::findRequestFactory();
+        $this->dependencies['media-type-resolver'] ??= new MediaTypeResolver();
+        $this->dependencies['serializer'] ??= (new SerializerBuilder())->build();
     }
 
     public function build(): RequestFactoryInterface
