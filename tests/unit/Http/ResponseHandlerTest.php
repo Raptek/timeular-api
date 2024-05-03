@@ -4,12 +4,13 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Timeular\Http;
 
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 use PsrMock\Psr7\Response;
 use PsrMock\Psr7\Stream;
-use Tests\Builders\Timeular\Http\SerializerBuilder;
+use Tests\Builders\Timeular\Http\Serializer\SerializerBuilder;
 use Timeular\Http\Exception\AccessDeniedException;
 use Timeular\Http\Exception\BadRequestException;
 use Timeular\Http\Exception\HttpException;
@@ -20,6 +21,7 @@ use Timeular\Http\MediaTypeResolver;
 use Timeular\Http\ResponseHandler;
 use Timeular\Http\ResponseHandlerInterface;
 
+#[CoversClass(ResponseHandler::class)]
 class ResponseHandlerTest extends TestCase
 {
     private ResponseHandlerInterface $responseHandler;
