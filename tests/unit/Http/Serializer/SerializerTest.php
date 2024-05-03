@@ -7,7 +7,7 @@ namespace Tests\Unit\Timeular\Http\Serializer;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
-use Tests\Builders\Timeular\Http\SerializerBuilder;
+use Tests\Builders\Timeular\Http\Serializer\SerializerBuilder;
 use Timeular\Http\Serializer\DeserializeException;
 use Timeular\Http\Serializer\MissingEncoderException;
 use Timeular\Http\Serializer\SerializeException;

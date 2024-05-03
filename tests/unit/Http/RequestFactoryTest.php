@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Timeular\Http;
 
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
@@ -11,6 +12,7 @@ use Tests\Builders\Timeular\Http\RequestFactoryBuilder;
 use Timeular\Http\RequestFactory;
 use Timeular\Http\RequestFactoryInterface;
 
+#[CoversClass(RequestFactory::class)]
 class RequestFactoryTest extends TestCase
 {
     private RequestFactoryInterface $requestFactory;
