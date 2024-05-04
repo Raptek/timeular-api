@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Timeular\Http\Serializer;
 
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
@@ -13,6 +14,7 @@ use Timeular\Http\Serializer\MissingEncoderException;
 use Timeular\Http\Serializer\SerializeException;
 use Timeular\Http\Serializer\Serializer;
 
+#[CoversClass(Serializer::class)]
 class SerializerTest extends TestCase
 {
     private Serializer $serializer;

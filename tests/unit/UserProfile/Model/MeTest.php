@@ -4,12 +4,14 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Timeular\UserProfile\Model;
 
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 use Timeular\Exception\MissingArrayKeyException;
 use Timeular\UserProfile\Model\Me;
 
+#[CoversClass(Me::class)]
 class MeTest extends TestCase
 {
     #[Test]

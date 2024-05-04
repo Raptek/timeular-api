@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Timeular\TimeTracking\Model;
 
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
@@ -12,6 +13,7 @@ use Timeular\TimeTracking\Model\ActiveTimeEntry;
 use Timeular\TimeTracking\Model\Duration;
 use Timeular\TimeTracking\Model\Note;
 
+#[CoversClass(ActiveTimeEntry::class)]
 class ActiveTimeEntryTest extends TestCase
 {
     #[Test]

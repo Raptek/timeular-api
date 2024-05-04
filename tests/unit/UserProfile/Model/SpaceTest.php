@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Timeular\UserProfile\Model;
 
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
@@ -13,6 +14,7 @@ use Timeular\UserProfile\Model\Role;
 use Timeular\UserProfile\Model\Space;
 use Timeular\UserProfile\Model\User;
 
+#[CoversClass(Space::class)]
 class SpaceTest extends TestCase
 {
     #[Test]
