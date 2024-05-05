@@ -7,6 +7,7 @@ namespace Tests\Unit\Timeular\Http;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
+use PHPUnit\Framework\Attributes\UsesClass;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\MessageInterface;
 use PsrMock\Psr7\Request;
@@ -17,6 +18,8 @@ use Timeular\Http\MediaTypeResolver;
 use Timeular\Http\MediaTypeResolverInterface;
 
 #[CoversClass(MediaTypeResolver::class)]
+#[UsesClass(MultipleContentTypeValuesException::class)]
+#[UsesClass(MissingContentTypeHeaderException::class)]
 class MediaTypeResolverTest extends TestCase
 {
     private MediaTypeResolverInterface $mediaTypeResolver;

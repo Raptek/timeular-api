@@ -7,11 +7,13 @@ namespace Tests\Unit\Timeular\UserProfile\Model;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
+use PHPUnit\Framework\Attributes\UsesClass;
 use PHPUnit\Framework\TestCase;
 use Timeular\Exception\MissingArrayKeyException;
 use Timeular\UserProfile\Model\Me;
 
 #[CoversClass(Me::class)]
+#[UsesClass(MissingArrayKeyException::class)]
 class MeTest extends TestCase
 {
     #[Test]

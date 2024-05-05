@@ -1,8 +1,17 @@
 {
     "name": "raptek/timeular-api",
     "description": "Consume Timeular API using PSR compliant HTTP libraries",
+    "license": [
+        "MIT"
+    ],
     "type": "library",
-    "license": ["MIT"],
+    "version": "dev-main",
+    "authors": [
+        {
+            "name": "Krzysztof Winiarski",
+            "email": "krzysztof.winiarski@raptek.pl"
+        }
+    ],
     "require": {
         "php": "^8.3",
         "php-http/discovery": "^1.17",
@@ -11,6 +20,22 @@
         "psr/http-message-implementation": "*",
         "psr/simple-cache-implementation": "*"
     },
+    "require-dev": {
+        "ergebnis/composer-normalize": "^2.42",
+        "guzzlehttp/guzzle": "^7.8",
+        "infection/infection": "^0.28",
+        "nyholm/psr7": "^1.8",
+        "phpunit/phpunit": "^11.0",
+        "psr-mock/http-client-implementation": "^1.0",
+        "psr-mock/http-factory-implementation": "^1.0",
+        "psr-mock/http-message-implementation": "^1.0",
+        "psr/simple-cache": "*",
+        "symfony/cache": "^7.0",
+        "symfony/config": "^7.0",
+        "symfony/console": "^7.0",
+        "symfony/dependency-injection": "^7.0",
+        "symfony/dotenv": "^7.0"
+    },
     "autoload": {
         "psr-4": {
             "Timeular\\": "src/"
@@ -18,39 +43,19 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Tests\\Unit\\Timeular\\": "tests/unit/",
-            "Tests\\Builders\\Timeular\\": "tests/builders/"
+            "Tests\\Builders\\Timeular\\": "tests/builders/",
+            "Tests\\Unit\\Timeular\\": "tests/unit/"
         }
     },
-    "authors": [
-        {
-            "name": "Krzysztof Winiarski",
-            "email": "krzysztof.winiarski@raptek.pl"
-        }
-    ],
     "config": {
         "allow-plugins": {
-            "php-http/discovery": false,
-            "infection/extension-installer": true
+            "ergebnis/composer-normalize": true,
+            "infection/extension-installer": true,
+            "php-http/discovery": false
         }
     },
-    "require-dev": {
-        "nyholm/psr7": "^1.8",
-        "guzzlehttp/guzzle": "^7.8",
-        "symfony/console": "^7.0",
-        "symfony/cache": "^7.0",
-        "psr/simple-cache": "*",
-        "phpunit/phpunit": "^11.0",
-        "symfony/dependency-injection": "^7.0",
-        "symfony/config": "^7.0",
-        "symfony/dotenv": "^7.0",
-        "infection/infection": "^0.28",
-        "psr-mock/http-message-implementation": "^1.0",
-        "psr-mock/http-factory-implementation": "^1.0",
-        "psr-mock/http-client-implementation": "^1.0"
-    },
     "scripts": {
-        "unit-tests": "vendor/bin/phpunit",
-        "mutation-tests": "vendor/bin/infection --threads=4 --show-mutations"
+        "mutation-tests": "vendor/bin/infection --threads=4 --show-mutations",
+        "unit-tests": "vendor/bin/phpunit"
     }
 }

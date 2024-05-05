@@ -7,11 +7,13 @@ namespace Tests\Unit\Timeular\TimeTracking\Model;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
+use PHPUnit\Framework\Attributes\UsesClass;
 use PHPUnit\Framework\TestCase;
 use Timeular\Exception\MissingArrayKeyException;
 use Timeular\TimeTracking\Model\Mention;
 
 #[CoversClass(Mention::class)]
+#[UsesClass(MissingArrayKeyException::class)]
 class MentionTest extends TestCase
 {
     #[Test]

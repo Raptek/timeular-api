@@ -7,14 +7,22 @@ namespace Tests\Unit\Timeular\Http\Serializer;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
+use PHPUnit\Framework\Attributes\UsesClass;
 use PHPUnit\Framework\TestCase;
 use Tests\Builders\Timeular\Http\Serializer\SerializerBuilder;
 use Timeular\Http\Serializer\DeserializeException;
+use Timeular\Http\Serializer\JsonEncoder;
 use Timeular\Http\Serializer\MissingEncoderException;
+use Timeular\Http\Serializer\PassthroughEncoder;
 use Timeular\Http\Serializer\SerializeException;
 use Timeular\Http\Serializer\Serializer;
 
 #[CoversClass(Serializer::class)]
+#[UsesClass(JsonEncoder::class)]
+#[UsesClass(PassthroughEncoder::class)]
+#[UsesClass(SerializeException::class)]
+#[UsesClass(DeserializeException::class)]
+#[UsesClass(MissingEncoderException::class)]
 class SerializerTest extends TestCase
 {
     private Serializer $serializer;

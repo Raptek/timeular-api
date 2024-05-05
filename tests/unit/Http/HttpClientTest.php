@@ -6,6 +6,7 @@ namespace Tests\Unit\Timeular\Http;
 
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Test;
+use PHPUnit\Framework\Attributes\UsesClass;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Client\ClientInterface as PsrClientInterface;
 use PsrMock\Psr18\Client;
@@ -15,9 +16,19 @@ use Tests\Builders\Timeular\Http\HttpClientBuilder;
 use Tests\Builders\Timeular\Http\RequestFactoryBuilder;
 use Timeular\Http\HttpClient;
 use Timeular\Http\HttpClientInterface;
+use Timeular\Http\MediaTypeResolver;
+use Timeular\Http\RequestFactory;
 use Timeular\Http\RequestFactoryInterface;
+use Timeular\Http\ResponseHandler;
+use Timeular\Http\Serializer\JsonEncoder;
+use Timeular\Http\Serializer\Serializer;
 
 #[CoversClass(HttpClient::class)]
+#[UsesClass(MediaTypeResolver::class)]
+#[UsesClass(RequestFactory::class)]
+#[UsesClass(ResponseHandler::class)]
+#[UsesClass(JsonEncoder::class)]
+#[UsesClass(Serializer::class)]
 class HttpClientTest extends TestCase
 {
     private HttpClientInterface $httpClient;

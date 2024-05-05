@@ -7,6 +7,7 @@ namespace Tests\Unit\Timeular\TimeTracking\Model;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
+use PHPUnit\Framework\Attributes\UsesClass;
 use PHPUnit\Framework\TestCase;
 use Timeular\Exception\MissingArrayKeyException;
 use Timeular\TimeTracking\Model\Activity;
@@ -15,6 +16,10 @@ use Timeular\TimeTracking\Model\Note;
 use Timeular\TimeTracking\Model\ReportTimeEntry;
 
 #[CoversClass(ReportTimeEntry::class)]
+#[UsesClass(Activity::class)]
+#[UsesClass(Duration::class)]
+#[UsesClass(Note::class)]
+#[UsesClass(MissingArrayKeyException::class)]
 class ReportTimeEntryTest extends TestCase
 {
     public static function missingKeyData(): \Generator

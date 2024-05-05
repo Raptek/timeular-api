@@ -7,6 +7,7 @@ namespace Tests\Unit\Timeular\UserProfile\Model;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
+use PHPUnit\Framework\Attributes\UsesClass;
 use PHPUnit\Framework\TestCase;
 use Timeular\Exception\MissingArrayKeyException;
 use Timeular\UserProfile\Model\RetiredUser;
@@ -15,6 +16,9 @@ use Timeular\UserProfile\Model\Space;
 use Timeular\UserProfile\Model\User;
 
 #[CoversClass(Space::class)]
+#[UsesClass(RetiredUser::class)]
+#[UsesClass(User::class)]
+#[UsesClass(MissingArrayKeyException::class)]
 class SpaceTest extends TestCase
 {
     #[Test]

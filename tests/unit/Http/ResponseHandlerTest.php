@@ -7,6 +7,7 @@ namespace Tests\Unit\Timeular\Http;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
+use PHPUnit\Framework\Attributes\UsesClass;
 use PHPUnit\Framework\TestCase;
 use PsrMock\Psr7\Response;
 use PsrMock\Psr7\Stream;
@@ -14,14 +15,32 @@ use Tests\Builders\Timeular\Http\Serializer\SerializerBuilder;
 use Timeular\Http\Exception\AccessDeniedException;
 use Timeular\Http\Exception\BadRequestException;
 use Timeular\Http\Exception\HttpException;
+use Timeular\Http\Exception\MissingContentTypeHeaderException;
+use Timeular\Http\Exception\MultipleContentTypeValuesException;
 use Timeular\Http\Exception\NotFoundException;
 use Timeular\Http\Exception\UnauthorizedException;
 use Timeular\Http\Exception\UnsupportedMediaTypeException;
 use Timeular\Http\MediaTypeResolver;
 use Timeular\Http\ResponseHandler;
 use Timeular\Http\ResponseHandlerInterface;
+use Timeular\Http\Serializer\JsonEncoder;
+use Timeular\Http\Serializer\MissingEncoderException;
+use Timeular\Http\Serializer\Serializer;
 
 #[CoversClass(ResponseHandler::class)]
+#[UsesClass(HttpException::class)]
+#[UsesClass(BadRequestException::class)]
+#[UsesClass(UnauthorizedException::class)]
+#[UsesClass(AccessDeniedException::class)]
+#[UsesClass(NotFoundException::class)]
+#[UsesClass(UnsupportedMediaTypeException::class)]
+#[UsesClass(MissingContentTypeHeaderException::class)]
+#[UsesClass(MultipleContentTypeValuesException::class)]
+#[UsesClass(MediaTypeResolver::class)]
+#[UsesClass(MissingEncoderException::class)]
+#[UsesClass(HttpException::class)]
+#[UsesClass(Serializer::class)]
+#[UsesClass(JsonEncoder::class)]
 class ResponseHandlerTest extends TestCase
 {
     private ResponseHandlerInterface $responseHandler;

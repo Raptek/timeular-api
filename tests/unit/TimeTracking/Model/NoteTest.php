@@ -6,12 +6,15 @@ namespace Tests\Unit\Timeular\TimeTracking\Model;
 
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Test;
+use PHPUnit\Framework\Attributes\UsesClass;
 use PHPUnit\Framework\TestCase;
 use Timeular\TimeTracking\Model\Mention;
 use Timeular\TimeTracking\Model\Note;
 use Timeular\TimeTracking\Model\Tag;
 
 #[CoversClass(Note::class)]
+#[UsesClass(Mention::class)]
+#[UsesClass(Tag::class)]
 class NoteTest extends TestCase
 {
     #[Test]

@@ -7,12 +7,19 @@ namespace Tests\Unit\Timeular\Http;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
+use PHPUnit\Framework\Attributes\UsesClass;
 use PHPUnit\Framework\TestCase;
 use Tests\Builders\Timeular\Http\RequestFactoryBuilder;
+use Timeular\Http\MediaTypeResolver;
 use Timeular\Http\RequestFactory;
 use Timeular\Http\RequestFactoryInterface;
+use Timeular\Http\Serializer\JsonEncoder;
+use Timeular\Http\Serializer\Serializer;
 
 #[CoversClass(RequestFactory::class)]
+#[UsesClass(MediaTypeResolver::class)]
+#[UsesClass(JsonEncoder::class)]
+#[UsesClass(Serializer::class)]
 class RequestFactoryTest extends TestCase
 {
     private RequestFactoryInterface $requestFactory;
