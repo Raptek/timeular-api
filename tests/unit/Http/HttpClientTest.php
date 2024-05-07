@@ -53,7 +53,6 @@ class HttpClientTest extends TestCase
     {
         $authorizationResponse = (new Response(200))
             ->withHeader('Content-Type', 'application/json')
-            ->withBody(new Stream(json_encode([])))
             ->withBody(new Stream(json_encode(['token' => 'token'])))
         ;
         $this->psrClient->addResponse('POST', RequestFactoryInterface::BASE_URI . '/developer/sign-in', $authorizationResponse);

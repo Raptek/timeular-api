@@ -11,6 +11,7 @@ use Timeular\TimeTracking\Model\Mention;
 use Timeular\TimeTracking\Model\Tag;
 use Timeular\TimeTracking\Model\TimeEntry;
 use Timeular\UserProfile\Model\Me;
+use Timeular\Webhooks\Model\Subscription;
 
 class Timeular
 {
@@ -23,6 +24,8 @@ class Timeular
         private TimeTracking\Api\CurrentTrackingApi $currentTracking,
         private TimeTracking\Api\TimeEntriesApi $timeEntries,
         private TimeTracking\Api\ReportsApi $reports,
+        private Webhooks\Api\WebhooksApi $webhooks,
+        private Integrations\Api\IntegrationsApi $integrations,
     ) {
     }
 
@@ -203,5 +206,35 @@ class Timeular
     public function generateReport(\DateTimeInterface $startedAt, \DateTimeInterface $stoppedAt, string $timezone, string|null $activityId = null, string|null $noteQuery = null, string|null $fileType = 'csv'): mixed
     {
         return $this->reports->generateReport($startedAt, $stoppedAt, $timezone, $activityId, $noteQuery, $fileType);
+    }
+
+    public function listAvailableEvents(): array
+    {
+        return $this->webhooks->listAvailableEvents();
+    }
+
+    public function subscribeToEvent(string $event, string $targetUrl): Subscription
+    {
+        return $this->webhooks->subscribe($event, $targetUrl);
+    }
+
+    public function unsubscribeFromEvent(string $id): void
+    {
+        $this->webhooks->unsubscribe($id);
+    }
+
+    public function listSubscriptions(): array
+    {
+        return $this->webhooks->listSubscriptions();
+    }
+
+    public function unsubscribeAllEventsForUser(): void
+    {
+        $this->webhooks->unsubscribeAllForUser();
+    }
+
+    public function listEnabledIntegrations(): array
+    {
+        return $this->integrations->listEnabledIntegrations();
     }
 }
