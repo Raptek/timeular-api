@@ -15,6 +15,11 @@
          displayDetailsOnTestsThatTriggerNotices="true"
          displayDetailsOnTestsThatTriggerWarnings="true"
 >
+  <php>
+    <env name="API_KEY" value="test" force="true" />
+    <env name="API_SECRET" value="test" force="true" />
+  </php>
+
   <testsuites>
     <testsuite name="unit">
       <directory>tests/unit</directory>
