@@ -7,7 +7,7 @@ namespace Timeular\TimeTracking\Api;
 use Timeular\Http\HttpClient;
 use Timeular\TimeTracking\Model\Activity;
 
-class ActivitiesApi
+readonly class ActivitiesApi
 {
     public function __construct(
         private HttpClient $httpClient,

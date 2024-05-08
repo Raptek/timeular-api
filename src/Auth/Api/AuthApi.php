@@ -6,7 +6,7 @@ namespace Timeular\Auth\Api;
 
 use Timeular\Http\HttpClient;
 
-class AuthApi
+readonly class AuthApi
 {
     public function __construct(
         private string $apiKey,

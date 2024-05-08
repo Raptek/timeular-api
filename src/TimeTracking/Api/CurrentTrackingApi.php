@@ -9,7 +9,7 @@ use Timeular\TimeTracking\Exception\TooShortTimeEntryException;
 use Timeular\TimeTracking\Model\ActiveTimeEntry;
 use Timeular\TimeTracking\Model\TimeEntry;
 
-class CurrentTrackingApi
+readonly class CurrentTrackingApi
 {
     public function __construct(
         private HttpClient $httpClient,

@@ -13,7 +13,7 @@ use Timeular\TimeTracking\Model\TimeEntry;
 use Timeular\UserProfile\Model\Me;
 use Timeular\Webhooks\Model\Subscription;
 
-class Timeular
+readonly class Timeular
 {
     public function __construct(
         private UserProfile\Api\UserApi $user,
@@ -203,7 +203,7 @@ class Timeular
         return $this->reports->getAllData($startedAt, $stoppedAt);
     }
 
-    public function generateReport(\DateTimeInterface $startedAt, \DateTimeInterface $stoppedAt, string $timezone, string|null $activityId = null, string|null $noteQuery = null, string|null $fileType = 'csv'): mixed
+    public function generateReport(\DateTimeInterface $startedAt, \DateTimeInterface $stoppedAt, string $timezone, string|null $activityId = null, string|null $noteQuery = null, string|null $fileType = 'csv'): string
     {
         return $this->reports->generateReport($startedAt, $stoppedAt, $timezone, $activityId, $noteQuery, $fileType);
     }

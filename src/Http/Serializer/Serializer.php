@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Timeular\Http\Serializer;
 
-class Serializer implements SerializerInterface
+readonly class Serializer implements SerializerInterface
 {
     /** @param EncoderInterface[] $encoders */
     public function __construct(private array $encoders)

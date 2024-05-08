@@ -7,7 +7,7 @@ namespace Timeular\Http;
 use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\RequestInterface;
 
-class HttpClient implements HttpClientInterface
+readonly class HttpClient implements HttpClientInterface
 {
     public function __construct(
         private string $apiKey,

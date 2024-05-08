@@ -8,7 +8,7 @@ use Timeular\Http\HttpClient;
 use Timeular\TimeTracking\Model\Mention;
 use Timeular\TimeTracking\Model\Tag;
 
-class TagsAndMentionsApi
+readonly class TagsAndMentionsApi
 {
     public function __construct(
         private HttpClient $httpClient,

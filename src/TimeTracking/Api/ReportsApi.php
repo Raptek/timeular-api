@@ -8,7 +8,7 @@ use Timeular\Http\HttpClient;
 use Timeular\TimeTracking\Model\Duration;
 use Timeular\TimeTracking\Model\ReportTimeEntry;
 
-class ReportsApi
+readonly class ReportsApi
 {
     public function __construct(
         private HttpClient $httpClient,

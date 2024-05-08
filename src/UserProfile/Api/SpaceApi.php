@@ -7,7 +7,7 @@ namespace Timeular\UserProfile\Api;
 use Timeular\Http\HttpClient;
 use Timeular\UserProfile\Model\Space;
 
-class SpaceApi
+readonly class SpaceApi
 {
     public function __construct(
         private HttpClient $httpClient,

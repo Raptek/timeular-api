@@ -7,7 +7,7 @@ namespace Timeular\UserProfile\Api;
 use Timeular\Http\HttpClient;
 use Timeular\UserProfile\Model\Me;
 
-class UserApi
+readonly class UserApi
 {
     public function __construct(
         private HttpClient $httpClient,

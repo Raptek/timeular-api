@@ -8,7 +8,7 @@ use Timeular\Http\HttpClient;
 use Timeular\Webhooks\Model\Event;
 use Timeular\Webhooks\Model\Subscription;
 
-class WebhooksApi
+readonly class WebhooksApi
 {
     public function __construct(
         private HttpClient $httpClient,

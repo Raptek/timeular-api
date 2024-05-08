@@ -6,7 +6,7 @@ namespace Timeular\Integrations\Api;
 
 use Timeular\Http\HttpClient;
 
-class IntegrationsApi
+readonly class IntegrationsApi
 {
     public function __construct(
         private HttpClient $httpClient,
