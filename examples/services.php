@@ -7,6 +7,7 @@ use Http\Discovery\Psr18ClientDiscovery;
 use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\RequestFactoryInterface as PsrRequestFactoryInterface;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use Symfony\Component\DependencyInjection\Reference;
 use Timeular\Http\HttpClient;
 use Timeular\Http\MediaTypeResolver;
 use Timeular\Http\MediaTypeResolverInterface;
@@ -16,6 +17,9 @@ use Timeular\Http\ResponseHandler;
 use Timeular\Http\ResponseHandlerInterface;
 use Timeular\Http\Serializer\JsonEncoder;
 use Timeular\Http\Serializer\PassthroughEncoder;
+use Timeular\Http\Serializer\Serializer;
+use Timeular\Http\Serializer\SerializerInterface;
+use Timeular\Integrations\Api\IntegrationsApi;
 use Timeular\TimeTracking\Api\ActivitiesApi;
 use Timeular\TimeTracking\Api\CurrentTrackingApi;
 use Timeular\TimeTracking\Api\DevicesApi;
@@ -25,6 +29,7 @@ use Timeular\TimeTracking\Api\TimeEntriesApi;
 use Timeular\Timeular;
 use Timeular\UserProfile\Api\SpaceApi;
 use Timeular\UserProfile\Api\UserApi;
+use Timeular\Webhooks\Api\WebhooksApi;
 
 return static function (ContainerConfigurator $container): void {
     $services = $container->services();
@@ -50,6 +55,18 @@ return static function (ContainerConfigurator $container): void {
     $services
         ->set(ResponseHandler::class)
         ->alias(ResponseHandlerInterface::class, ResponseHandler::class);
+    $services
+        ->set(RequestFactory::class)
+        ->alias(RequestFactoryInterface::class, RequestFactory::class);
+    $services
+        ->set(Serializer::class)
+        ->arg('$encoders', 
+        [
+            'application/json' => new Reference(JsonEncoder::class),
+            'text/csv' => new Reference(PassthroughEncoder::class),
+            'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' => new Reference(PassthroughEncoder::class),
+        ])
+        ->alias(SerializerInterface::class, Serializer::class);
 
     $services
         ->set(HttpClient::class)
@@ -73,6 +90,10 @@ return static function (ContainerConfigurator $container): void {
         ->set(TimeEntriesApi::class);
     $services
         ->set(ReportsApi::class);
+    $services
+        ->set(WebhooksApi::class);
+    $services
+        ->set(IntegrationsApi::class);
     $services
         ->set(Timeular::class)
         ->public();
