@@ -12,8 +12,7 @@ readonly class WebhooksApi
 {
     public function __construct(
         private HttpClient $httpClient,
-    ) {
-    }
+    ) {}
 
     /**
      * @see https://developers.timeular.com/#8a39dd40-8282-4d1e-9315-1945c3117321
@@ -25,7 +24,7 @@ readonly class WebhooksApi
             'webhooks/event',
         );
 
-        return array_map(static fn (string $event): Event => Event::from($event), $response['events']);
+        return array_map(static fn(string $event): Event => Event::from($event), $response['events']);
     }
 
     /**
@@ -39,7 +38,7 @@ readonly class WebhooksApi
             [
                 'event' => $event,
                 'target_url' => $targetUrl,
-            ]
+            ],
         );
 
         return Subscription::fromArray(
@@ -47,7 +46,7 @@ readonly class WebhooksApi
                 'id' => $response['id'],
                 'event' => $event,
                 'target_url' => $targetUrl,
-            ]
+            ],
         );
     }
 
@@ -72,7 +71,7 @@ readonly class WebhooksApi
             'webhooks/subscription',
         );
 
-        return array_map(static fn (string $subscription): Subscription => Subscription::fromArray($subscription), $response['subscriptions']);
+        return array_map(static fn(string $subscription): Subscription => Subscription::fromArray($subscription), $response['subscriptions']);
     }
 
     /**

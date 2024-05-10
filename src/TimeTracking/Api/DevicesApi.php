@@ -11,8 +11,7 @@ readonly class DevicesApi
 {
     public function __construct(
         private HttpClient $httpClient,
-    ) {
-    }
+    ) {}
 
     /**
      * @see https://developers.timeular.com/#bbf459e2-ff90-4aeb-b064-7febaa4eba70
@@ -24,7 +23,7 @@ readonly class DevicesApi
             'devices',
         );
 
-        return array_map(static fn (array $device): Device => Device::fromArray($device), $response['devices']);
+        return array_map(static fn(array $device): Device => Device::fromArray($device), $response['devices']);
     }
 
     /**
@@ -63,7 +62,7 @@ readonly class DevicesApi
             sprintf('devices/%s', $serial),
             [
                 'name' => $name,
-            ]
+            ],
         );
 
         return Device::fromArray($response);

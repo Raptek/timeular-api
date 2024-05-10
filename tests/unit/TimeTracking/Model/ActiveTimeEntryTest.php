@@ -20,7 +20,7 @@ use Timeular\TimeTracking\Model\Note;
 class ActiveTimeEntryTest extends TestCase
 {
     #[Test]
-    public function it_creates_active_time_entry_from_array():void
+    public function it_creates_active_time_entry_from_array(): void
     {
         $startedAt = (new \DateTimeImmutable())->format(Duration::FORMAT);
 
@@ -30,7 +30,7 @@ class ActiveTimeEntryTest extends TestCase
                 'activityId' => '1217348',
                 'startedAt' => $startedAt,
                 'note' => [],
-            ]
+            ],
         );
 
         self::assertEquals(34714420, $activeTimeEntry->id);

@@ -21,7 +21,7 @@ use Timeular\TimeTracking\Model\TimeEntry;
 class TimeEntryTest extends TestCase
 {
     #[Test]
-    public function it_creates_time_entry_from_array():void
+    public function it_creates_time_entry_from_array(): void
     {
         $startedAt = (new \DateTimeImmutable())->format(Duration::FORMAT);
         $stoppedAt = (new \DateTimeImmutable())->format(Duration::FORMAT);
@@ -30,7 +30,7 @@ class TimeEntryTest extends TestCase
             [
                 'startedAt' => $startedAt,
                 'stoppedAt' => $stoppedAt,
-            ]
+            ],
         );
 
         $timeEntry = TimeEntry::fromArray(
@@ -42,7 +42,7 @@ class TimeEntryTest extends TestCase
                     'stoppedAt' => $stoppedAt,
                 ],
                 'note' => [],
-            ]
+            ],
         );
 
         self::assertEquals('34714420', $timeEntry->id);
@@ -71,7 +71,7 @@ class TimeEntryTest extends TestCase
             [
                 'startedAt' => $startedAt,
                 'stoppedAt' => $stoppedAt,
-            ]
+            ],
         );
 
         $data = [

@@ -13,8 +13,7 @@ readonly class Me
         public string $name,
         public string $email,
         public string $defaultSpaceId,
-    ) {
-    }
+    ) {}
 
     public static function fromArray(array $data): self
     {

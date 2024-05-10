@@ -24,7 +24,7 @@ class SubscriptionTest extends TestCase
                 'id' => '123456',
                 'event' => 'trackingStarted',
                 'target_url' => 'https://example.org/some-endpoint',
-            ]
+            ],
         );
 
         self::assertEquals('123456', $subscription->id);

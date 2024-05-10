@@ -13,8 +13,7 @@ readonly class User
         public string $name,
         public string $email,
         public Role $role,
-    ) {
-    }
+    ) {}
 
     public static function fromArray(array $data): self
     {

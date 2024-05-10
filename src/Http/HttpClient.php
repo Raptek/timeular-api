@@ -15,8 +15,7 @@ readonly class HttpClient implements HttpClientInterface
         private ClientInterface $httpClient,
         private ResponseHandlerInterface $responseHandler,
         private RequestFactoryInterface $requestFactory,
-    ) {
-    }
+    ) {}
 
     public function request(string $method, string $uri, array $payload = []): string|array
     {

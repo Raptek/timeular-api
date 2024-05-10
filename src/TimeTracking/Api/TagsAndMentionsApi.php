@@ -12,8 +12,7 @@ readonly class TagsAndMentionsApi
 {
     public function __construct(
         private HttpClient $httpClient,
-    ) {
-    }
+    ) {}
 
     /**
      * @see https://developers.timeular.com/#03a2a812-cb0a-45e6-8fc6-74a0ff439909
@@ -26,8 +25,8 @@ readonly class TagsAndMentionsApi
         );
 
         return [
-            'tags' => array_map(static fn (array $tagData): Tag => Tag::fromArray($tagData), $response['tags']),
-            'mentions' => array_map(static fn (array $mentionData): Mention => Mention::fromArray($mentionData), $response['mentions']),
+            'tags' => array_map(static fn(array $tagData): Tag => Tag::fromArray($tagData), $response['tags']),
+            'mentions' => array_map(static fn(array $mentionData): Mention => Mention::fromArray($mentionData), $response['mentions']),
         ];
     }
 
@@ -48,7 +47,7 @@ readonly class TagsAndMentionsApi
                 'label' => $label,
                 'scope' => $scope,
                 'spaceId' => $spaceId,
-            ]
+            ],
         );
 
         return Tag::fromArray($response);
@@ -66,7 +65,7 @@ readonly class TagsAndMentionsApi
             sprintf('tags/%s', $id),
             [
                 'label' => $label,
-            ]
+            ],
         );
 
         return Tag::fromArray($response);
@@ -103,7 +102,7 @@ readonly class TagsAndMentionsApi
                 'label' => $label,
                 'scope' => $scope,
                 'spaceId' => $spaceId,
-            ]
+            ],
         );
 
         return Mention::fromArray($response);
@@ -121,7 +120,7 @@ readonly class TagsAndMentionsApi
             sprintf('mentions/%s', $id),
             [
                 'label' => $label,
-            ]
+            ],
         );
 
         return Mention::fromArray($response);

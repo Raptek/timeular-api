@@ -12,8 +12,7 @@ readonly class TimeEntriesApi
 {
     public function __construct(
         private HttpClient $httpClient,
-    ) {
-    }
+    ) {}
 
     /**
      * @see https://developers.timeular.com/#d4c6e3c4-c38b-4891-aa19-907460f43f9b
@@ -41,7 +40,7 @@ readonly class TimeEntriesApi
                 'startedAt' => $startedAt->format(Duration::FORMAT),
                 'stoppedAt' => $stoppedAt->format(Duration::FORMAT),
                 'note' => $note ? ['text' => $note] : null,
-            ]
+            ],
         );
 
         return TimeEntry::fromArray($response);
@@ -73,7 +72,7 @@ readonly class TimeEntriesApi
                 'startedAt' => $startedAt->format(Duration::FORMAT),
                 'stoppedAt' => $stoppedAt->format(Duration::FORMAT),
                 'note' => $note ? ['text' => $note] : null,
-            ]
+            ],
         );
 
         return TimeEntry::fromArray($response);

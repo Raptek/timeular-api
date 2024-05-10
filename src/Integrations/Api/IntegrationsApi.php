@@ -10,8 +10,7 @@ readonly class IntegrationsApi
 {
     public function __construct(
         private HttpClient $httpClient,
-    ) {
-    }
+    ) {}
 
     public function listEnabledIntegrations(): array
     {

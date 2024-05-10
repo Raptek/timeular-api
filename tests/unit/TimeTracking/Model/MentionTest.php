@@ -17,7 +17,7 @@ use Timeular\TimeTracking\Model\Mention;
 class MentionTest extends TestCase
 {
     #[Test]
-    public function it_creates_mention_from_array():void
+    public function it_creates_mention_from_array(): void
     {
         $mention = Mention::fromArray(
             [
@@ -26,7 +26,7 @@ class MentionTest extends TestCase
                 'label' => 'some mention',
                 'scope' => 'timeular',
                 'spaceId' => '1',
-            ]
+            ],
         );
 
         self::assertEquals(1, $mention->id);

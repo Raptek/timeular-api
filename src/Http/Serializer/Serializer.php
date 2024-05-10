@@ -7,9 +7,7 @@ namespace Timeular\Http\Serializer;
 readonly class Serializer implements SerializerInterface
 {
     /** @param EncoderInterface[] $encoders */
-    public function __construct(private array $encoders)
-    {
-    }
+    public function __construct(private array $encoders) {}
 
     public function serialize(mixed $data, string $format): string
     {

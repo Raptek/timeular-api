@@ -14,8 +14,7 @@ readonly class Mention
         public string $label,
         public string $scope,
         public string $spaceId,
-    ) {
-    }
+    ) {}
 
     public static function fromArray(array $data): self
     {

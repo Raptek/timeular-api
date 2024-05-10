@@ -1,4 +1,5 @@
 examples/.env
-/.cache/
-/vendor/
+.cache/
+vendor/
 docker-compose.override.yml
+composer.lock

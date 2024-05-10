@@ -12,8 +12,7 @@ readonly class AuthApi
         private string $apiKey,
         private string $apiSecret,
         private HttpClient $httpClient,
-    ) {
-    }
+    ) {}
 
     /**
      * @see https://developers.timeular.com/#12de6e46-4b3a-437b-94b2-39b7782eb24c

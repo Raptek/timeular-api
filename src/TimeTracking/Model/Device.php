@@ -13,8 +13,7 @@ readonly class Device
         public string|null $name,
         public bool $active,
         public bool $disabled,
-    ) {
-    }
+    ) {}
 
     public static function fromArray(array $data): self
     {

@@ -22,7 +22,7 @@ use Timeular\UserProfile\Model\User;
 class SpaceTest extends TestCase
 {
     #[Test]
-    public function it_creates_space_from_array():void
+    public function it_creates_space_from_array(): void
     {
         $member = [
             'id' => '1',
@@ -38,14 +38,14 @@ class SpaceTest extends TestCase
             [
                 'id' => '1',
                 'name' => 'My Personal Space',
-                'default' => $default = (bool)rand(0, 1),
+                'default' => $default = (bool) rand(0, 1),
                 'members' => [
                     $member,
                 ],
                 'retiredMembers' => [
                     $retiredMember,
                 ],
-            ]
+            ],
         );
 
         self::assertEquals('1', $space->id);
@@ -81,7 +81,7 @@ class SpaceTest extends TestCase
         $data = [
             'id' => '1',
             'name' => 'My Personal Space',
-            'default' => (bool)rand(0, 1),
+            'default' => (bool) rand(0, 1),
             'members' => [
                 $member,
             ],

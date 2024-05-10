@@ -17,13 +17,13 @@ use Timeular\UserProfile\Model\RetiredUser;
 class RetiredUserTest extends TestCase
 {
     #[Test]
-    public function it_creates_retired_user_from_array():void
+    public function it_creates_retired_user_from_array(): void
     {
         $retiredUser = RetiredUser::fromArray(
             [
                 'id' => '1',
                 'name' => 'my name',
-            ]
+            ],
         );
 
         self::assertEquals('1', $retiredUser->id);

@@ -11,8 +11,7 @@ readonly class SpaceApi
 {
     public function __construct(
         private HttpClient $httpClient,
-    ) {
-    }
+    ) {}
 
     /**
      * @see https://developers.timeular.com/#a5bba235-9229-48cb-a5f9-ee557a0bacf9

@@ -13,8 +13,7 @@ readonly class ActiveTimeEntry
         public string $activityId,
         public \DateTimeInterface $startedAt,
         public Note $note,
-    ) {
-    }
+    ) {}
 
     public static function fromArray(array $data): self
     {

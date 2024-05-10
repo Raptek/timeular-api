@@ -17,7 +17,7 @@ use Timeular\TimeTracking\Model\Duration;
 class DurationTest extends TestCase
 {
     #[Test]
-    public function it_creates_duration_from_array():void
+    public function it_creates_duration_from_array(): void
     {
         $startedAt = (new \DateTimeImmutable())->format(Duration::FORMAT);
         $stoppedAt = (new \DateTimeImmutable())->format(Duration::FORMAT);
@@ -26,7 +26,7 @@ class DurationTest extends TestCase
             [
                 'startedAt' => $startedAt,
                 'stoppedAt' => $stoppedAt,
-            ]
+            ],
         );
 
         self::assertEquals(new \DateTimeImmutable($startedAt), $duration->startedAt);

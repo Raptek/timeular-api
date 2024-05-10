@@ -13,8 +13,7 @@ readonly class TimeEntry
         public string $activityId,
         public Duration $duration,
         public Note $note,
-    ) {
-    }
+    ) {}
 
     public static function fromArray(array $data): self
     {
@@ -38,7 +37,7 @@ readonly class TimeEntry
             $data['id'],
             $data['activityId'],
             Duration::fromArray($data['duration']),
-            Note::fromArray($data['note'])
+            Note::fromArray($data['note']),
         );
     }
 

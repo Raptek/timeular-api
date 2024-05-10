@@ -12,8 +12,7 @@ readonly class ReportsApi
 {
     public function __construct(
         private HttpClient $httpClient,
-    ) {
-    }
+    ) {}
 
     /**
      * @see https://developers.timeular.com/#e12c5e47-8f39-4984-b757-798dcbbf2365
@@ -25,7 +24,7 @@ readonly class ReportsApi
             sprintf('report/data/%s/%s', $startedAt->format(Duration::FORMAT), $stoppedAt->format(Duration::FORMAT)),
         );
 
-        return array_map(static fn (array $timeEntry): ReportTimeEntry => ReportTimeEntry::fromArray($timeEntry), $response['timeEntries']);
+        return array_map(static fn(array $timeEntry): ReportTimeEntry => ReportTimeEntry::fromArray($timeEntry), $response['timeEntries']);
     }
 
     /**

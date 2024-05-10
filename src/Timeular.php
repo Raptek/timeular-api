@@ -26,8 +26,7 @@ readonly class Timeular
         private TimeTracking\Api\ReportsApi $reports,
         private Webhooks\Api\WebhooksApi $webhooks,
         private Integrations\Api\IntegrationsApi $integrations,
-    ) {
-    }
+    ) {}
 
     public function me(): Me
     {

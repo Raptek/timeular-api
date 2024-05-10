@@ -91,7 +91,7 @@ class SerializerTest extends TestCase
         yield 'null' => [null, 'null', 'application/json'];
         yield 'empty array' => [[], '[]', 'application/json'];
         yield 'empty object' => [new \stdClass(), '{}', 'application/json'];
-        yield 'object with properties' => [new class() {
+        yield 'object with properties' => [new class () {
             private string $notSerializable = 'asdf';
             protected int $alsoNotSerializable = 123;
             public string $string = 'test';

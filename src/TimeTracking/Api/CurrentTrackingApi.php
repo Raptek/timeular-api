@@ -13,8 +13,7 @@ readonly class CurrentTrackingApi
 {
     public function __construct(
         private HttpClient $httpClient,
-    ) {
-    }
+    ) {}
 
     /**
      * @see https://developers.timeular.com/#13f48c99-bf92-4892-9f5d-ae17f603526a
@@ -39,7 +38,7 @@ readonly class CurrentTrackingApi
             sprintf('tracking/%s/start', $activityId),
             [
                 'startedAt' => $startedAt->format('Y-m-d\TH:i:s.v'),
-            ]
+            ],
         );
 
         return ActiveTimeEntry::fromArray($response['currentTracking']);
@@ -78,7 +77,7 @@ readonly class CurrentTrackingApi
             'tracking/stop',
             [
                 'stoppedAt' => $stoppedAt->format('Y-m-d\TH:i:s.v'),
-            ]
+            ],
         );
 
         if (array_key_exists('error', $response) && $response['error']['code'] === '00400100001') {

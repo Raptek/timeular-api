@@ -17,7 +17,7 @@ use Timeular\TimeTracking\Model\Device;
 class DeviceTest extends TestCase
 {
     #[Test]
-    public function it_creates_device_from_array():void
+    public function it_creates_device_from_array(): void
     {
         $device = Device::fromArray(
             [
@@ -25,7 +25,7 @@ class DeviceTest extends TestCase
                 'name' => 'Personal Tracker',
                 'active' => $active = (bool) rand(0, 1),
                 'disabled' => $disabled = (bool) rand(0, 1),
-            ]
+            ],
         );
 
         self::assertEquals('QWER1234', $device->serial);
@@ -35,7 +35,7 @@ class DeviceTest extends TestCase
     }
 
     #[Test]
-    public function it_creates_device_from_array_with_empty_name():void
+    public function it_creates_device_from_array_with_empty_name(): void
     {
         $device = Device::fromArray(
             [
@@ -43,7 +43,7 @@ class DeviceTest extends TestCase
                 'name' => null,
                 'active' => (bool) rand(0, 1),
                 'disabled' => (bool) rand(0, 1),
-            ]
+            ],
         );
 
         self::assertNull($device->name);
@@ -53,7 +53,7 @@ class DeviceTest extends TestCase
                 'serial' => 'QWER1234',
                 'active' => (bool) rand(0, 1),
                 'disabled' => (bool) rand(0, 1),
-            ]
+            ],
         );
 
         self::assertNull($device->name);

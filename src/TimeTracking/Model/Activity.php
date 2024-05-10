@@ -15,8 +15,7 @@ readonly class Activity
         public string $integration,
         public string $spaceId,
         public int|null $deviceSide = null,
-    ) {
-    }
+    ) {}
 
     public static function fromArray(array $data): self
     {

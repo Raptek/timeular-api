@@ -6,7 +6,6 @@ namespace Timeular\Http\Serializer;
 
 class PassthroughEncoder implements EncoderInterface
 {
-
     public function encode(mixed $data): string
     {
         throw EncodingNotSupportedException::create();

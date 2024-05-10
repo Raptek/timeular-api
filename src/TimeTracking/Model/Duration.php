@@ -13,8 +13,7 @@ readonly class Duration
     private function __construct(
         public \DateTimeInterface $startedAt,
         public \DateTimeInterface $stoppedAt,
-    ) {
-    }
+    ) {}
 
     public static function fromArray(array $data): self
     {

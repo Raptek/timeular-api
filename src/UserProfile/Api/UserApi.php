@@ -11,8 +11,7 @@ readonly class UserApi
 {
     public function __construct(
         private HttpClient $httpClient,
-    ) {
-    }
+    ) {}
 
     /**
      * @see https://developers.timeular.com/#bbf459e2-ff90-4aeb-b064-7febaa4eba70

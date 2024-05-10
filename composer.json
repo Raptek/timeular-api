@@ -5,7 +5,6 @@
         "MIT"
     ],
     "type": "library",
-    "version": "dev-main",
     "authors": [
         {
             "name": "Krzysztof Winiarski",
@@ -15,10 +14,9 @@
     "require": {
         "php": "^8.3",
         "php-http/discovery": "^1.17",
-        "psr/http-client-implementation": "*",
-        "psr/http-factory-implementation": "*",
-        "psr/http-message-implementation": "*",
-        "psr/simple-cache-implementation": "*"
+        "psr/http-client-implementation": "^1.0",
+        "psr/http-factory-implementation": "^1.0",
+        "psr/http-message-implementation": "^1.0"
     },
     "require-dev": {
         "ergebnis/composer-normalize": "^2.42",
@@ -29,12 +27,9 @@
         "psr-mock/http-client-implementation": "^1.0",
         "psr-mock/http-factory-implementation": "^1.0",
         "psr-mock/http-message-implementation": "^1.0",
-        "psr/simple-cache": "*",
-        "symfony/cache": "^7.0",
-        "symfony/config": "^7.0",
-        "symfony/console": "^7.0",
         "symfony/dependency-injection": "^7.0",
-        "symfony/dotenv": "^7.0"
+        "symfony/dotenv": "^7.0",
+        "friendsofphp/php-cs-fixer": "^3.56"
     },
     "autoload": {
         "psr-4": {

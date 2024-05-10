@@ -60,12 +60,14 @@ return static function (ContainerConfigurator $container): void {
         ->alias(RequestFactoryInterface::class, RequestFactory::class);
     $services
         ->set(Serializer::class)
-        ->arg('$encoders', 
-        [
-            'application/json' => new Reference(JsonEncoder::class),
-            'text/csv' => new Reference(PassthroughEncoder::class),
-            'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' => new Reference(PassthroughEncoder::class),
-        ])
+        ->arg(
+            '$encoders',
+            [
+                'application/json' => new Reference(JsonEncoder::class),
+                'text/csv' => new Reference(PassthroughEncoder::class),
+                'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' => new Reference(PassthroughEncoder::class),
+            ],
+        )
         ->alias(SerializerInterface::class, Serializer::class);
 
     $services

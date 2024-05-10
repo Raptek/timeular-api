@@ -17,7 +17,7 @@ use Timeular\TimeTracking\Model\Tag;
 class TagTest extends TestCase
 {
     #[Test]
-    public function it_creates_tag_from_array():void
+    public function it_creates_tag_from_array(): void
     {
         $tag = Tag::fromArray(
             [
@@ -26,7 +26,7 @@ class TagTest extends TestCase
                 'label' => 'some-tag',
                 'scope' => 'timeular',
                 'spaceId' => '1',
-            ]
+            ],
         );
 
         self::assertEquals(1, $tag->id);

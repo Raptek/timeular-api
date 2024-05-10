@@ -12,8 +12,7 @@ readonly class Subscription
         public string $id,
         public Event $event,
         public string $targetUrl,
-    ) {
-    }
+    ) {}
 
     public static function fromArray(array $data): self
     {

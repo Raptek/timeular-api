@@ -18,7 +18,7 @@ use Timeular\UserProfile\Model\User;
 class UserTest extends TestCase
 {
     #[Test]
-    public function it_creates_user_from_array():void
+    public function it_creates_user_from_array(): void
     {
         $user = User::fromArray(
             [
@@ -26,7 +26,7 @@ class UserTest extends TestCase
                 'name' => 'my name',
                 'email' => 'my-name@example.com',
                 'role' => Role::Admin->value,
-            ]
+            ],
         );
 
         self::assertEquals('1', $user->id);

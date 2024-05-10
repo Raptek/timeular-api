@@ -14,8 +14,7 @@ readonly class Space
         public bool $default,
         public array $members,
         public array $retiredMembers,
-    ) {
-    }
+    ) {}
 
     public static function fromArray(array $data): self
     {
@@ -39,8 +38,8 @@ readonly class Space
             throw MissingArrayKeyException::forObjectAndKey('Space', 'retiredMembers');
         }
 
-        $members = array_map(static fn (array $memberData): User => User::fromArray($memberData), $data['members']);
-        $retiredMembers = array_map(static fn (array $memberData): RetiredUser => RetiredUser::fromArray($memberData), $data['retiredMembers']);
+        $members = array_map(static fn(array $memberData): User => User::fromArray($memberData), $data['members']);
+        $retiredMembers = array_map(static fn(array $memberData): RetiredUser => RetiredUser::fromArray($memberData), $data['retiredMembers']);
 
         return new self($data['id'], $data['name'], $data['default'], $members, $retiredMembers);
     }
@@ -51,8 +50,8 @@ readonly class Space
             'id' => $this->id,
             'name' => $this->name,
             'default' => $this->default,
-            'members' => array_map(static fn (User $user): array => $user->toArray(), $this->members),
-            'retiredMembers' => array_map(static fn (RetiredUser $retiredUser): array => $retiredUser->toArray(), $this->retiredMembers),
+            'members' => array_map(static fn(User $user): array => $user->toArray(), $this->members),
+            'retiredMembers' => array_map(static fn(RetiredUser $retiredUser): array => $retiredUser->toArray(), $this->retiredMembers),
         ];
     }
 }

@@ -18,7 +18,7 @@ use Timeular\TimeTracking\Model\Note;
 class ActivityTest extends TestCase
 {
     #[Test]
-    public function it_creates_activity_from_array():void
+    public function it_creates_activity_from_array(): void
     {
         $activity = Activity::fromArray(
             [
@@ -28,7 +28,7 @@ class ActivityTest extends TestCase
                 'integration' => 'zei',
                 'spaceId' => '1',
                 'deviceSide' => null,
-            ]
+            ],
         );
 
         self::assertEquals('1', $activity->id);
@@ -40,7 +40,7 @@ class ActivityTest extends TestCase
     }
 
     #[Test]
-    public function it_creates_activity_from_array_with_empty_device_side():void
+    public function it_creates_activity_from_array_with_empty_device_side(): void
     {
         $device = Activity::fromArray(
             [
@@ -50,7 +50,7 @@ class ActivityTest extends TestCase
                 'integration' => 'zei',
                 'spaceId' => '1',
                 'deviceSide' => null,
-            ]
+            ],
         );
 
         self::assertNull($device->deviceSide);
@@ -62,7 +62,7 @@ class ActivityTest extends TestCase
                 'color' => '#a1b2c3',
                 'integration' => 'zei',
                 'spaceId' => '1',
-            ]
+            ],
         );
 
         self::assertNull($device->deviceSide);

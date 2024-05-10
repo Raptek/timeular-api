@@ -21,8 +21,7 @@ readonly class ResponseHandler implements ResponseHandlerInterface
     public function __construct(
         private MediaTypeResolverInterface $mediaTypeResolver,
         private SerializerInterface $serializer,
-    ) {
-    }
+    ) {}
 
     public function handle(ResponseInterface $response): string|array
     {

@@ -11,8 +11,7 @@ readonly class ActivitiesApi
 {
     public function __construct(
         private HttpClient $httpClient,
-    ) {
-    }
+    ) {}
 
     /**
      * @see https://developers.timeular.com/#9ac8c381-7e91-4802-8f02-e6918493e902
@@ -25,9 +24,9 @@ readonly class ActivitiesApi
         );
 
         return [
-            'activities' => array_map(static fn (array $activity): Activity => Activity::fromArray($activity), $response['activities']),
-            'inactiveActivities' => array_map(static fn (array $activity): Activity => Activity::fromArray($activity), $response['inactiveActivities']),
-            'archivedActivities' => array_map(static fn (array $activity): Activity => Activity::fromArray($activity), $response['archivedActivities']),
+            'activities' => array_map(static fn(array $activity): Activity => Activity::fromArray($activity), $response['activities']),
+            'inactiveActivities' => array_map(static fn(array $activity): Activity => Activity::fromArray($activity), $response['inactiveActivities']),
+            'archivedActivities' => array_map(static fn(array $activity): Activity => Activity::fromArray($activity), $response['archivedActivities']),
         ];
     }
 
@@ -44,7 +43,7 @@ readonly class ActivitiesApi
                 'color' => $color,
                 'integration' => $integration,
                 'spaceId' => $spaceId,
-            ]
+            ],
         );
 
         return Activity::fromArray($response);
@@ -61,7 +60,7 @@ readonly class ActivitiesApi
             [
                 'name' => $name,
                 'color' => $color,
-            ]
+            ],
         );
 
         return Activity::fromArray($response);

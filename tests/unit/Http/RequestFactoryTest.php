@@ -48,6 +48,6 @@ class RequestFactoryTest extends TestCase
         self::assertEquals(sprintf('%s/%s', RequestFactory::BASE_URI, $uri), (string) $request->getUri());
         self::assertEquals('application/json', $request->getHeaderLine('Content-Type'));
         // @todo Find workaround, as this is not working :/
-//        self::assertEquals($this->serializer->serialize($payload, 'application/json'), $request->getBody()->getContents());
+        //        self::assertEquals($this->serializer->serialize($payload, 'application/json'), $request->getBody()->getContents());
     }
 }

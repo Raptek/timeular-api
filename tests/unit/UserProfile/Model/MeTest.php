@@ -17,7 +17,7 @@ use Timeular\UserProfile\Model\Me;
 class MeTest extends TestCase
 {
     #[Test]
-    public function it_creates_user_from_array():void
+    public function it_creates_user_from_array(): void
     {
         $user = Me::fromArray(
             [
@@ -25,7 +25,7 @@ class MeTest extends TestCase
                 'name' => 'my name',
                 'email' => 'my-name@example.com',
                 'defaultSpaceId' => '1',
-            ]
+            ],
         );
 
         self::assertEquals('1', $user->userId);
