@@ -31,10 +31,10 @@ class MediaTypeResolverTest extends TestCase
 
     public static function correctCases(): \Generator
     {
-        yield 'Request with "application/json" without charset' => [(new Request())->withHeader('Content-Type', 'application/json'), 'application/json'];
+        yield 'Request with "application/json" without parameter' => [(new Request())->withHeader('Content-Type', 'application/json'), 'application/json'];
         yield 'Request with "text/html" with single parameter' => [(new Request())->withHeader('Content-Type', 'text/html; charset=utf-8'), 'text/html'];
         yield 'Request with "multipart/form-data" with multiple parameters' => [(new Request())->withHeader('Content-Type', 'multipart/form-data; charset=utf-8; boundary=something'), 'multipart/form-data'];
-        yield 'Response with "application/json" without charset' => [(new Response())->withHeader('Content-Type', 'application/json'), 'application/json'];
+        yield 'Response with "application/json" without parameter' => [(new Response())->withHeader('Content-Type', 'application/json'), 'application/json'];
         yield 'Response with "text/html" with single parameter' => [(new Response())->withHeader('Content-Type', 'text/html; charset=utf-8'), 'text/html'];
         yield 'Response with "multipart/form-data" with multiple parameters' => [(new Response())->withHeader('Content-Type', 'multipart/form-data; charset=utf-8; boundary=something'), 'multipart/form-data'];
     }

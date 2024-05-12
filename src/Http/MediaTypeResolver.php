@@ -27,7 +27,7 @@ readonly class MediaTypeResolver implements MediaTypeResolverInterface
 
         $contentType = array_pop($contentTypes);
 
-        [$mediaType, ] = explode(';', $contentType, 2);
+        [$mediaType, ] = explode(';', $contentType);
 
         return $mediaType;
     }

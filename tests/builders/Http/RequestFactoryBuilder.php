@@ -8,11 +8,10 @@ use Http\Discovery\Psr17FactoryDiscovery;
 use Psr\Http\Message\RequestFactoryInterface as PsrRequestFactoryInterface;
 use Tests\Builders\Timeular\BuilderInterface;
 use Tests\Builders\Timeular\Http\Serializer\SerializerBuilder;
-use Timeular\Http\MediaTypeResolver;
-use Timeular\Http\MediaTypeResolverInterface;
 use Timeular\Http\RequestFactory;
 use Timeular\Http\RequestFactoryInterface;
 use Timeular\Http\Serializer\SerializerInterface;
+use Psr\Http\Message\StreamFactoryInterface as PsrStreamFactoryInterface;
 
 class RequestFactoryBuilder implements BuilderInterface
 {
@@ -32,9 +31,9 @@ class RequestFactoryBuilder implements BuilderInterface
         return $this;
     }
 
-    public function withMediaTypeResolver(MediaTypeResolverInterface $mediaTypeResolver): self
+    public function withPsrStreamFactory(PsrStreamFactoryInterface $streamFactory): self
     {
-        $this->dependencies['media-type-resolver'] = $mediaTypeResolver;
+        $this->dependencies['psr-stream-factory'] = $streamFactory;
 
         return $this;
     }
@@ -42,7 +41,7 @@ class RequestFactoryBuilder implements BuilderInterface
     private function defaults(): void
     {
         $this->dependencies['psr-request-factory'] ??= Psr17FactoryDiscovery::findRequestFactory();
-        $this->dependencies['media-type-resolver'] ??= new MediaTypeResolver();
+        $this->dependencies['psr-stream-factory'] ??= Psr17FactoryDiscovery::findStreamFactory();
         $this->dependencies['serializer'] ??= (new SerializerBuilder())->build();
     }
 
@@ -52,7 +51,7 @@ class RequestFactoryBuilder implements BuilderInterface
 
         return new RequestFactory(
             $this->dependencies['psr-request-factory'],
-            $this->dependencies['media-type-resolver'],
+            $this->dependencies['psr-stream-factory'],
             $this->dependencies['serializer'],
         );
     }
