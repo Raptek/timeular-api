@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Timeular\Factory;
+namespace Timeular\Http\Factory;
 
 use Timeular\Http\ResponseHandlerInterface;
 

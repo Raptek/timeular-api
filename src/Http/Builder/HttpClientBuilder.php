@@ -2,12 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Tests\Builders\Timeular\Http;
+namespace Timeular\Http\Builder;
 
 use Http\Discovery\Psr18ClientDiscovery;
 use Psr\Http\Client\ClientInterface;
-use Tests\Builders\Timeular\BuilderInterface;
-use Tests\Builders\Timeular\Http\Serializer\SerializerBuilder;
+use Timeular\Http\Builder\Serializer\SerializerBuilder;
 use Timeular\Http\HttpClient;
 use Timeular\Http\HttpClientInterface;
 use Timeular\Http\MediaTypeResolver;

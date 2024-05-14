@@ -2,16 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Tests\Builders\Timeular\Http;
+namespace Timeular\Http\Builder;
 
 use Http\Discovery\Psr17FactoryDiscovery;
 use Psr\Http\Message\RequestFactoryInterface as PsrRequestFactoryInterface;
-use Tests\Builders\Timeular\BuilderInterface;
-use Tests\Builders\Timeular\Http\Serializer\SerializerBuilder;
+use Psr\Http\Message\StreamFactoryInterface as PsrStreamFactoryInterface;
+use Timeular\Http\Builder\Serializer\SerializerBuilder;
 use Timeular\Http\RequestFactory;
 use Timeular\Http\RequestFactoryInterface;
 use Timeular\Http\Serializer\SerializerInterface;
-use Psr\Http\Message\StreamFactoryInterface as PsrStreamFactoryInterface;
 
 class RequestFactoryBuilder implements BuilderInterface
 {

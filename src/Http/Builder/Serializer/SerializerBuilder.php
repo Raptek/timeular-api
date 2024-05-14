@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Tests\Builders\Timeular\Http\Serializer;
+namespace Timeular\Http\Builder\Serializer;
 
-use Tests\Builders\Timeular\BuilderInterface;
+use Timeular\Http\Builder\BuilderInterface;
 use Timeular\Http\Serializer\EncoderInterface;
 use Timeular\Http\Serializer\JsonEncoder;
 use Timeular\Http\Serializer\PassthroughEncoder;

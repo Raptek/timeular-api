@@ -12,8 +12,9 @@ use Psr\Http\Client\ClientInterface as PsrClientInterface;
 use PsrMock\Psr18\Client;
 use PsrMock\Psr7\Response;
 use PsrMock\Psr7\Stream;
-use Tests\Builders\Timeular\Http\HttpClientBuilder;
-use Tests\Builders\Timeular\Http\RequestFactoryBuilder;
+use Timeular\Http\Builder\HttpClientBuilder;
+use Timeular\Http\Builder\RequestFactoryBuilder;
+use Timeular\Http\Builder\Serializer\SerializerBuilder;
 use Timeular\Http\HttpClient;
 use Timeular\Http\HttpClientInterface;
 use Timeular\Http\MediaTypeResolver;
@@ -29,6 +30,9 @@ use Timeular\Http\Serializer\Serializer;
 #[UsesClass(ResponseHandler::class)]
 #[UsesClass(JsonEncoder::class)]
 #[UsesClass(Serializer::class)]
+#[UsesClass(HttpClientBuilder::class)]
+#[UsesClass(RequestFactoryBuilder::class)]
+#[UsesClass(SerializerBuilder::class)]
 class HttpClientTest extends TestCase
 {
     private HttpClientInterface $httpClient;

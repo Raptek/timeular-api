@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\Builders\Timeular;
+namespace Timeular\Http\Builder;
 
 interface BuilderInterface
 {

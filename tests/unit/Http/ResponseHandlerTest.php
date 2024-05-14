@@ -11,7 +11,7 @@ use PHPUnit\Framework\Attributes\UsesClass;
 use PHPUnit\Framework\TestCase;
 use PsrMock\Psr7\Response;
 use PsrMock\Psr7\Stream;
-use Tests\Builders\Timeular\Http\Serializer\SerializerBuilder;
+use Timeular\Http\Builder\Serializer\SerializerBuilder;
 use Timeular\Http\Exception\AccessDeniedException;
 use Timeular\Http\Exception\BadRequestException;
 use Timeular\Http\Exception\HttpException;
@@ -41,6 +41,7 @@ use Timeular\Http\Serializer\Serializer;
 #[UsesClass(HttpException::class)]
 #[UsesClass(Serializer::class)]
 #[UsesClass(JsonEncoder::class)]
+#[UsesClass(SerializerBuilder::class)]
 class ResponseHandlerTest extends TestCase
 {
     private ResponseHandlerInterface $responseHandler;

@@ -9,8 +9,8 @@ use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\Attributes\UsesClass;
 use PHPUnit\Framework\TestCase;
-use Tests\Builders\Timeular\Http\RequestFactoryBuilder;
-use Tests\Builders\Timeular\Http\Serializer\SerializerBuilder;
+use Timeular\Http\Builder\RequestFactoryBuilder;
+use Timeular\Http\Builder\Serializer\SerializerBuilder;
 use Timeular\Http\MediaTypeResolver;
 use Timeular\Http\RequestFactory;
 use Timeular\Http\RequestFactoryInterface;
@@ -22,16 +22,12 @@ use Timeular\Http\Serializer\SerializerInterface;
 #[UsesClass(MediaTypeResolver::class)]
 #[UsesClass(JsonEncoder::class)]
 #[UsesClass(Serializer::class)]
+#[UsesClass(RequestFactoryBuilder::class)]
+#[UsesClass(SerializerBuilder::class)]
 class RequestFactoryTest extends TestCase
 {
     private RequestFactoryInterface $requestFactory;
     private SerializerInterface $serializer;
-
-    protected function setUp(): void
-    {
-        $this->requestFactory = (new RequestFactoryBuilder())->build();
-        $this->serializer = (new SerializerBuilder())->build();
-    }
 
     public static function prepareRequest(): \Generator
     {
@@ -53,8 +49,14 @@ class RequestFactoryTest extends TestCase
         $request = $this->requestFactory->create($method, $uri, $payload);
 
         self::assertEquals($method, $request->getMethod());
-        self::assertEquals(sprintf('%s/%s', RequestFactory::BASE_URI, $uri), (string)$request->getUri());
+        self::assertEquals(sprintf('%s/%s', RequestFactory::BASE_URI, $uri), (string) $request->getUri());
         self::assertEquals('application/json', $request->getHeaderLine('Content-Type'));
         self::assertEquals($this->serializer->serialize($payload, 'application/json'), $request->getBody()->getContents());
+    }
+
+    protected function setUp(): void
+    {
+        $this->requestFactory = (new RequestFactoryBuilder())->build();
+        $this->serializer = (new SerializerBuilder())->build();
     }
 }

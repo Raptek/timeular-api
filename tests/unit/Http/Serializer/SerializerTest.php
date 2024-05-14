@@ -9,7 +9,7 @@ use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\Attributes\UsesClass;
 use PHPUnit\Framework\TestCase;
-use Tests\Builders\Timeular\Http\Serializer\SerializerBuilder;
+use Timeular\Http\Builder\Serializer\SerializerBuilder;
 use Timeular\Http\Serializer\DeserializeException;
 use Timeular\Http\Serializer\JsonEncoder;
 use Timeular\Http\Serializer\MissingEncoderException;
@@ -23,6 +23,7 @@ use Timeular\Http\Serializer\Serializer;
 #[UsesClass(SerializeException::class)]
 #[UsesClass(DeserializeException::class)]
 #[UsesClass(MissingEncoderException::class)]
+#[UsesClass(SerializerBuilder::class)]
 class SerializerTest extends TestCase
 {
     private Serializer $serializer;

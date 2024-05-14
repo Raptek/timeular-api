@@ -12,7 +12,9 @@ use Psr\Http\Client\ClientInterface;
 use PsrMock\Psr18\Client;
 use PsrMock\Psr7\Response;
 use PsrMock\Psr7\Stream;
-use Tests\Builders\Timeular\Http\HttpClientBuilder;
+use Timeular\Http\Builder\HttpClientBuilder;
+use Timeular\Http\Builder\RequestFactoryBuilder;
+use Timeular\Http\Builder\Serializer\SerializerBuilder;
 use Timeular\Http\HttpClient;
 use Timeular\Http\MediaTypeResolver;
 use Timeular\Http\RequestFactory;
@@ -30,6 +32,9 @@ use Timeular\Webhooks\Model\Event;
 #[UsesClass(ResponseHandler::class)]
 #[UsesClass(JsonEncoder::class)]
 #[UsesClass(Serializer::class)]
+#[UsesClass(HttpClientBuilder::class)]
+#[UsesClass(RequestFactoryBuilder::class)]
+#[UsesClass(SerializerBuilder::class)]
 class WebhooksApiTest extends TestCase
 {
     private WebhooksApi $api;
