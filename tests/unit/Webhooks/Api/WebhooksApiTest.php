@@ -24,6 +24,7 @@ use Timeular\Http\Serializer\JsonEncoder;
 use Timeular\Http\Serializer\Serializer;
 use Timeular\Webhooks\Api\WebhooksApi;
 use Timeular\Webhooks\Model\Event;
+use Timeular\Webhooks\Model\Subscription;
 
 #[CoversClass(WebhooksApi::class)]
 #[UsesClass(HttpClient::class)]
@@ -35,6 +36,7 @@ use Timeular\Webhooks\Model\Event;
 #[UsesClass(HttpClientBuilder::class)]
 #[UsesClass(RequestFactoryBuilder::class)]
 #[UsesClass(SerializerBuilder::class)]
+#[UsesClass(Subscription::class)]
 class WebhooksApiTest extends TestCase
 {
     private WebhooksApi $api;
@@ -79,5 +81,34 @@ BODY,
 
         self::assertIsArray($events);
         self::assertContainsOnlyInstancesOf(Event::class, $events);
+    }
+
+    #[Test]
+    public function it_subscribes(): void
+    {
+        $authorizationResponse = (new Response(200))
+            ->withHeader('Content-Type', 'application/json')
+            ->withBody(new Stream(json_encode(['token' => 'token'])))
+        ;
+        $this->client->addResponse('POST', RequestFactoryInterface::BASE_URI . '/developer/sign-in', $authorizationResponse);
+
+        $response = (new Response(200))
+            ->withHeader('Content-Type', 'application/json')
+            ->withBody(new Stream(
+                <<<BODY
+{
+  "id": "123456"
+}
+BODY,
+            ))
+        ;
+        $this->client->addResponse('POST', RequestFactoryInterface::BASE_URI . '/webhooks/subscription', $response);
+
+        $subscription = $this->api->subscribe('trackingStarted', 'https://example.org/some-endpoint');
+
+        self::assertInstanceOf(Subscription::class, $subscription);
+        self::assertSame('123456', $subscription->id);
+        self::assertSame(Event::from('trackingStarted'), $subscription->event);
+        self::assertSame('https://example.org/some-endpoint', $subscription->targetUrl);
     }
 }
