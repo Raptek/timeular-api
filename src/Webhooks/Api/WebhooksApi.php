@@ -71,7 +71,7 @@ readonly class WebhooksApi
             'webhooks/subscription',
         );
 
-        return array_map(static fn(string $subscription): Subscription => Subscription::fromArray($subscription), $response['subscriptions']);
+        return array_map(static fn(array $subscription): Subscription => Subscription::fromArray($subscription), $response['subscriptions']);
     }
 
     /**
