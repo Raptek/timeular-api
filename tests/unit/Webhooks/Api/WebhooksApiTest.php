@@ -112,30 +112,6 @@ BODY
         self::assertSame('https://example.org/some-endpoint', $subscription->targetUrl);
     }
 
-//    #[Test]
-//    public function it_unsubscribes(): void
-//    {
-//        $authorizationResponse = (new Response(200))
-//            ->withHeader('Content-Type', 'application/json')
-//            ->withBody(new Stream(json_encode(['token' => 'token'])))
-//        ;
-//        $this->client->addResponse('POST', RequestFactoryInterface::BASE_URI . '/developer/sign-in', $authorizationResponse);
-//
-//        $response = (new Response(200))
-//            ->withHeader('Content-Type', 'application/json')
-//            ->withBody(new Stream(
-//                <<<BODY
-//{
-//  "id": "123456"
-//}
-//BODY
-//            ))
-//        ;
-//        $this->client->addResponse('DELETE', RequestFactoryInterface::BASE_URI . '/webhooks/subscription/123456', $response);
-//
-//        $this->api->unsubscribe('123456');
-//    }
-
     #[Test]
     public function it_lists_subscriptions(): void
     {
@@ -168,22 +144,4 @@ BODY
         self::assertContainsOnlyInstancesOf(Subscription::class, $subscriptions);
         self::assertCount(1, $subscriptions);
     }
-
-//    #[Test]
-//    public function it_unsubscribe_all_for_user(): void
-//    {
-//        $authorizationResponse = (new Response(200))
-//            ->withHeader('Content-Type', 'application/json')
-//            ->withBody(new Stream(json_encode(['token' => 'token'])))
-//        ;
-//        $this->client->addResponse('POST', RequestFactoryInterface::BASE_URI . '/developer/sign-in', $authorizationResponse);
-//
-//        $response = (new Response(200))
-//            ->withHeader('Content-Type', 'application/json')
-//            ->withBody(new Stream(json_encode([])))
-//        ;
-//        $this->client->addResponse('DELETE', RequestFactoryInterface::BASE_URI . '/webhooks/subscription', $response);
-//
-//        $this->api->unsubscribeAllForUser();
-//    }
 }
