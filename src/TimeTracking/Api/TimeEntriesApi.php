@@ -83,11 +83,9 @@ readonly class TimeEntriesApi
      */
     public function delete(string $id): array
     {
-        $response = $this->httpClient->request(
+        return $this->httpClient->request(
             'DELETE',
             sprintf('time-entries/%s', $id),
         );
-
-        return $response;
     }
 }

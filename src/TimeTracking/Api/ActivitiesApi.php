@@ -71,12 +71,10 @@ readonly class ActivitiesApi
      */
     public function archive(string $id): array
     {
-        $response = $this->httpClient->request(
+        return $this->httpClient->request(
             'DELETE',
             sprintf('activities/%s', $id),
         );
-
-        return $response;
     }
 
     /**

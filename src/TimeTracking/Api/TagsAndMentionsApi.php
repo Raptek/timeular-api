@@ -77,12 +77,10 @@ readonly class TagsAndMentionsApi
     public function deleteTag(
         string $id,
     ): array {
-        $response = $this->httpClient->request(
+        return $this->httpClient->request(
             'PATCH',
             sprintf('tags/%s', $id),
         );
-
-        return $response;
     }
 
     /**
@@ -132,11 +130,9 @@ readonly class TagsAndMentionsApi
     public function deleteMention(
         string $id,
     ): array {
-        $response = $this->httpClient->request(
+        return $this->httpClient->request(
             'PATCH',
             sprintf('mentions/%s', $id),
         );
-
-        return $response;
     }
 }

@@ -41,11 +41,9 @@ readonly class ReportsApi
 
         $query = http_build_query(array_filter($queryData));
 
-        $response = $this->httpClient->request(
+        return $this->httpClient->request(
             'GET',
             sprintf('report/%s/%s?%s', $startedAt->format(Duration::FORMAT), $stoppedAt->format(Duration::FORMAT), $query),
         );
-
-        return $response;
     }
 }
