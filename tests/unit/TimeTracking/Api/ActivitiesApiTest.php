@@ -59,7 +59,7 @@ class ActivitiesApiTest extends TestCase
         $response = (new Response(200))
             ->withHeader('Content-Type', 'application/json')
             ->withBody(new Stream(
-                           <<<BODY
+                <<<BODY
 {
   "activities": [
     {
@@ -90,8 +90,8 @@ class ActivitiesApiTest extends TestCase
     }
   ]
 }
-BODY
-                       ))
+BODY,
+            ))
         ;
         $this->client->addResponse('GET', RequestFactoryInterface::BASE_URI . '/activities', $response);
 
@@ -118,7 +118,7 @@ BODY
         $response = (new Response(200))
             ->withHeader('Content-Type', 'application/json')
             ->withBody(new Stream(
-                           <<<BODY
+                <<<BODY
 {
   "id": "1",
   "name": "sleeping",
@@ -127,8 +127,8 @@ BODY
   "spaceId": "1",
   "deviceSide": null
 }
-BODY
-                       ))
+BODY,
+            ))
         ;
         $this->client->addResponse('POST', RequestFactoryInterface::BASE_URI . '/activities', $response);
 
@@ -149,7 +149,7 @@ BODY
         $response = (new Response(200))
             ->withHeader('Content-Type', 'application/json')
             ->withBody(new Stream(
-                           <<<BODY
+                <<<BODY
 {
   "id": "1",
   "name": "deeper sleeping",
@@ -157,8 +157,8 @@ BODY
   "integration": "zei",
   "spaceId": "1"
 }
-BODY
-                       ))
+BODY,
+            ))
         ;
         $this->client->addResponse('PATCH', RequestFactoryInterface::BASE_URI . '/activities/1', $response);
 
@@ -179,14 +179,14 @@ BODY
         $response = (new Response(200))
             ->withHeader('Content-Type', 'application/json')
             ->withBody(new Stream(
-                           <<<BODY
+                <<<BODY
 {
   "errors": [
     "Any error which can be ignored and did not prevented action to be performed successfully."
   ]
 }
-BODY
-                       ))
+BODY,
+            ))
         ;
         $this->client->addResponse('DELETE', RequestFactoryInterface::BASE_URI . '/activities/1', $response);
 
@@ -207,7 +207,7 @@ BODY
         $response = (new Response(200))
             ->withHeader('Content-Type', 'application/json')
             ->withBody(new Stream(
-                           <<<BODY
+                <<<BODY
 {
   "id": "123",
   "name": "sleeping",
@@ -216,8 +216,8 @@ BODY
   "deviceSide": 4,
   "spaceId": "1"
 }
-BODY
-                       ))
+BODY,
+            ))
         ;
         $this->client->addResponse('POST', RequestFactoryInterface::BASE_URI . '/activities/123/device-side/4', $response);
 
@@ -238,7 +238,7 @@ BODY
         $response = (new Response(200))
             ->withHeader('Content-Type', 'application/json')
             ->withBody(new Stream(
-                           <<<BODY
+                <<<BODY
 {
   "id": "123",
   "name": "sleeping",
@@ -247,8 +247,8 @@ BODY
   "deviceSide": null,
   "spaceId": "1"
 }
-BODY
-                       ))
+BODY,
+            ))
         ;
         $this->client->addResponse('DELETE', RequestFactoryInterface::BASE_URI . '/activities/123/device-side/4', $response);
 

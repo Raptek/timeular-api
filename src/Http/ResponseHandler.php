@@ -7,6 +7,7 @@ namespace Timeular\Http;
 use Psr\Http\Message\ResponseInterface;
 use Timeular\Http\Exception\AccessDeniedException;
 use Timeular\Http\Exception\BadRequestException;
+use Timeular\Http\Exception\ConflictException;
 use Timeular\Http\Exception\HttpException;
 use Timeular\Http\Exception\MissingContentTypeHeaderException;
 use Timeular\Http\Exception\MultipleContentTypeValuesException;
@@ -50,6 +51,7 @@ readonly class ResponseHandler implements ResponseHandlerInterface
                 400 => BadRequestException::withMessage($data['message']),
                 403 => AccessDeniedException::withMessage($data['message']),
                 404 => NotFoundException::withMessage($data['message']),
+                409 => ConflictException::withMessage($data['message']),
                 default => HttpException::create($data['message'], $statusCode),
             };
         }

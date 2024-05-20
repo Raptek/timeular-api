@@ -72,7 +72,7 @@ class WebhooksApiTest extends TestCase
     "trackingCanceled"
   ]
 }
-BODY
+BODY,
             ))
         ;
         $this->client->addResponse('GET', RequestFactoryInterface::BASE_URI . '/webhooks/event', $response);
@@ -99,7 +99,7 @@ BODY
 {
   "id": "123456"
 }
-BODY
+BODY,
             ))
         ;
         $this->client->addResponse('POST', RequestFactoryInterface::BASE_URI . '/webhooks/subscription', $response);
@@ -134,7 +134,7 @@ BODY
     }
   ]
 }
-BODY
+BODY,
             ))
         ;
         $this->client->addResponse('GET', RequestFactoryInterface::BASE_URI . '/webhooks/subscription', $response);

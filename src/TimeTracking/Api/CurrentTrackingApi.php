@@ -47,7 +47,7 @@ readonly class CurrentTrackingApi
     /**
      * @see https://developers.timeular.com/#52af0d09-fdd8-4095-81bd-d3319cda2c22
      */
-    public function edit(string $activityId, \DateTimeInterface|null $startedAt, string|null $note): ActiveTimeEntry
+    public function edit(string $activityId, \DateTimeInterface|null $startedAt = null, string|null $note = null): ActiveTimeEntry
     {
         $payload = [
             'note' => $note ? ['text' => $note] : null,

@@ -63,7 +63,7 @@ class SpaceApiTest extends TestCase
         $response = (new Response(200))
             ->withHeader('Content-Type', 'application/json')
             ->withBody(new Stream(
-                           <<<BODY
+                <<<BODY
 {
     "data": [
         {
@@ -129,8 +129,8 @@ class SpaceApiTest extends TestCase
         }
     ]
 }
-BODY
-                       ))
+BODY,
+            ))
         ;
         $this->client->addResponse('GET', RequestFactoryInterface::BASE_URI . '/space', $response);
 

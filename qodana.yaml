@@ -7,6 +7,7 @@ exclude:
   - name: All
     paths:
       - examples
+  - name: PhpFullyQualifiedNameUsageInspection
 
 php:
   version: 8.3

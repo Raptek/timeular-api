@@ -59,7 +59,7 @@ class UserApiTest extends TestCase
         $response = (new Response(200))
             ->withHeader('Content-Type', 'application/json')
             ->withBody(new Stream(
-                           <<<BODY
+                <<<BODY
 {
   "data": {
     "userId": "1",
@@ -68,8 +68,8 @@ class UserApiTest extends TestCase
     "defaultSpaceId": "1"
   }
 }
-BODY
-                       ))
+BODY,
+            ))
         ;
         $this->client->addResponse('GET', RequestFactoryInterface::BASE_URI . '/me', $response);
 

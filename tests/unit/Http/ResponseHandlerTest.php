@@ -14,6 +14,7 @@ use PsrMock\Psr7\Stream;
 use Timeular\Http\Builder\Serializer\SerializerBuilder;
 use Timeular\Http\Exception\AccessDeniedException;
 use Timeular\Http\Exception\BadRequestException;
+use Timeular\Http\Exception\ConflictException;
 use Timeular\Http\Exception\HttpException;
 use Timeular\Http\Exception\MissingContentTypeHeaderException;
 use Timeular\Http\Exception\MultipleContentTypeValuesException;
@@ -30,9 +31,10 @@ use Timeular\Http\Serializer\Serializer;
 #[CoversClass(ResponseHandler::class)]
 #[UsesClass(HttpException::class)]
 #[UsesClass(BadRequestException::class)]
-#[UsesClass(UnauthorizedException::class)]
 #[UsesClass(AccessDeniedException::class)]
 #[UsesClass(NotFoundException::class)]
+#[UsesClass(ConflictException::class)]
+#[UsesClass(UnauthorizedException::class)]
 #[UsesClass(UnsupportedMediaTypeException::class)]
 #[UsesClass(MissingContentTypeHeaderException::class)]
 #[UsesClass(MultipleContentTypeValuesException::class)]
@@ -56,6 +58,7 @@ class ResponseHandlerTest extends TestCase
         yield '"400" for "BadRequestException"' => [400, BadRequestException::class];
         yield '"403" for "AccessDeniedException"' => [403, AccessDeniedException::class];
         yield '"404" for "NotFoundException"' => [404, NotFoundException::class];
+        yield '"409" for "ConflictException"' => [409, ConflictException::class];
 
         $statusCode = rand(500, 599);
         yield sprintf('"%s" for "HttpException"', $statusCode) => [$statusCode, HttpException::class];
