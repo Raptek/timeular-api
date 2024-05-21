@@ -30,10 +30,10 @@ readonly class ReportsApi
     /**
      * @see https://developers.timeular.com/#f9bed9f5-6fbe-4062-9881-76b117430eb2
      */
-    public function generateReport(\DateTimeInterface $startedAt, \DateTimeInterface $stoppedAt, string $timezone, string|null $activityId = null, string|null $noteQuery = null, string|null $fileType = 'csv'): string
+    public function generateReport(\DateTimeInterface $startedAt, \DateTimeInterface $stoppedAt, \DateTimeZone $timezone, string|null $activityId = null, string|null $noteQuery = null, string|null $fileType = 'csv'): string
     {
         $queryData = [
-            'timezone' => $timezone,
+            'timezone' => $timezone->getName(),
             'activityId' => $activityId,
             'noteQuery' => $noteQuery,
             'fileType' => $fileType,
