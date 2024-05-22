@@ -8,8 +8,8 @@ use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\Attributes\UsesClass;
 use PHPUnit\Framework\TestCase;
-use Psr\Http\Client\ClientInterface as PsrClientInterface;
 use PsrMock\Psr18\Client;
+use PsrMock\Psr18\Contracts\ClientContract;
 use PsrMock\Psr7\Response;
 use PsrMock\Psr7\Stream;
 use Timeular\Http\Builder\HttpClientBuilder;
@@ -36,17 +36,17 @@ use Timeular\Http\Serializer\Serializer;
 class HttpClientTest extends TestCase
 {
     private HttpClientInterface $httpClient;
-    private PsrClientInterface $psrClient;
+    private ClientContract $client;
     private RequestFactoryInterface $requestFactory;
 
     protected function setUp(): void
     {
-        $this->psrClient = new Client();
+        $this->client = new Client();
         $this->requestFactory = (new RequestFactoryBuilder())->build();
         $this->httpClient = (new HttpClientBuilder())
             ->withApiKey('test')
             ->withApiSecret('test')
-            ->withPsrClient($this->psrClient)
+            ->withPsrClient($this->client)
             ->withRequestFactory($this->requestFactory)
             ->build()
         ;
@@ -59,13 +59,13 @@ class HttpClientTest extends TestCase
             ->withHeader('Content-Type', 'application/json')
             ->withBody(new Stream(json_encode(['token' => 'token'])))
         ;
-        $this->psrClient->addResponse('POST', RequestFactoryInterface::BASE_URI . '/developer/sign-in', $authorizationResponse);
+        $this->client->addResponse('POST', RequestFactoryInterface::BASE_URI . '/developer/sign-in', $authorizationResponse);
 
         $response = (new Response(200))
             ->withHeader('Content-Type', 'application/json')
             ->withBody(new Stream(json_encode([])))
         ;
-        $this->psrClient->addResponse('GET', RequestFactoryInterface::BASE_URI . '/test/endpoint', $response);
+        $this->client->addResponse('GET', RequestFactoryInterface::BASE_URI . '/test/endpoint', $response);
 
         $data = $this->httpClient->request('GET', 'test/endpoint');
 

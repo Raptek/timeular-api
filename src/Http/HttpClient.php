@@ -19,7 +19,7 @@ readonly class HttpClient implements HttpClientInterface
 
     public function request(string $method, string $uri, array $payload = []): string|array
     {
-        $request = $this->requestFactory->create($method, $uri, $payload);
+        $request = $this->requestFactory->create($method, $uri);
         $request = $this->handleAuthorization($request);
         $response = $this->httpClient->sendRequest($request);
 

@@ -6,7 +6,7 @@ namespace Timeular\Http\Exception;
 
 class HttpException extends \DomainException
 {
-    private function __construct(string $message, int $code, \Throwable|null $previous = null)
+    final private function __construct(string $message, int $code, \Throwable|null $previous = null)
     {
         parent::__construct($message, $code, $previous);
     }

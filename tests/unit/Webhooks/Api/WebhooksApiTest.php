@@ -8,8 +8,8 @@ use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\Attributes\UsesClass;
 use PHPUnit\Framework\TestCase;
-use Psr\Http\Client\ClientInterface;
 use PsrMock\Psr18\Client;
+use PsrMock\Psr18\Contracts\ClientContract;
 use PsrMock\Psr7\Response;
 use PsrMock\Psr7\Stream;
 use Timeular\Http\Builder\HttpClientBuilder;
@@ -40,7 +40,7 @@ use Timeular\Webhooks\Model\Subscription;
 class WebhooksApiTest extends TestCase
 {
     private WebhooksApi $api;
-    private ClientInterface $client;
+    private ClientContract $client;
 
     protected function setUp(): void
     {

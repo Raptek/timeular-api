@@ -16,6 +16,7 @@ use Timeular\Http\Serializer\MissingEncoderException;
 use Timeular\Http\Serializer\PassthroughEncoder;
 use Timeular\Http\Serializer\SerializeException;
 use Timeular\Http\Serializer\Serializer;
+use Timeular\Http\Serializer\SerializerInterface;
 
 #[CoversClass(Serializer::class)]
 #[UsesClass(JsonEncoder::class)]
@@ -26,7 +27,7 @@ use Timeular\Http\Serializer\Serializer;
 #[UsesClass(SerializerBuilder::class)]
 class SerializerTest extends TestCase
 {
-    private Serializer $serializer;
+    private SerializerInterface $serializer;
 
     protected function setUp(): void
     {

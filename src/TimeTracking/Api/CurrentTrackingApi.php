@@ -50,7 +50,7 @@ readonly class CurrentTrackingApi
     public function edit(string $activityId, \DateTimeInterface|null $startedAt = null, string|null $note = null): ActiveTimeEntry
     {
         $payload = [
-            'note' => $note ? ['text' => $note] : null,
+            'note' => null !== $note ? ['text' => $note] : null,
             'activity' => $activityId,
         ];
 

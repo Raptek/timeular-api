@@ -39,7 +39,7 @@ readonly class TimeEntriesApi
                 'activityId' => $activityId,
                 'startedAt' => $startedAt->format(Duration::FORMAT),
                 'stoppedAt' => $stoppedAt->format(Duration::FORMAT),
-                'note' => $note ? ['text' => $note] : null,
+                'note' => null !== $note ? ['text' => $note] : null,
             ],
         );
 
@@ -71,7 +71,7 @@ readonly class TimeEntriesApi
                 'activityId' => $activityId,
                 'startedAt' => $startedAt->format(Duration::FORMAT),
                 'stoppedAt' => $stoppedAt->format(Duration::FORMAT),
-                'note' => $note ? ['text' => $note] : null,
+                'note' => null !== $note ? ['text' => $note] : null,
             ],
         );
 
