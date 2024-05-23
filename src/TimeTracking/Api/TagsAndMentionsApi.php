@@ -78,7 +78,7 @@ readonly class TagsAndMentionsApi
         string $id,
     ): array {
         return $this->httpClient->request(
-            'PATCH',
+            'DELETE',
             sprintf('tags/%s', $id),
         );
     }
@@ -131,7 +131,7 @@ readonly class TagsAndMentionsApi
         string $id,
     ): array {
         return $this->httpClient->request(
-            'PATCH',
+            'DELETE',
             sprintf('mentions/%s', $id),
         );
     }
