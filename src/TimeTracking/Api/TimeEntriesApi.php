@@ -24,7 +24,7 @@ readonly class TimeEntriesApi
             sprintf('time-entries/%s/%s', $startedAt->format(Duration::FORMAT), $stoppedAt->format(Duration::FORMAT)),
         );
 
-        return $response['timeEntries'];
+        return array_map(static fn(array $timeEntry): TimeEntry => TimeEntry::fromArray($timeEntry), $response['timeEntries']);
     }
 
     /**
