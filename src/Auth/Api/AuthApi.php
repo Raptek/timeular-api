@@ -32,6 +32,30 @@ readonly class AuthApi
     }
 
     /**
+     * @see https://developers.timeular.com/#2cc9aa7c-c235-4b2d-a1b5-7587167bd542
+     */
+    public function fetchApiKey(): string
+    {
+        $response = $this->httpClient->request(
+            'GET',
+            'developer/api-access',
+        );
+
+        return $response['apiKey'];
+    }
+
+    /**
+     * @see https://developers.timeular.com/#e1db0328-fad2-4679-82c6-c16a89130fce
+     */
+    public function regenerateKeyPair(): array
+    {
+        return $this->httpClient->request(
+            'POST',
+            'developer/api-access',
+        );
+    }
+
+    /**
      * @see https://developers.timeular.com/#b2a18382-8f61-4222-bb5d-fa58c2c260a9
      */
     public function logout(): void

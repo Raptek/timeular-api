@@ -54,7 +54,10 @@
         "sort-packages": true
     },
     "scripts": {
-        "mutation-tests": "vendor/bin/infection --threads=4 --show-mutations",
-        "unit-tests": "vendor/bin/phpunit"
+        "tests:unit": "vendor/bin/phpunit",
+        "tests:mutation": "vendor/bin/infection --threads=4 --show-mutations",
+        "cs:check": "vendor/bin/php-cs-fixer fix --dry-run --diff --ansi",
+        "cs:fix": "vendor/bin/php-cs-fixer fix --diff --ansi",
+        "qa:phpstan": "vendor/bin/phpstan analyse --ansi"
     }
 }

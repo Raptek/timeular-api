@@ -11,10 +11,10 @@ permissions:
     contents: read
 
 jobs:
-    test:
+    unit:
         runs-on: ubuntu-latest
 
-        name: Unit + Mutation
+        name: Unit
 
         steps:
             - uses: actions/checkout@v4
@@ -42,7 +42,36 @@ jobs:
               run: composer update --no-progress --no-suggest --prefer-dist --optimize-autoloader
 
             - name: Run unit tests
-              run: composer run-script unit-tests
+              run: composer run-script tests:unit
+    mutation:
+        runs-on: ubuntu-latest
+
+        name: Mutation
+
+        steps:
+            - uses: actions/checkout@v4
+
+            - uses: shivammathur/setup-php@v2
+              with:
+                  php-version: 8.3
+                  extensions: xdebug
+                  coverage: xdebug
+
+            - name: Get composer cache directory
+              id: composer-cache
+              run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
+
+            - name: Cache composer dependencies
+              uses: actions/cache@v4
+              with:
+                  path: ${{ steps.composer-cache.outputs.dir }}
+                  key: "${{ runner.os }}-composer-${{ hashFiles('composer.json') }}"
+                  restore-keys: |
+                      "${{ runner.os }}-composer-${{ hashFiles('composer.json') }}-"
+                      "${{ runner.os }}-composer-"
+
+            - name: Install dependencies
+              run: composer update --no-progress --no-suggest --prefer-dist --optimize-autoloader
 
             - name: Run mutation tests
-              run: composer run-script mutation-tests
+              run: composer run-script tests:mutation

@@ -14,6 +14,7 @@
          displayDetailsOnTestsThatTriggerErrors="true"
          displayDetailsOnTestsThatTriggerNotices="true"
          displayDetailsOnTestsThatTriggerWarnings="true"
+         testdox="true"
 >
   <php>
     <env name="API_KEY" value="test" force="true" />

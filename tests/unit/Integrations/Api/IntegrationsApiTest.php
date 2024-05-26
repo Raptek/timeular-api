@@ -57,7 +57,7 @@ class IntegrationsApiTest extends TestCase
         $response = (new Response(200))
             ->withHeader('Content-Type', 'application/json')
             ->withBody(new Stream(
-                           <<<BODY
+                <<<BODY
 {
   "integrations": [
     "jira",
@@ -66,7 +66,7 @@ class IntegrationsApiTest extends TestCase
   ]
 }
 BODY,
-                       ))
+            ))
         ;
         $this->client->addResponse('GET', RequestFactoryInterface::BASE_URI . '/integrations', $response);
 
