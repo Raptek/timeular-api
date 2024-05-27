@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Timeular;
 
+use Timeular\Http\HttpClientInterface;
 use Timeular\TimeTracking\Model\ActiveTimeEntry;
 use Timeular\TimeTracking\Model\Activity;
 use Timeular\TimeTracking\Model\Device;
@@ -15,18 +16,31 @@ use Timeular\Webhooks\Model\Subscription;
 
 readonly class Timeular
 {
+    protected UserProfile\Api\UserApi $user;
+    protected UserProfile\Api\SpaceApi $space;
+    protected TimeTracking\Api\DevicesApi $devices;
+    protected TimeTracking\Api\TagsAndMentionsApi $tagsAndMentions;
+    protected TimeTracking\Api\ActivitiesApi $activities;
+    protected TimeTracking\Api\CurrentTrackingApi $currentTracking;
+    protected TimeTracking\Api\TimeEntriesApi $timeEntries;
+    protected TimeTracking\Api\ReportsApi $reports;
+    protected Webhooks\Api\WebhooksApi $webhooks;
+    protected Integrations\Api\IntegrationsApi $integrations;
+
     public function __construct(
-        private UserProfile\Api\UserApi $user,
-        private UserProfile\Api\SpaceApi $space,
-        private TimeTracking\Api\DevicesApi $devices,
-        private TimeTracking\Api\TagsAndMentionsApi $tagsAndMentions,
-        private TimeTracking\Api\ActivitiesApi $activities,
-        private TimeTracking\Api\CurrentTrackingApi $currentTracking,
-        private TimeTracking\Api\TimeEntriesApi $timeEntries,
-        private TimeTracking\Api\ReportsApi $reports,
-        private Webhooks\Api\WebhooksApi $webhooks,
-        private Integrations\Api\IntegrationsApi $integrations,
-    ) {}
+        HttpClientInterface $httpClient,
+    ) {
+        $this->user = new UserProfile\Api\UserApi($httpClient);
+        $this->space = new UserProfile\Api\SpaceApi($httpClient);
+        $this->devices = new TimeTracking\Api\DevicesApi($httpClient);
+        $this->tagsAndMentions = new TimeTracking\Api\TagsAndMentionsApi($httpClient);
+        $this->activities = new TimeTracking\Api\ActivitiesApi($httpClient);
+        $this->currentTracking = new TimeTracking\Api\CurrentTrackingApi($httpClient);
+        $this->timeEntries = new TimeTracking\Api\TimeEntriesApi($httpClient);
+        $this->reports = new TimeTracking\Api\ReportsApi($httpClient);
+        $this->webhooks = new Webhooks\Api\WebhooksApi($httpClient);
+        $this->integrations = new Integrations\Api\IntegrationsApi($httpClient);
+    }
 
     public function me(): Me
     {
