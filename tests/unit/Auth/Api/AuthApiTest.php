@@ -12,10 +12,12 @@ use PsrMock\Psr18\Client;
 use PsrMock\Psr18\Contracts\ClientContract;
 use PsrMock\Psr7\Response;
 use PsrMock\Psr7\Stream;
+use Tests\Unit\Timeular\HttpClientFactory;
 use Timeular\Auth\Api\AuthApi;
-use Timeular\Http\Builder\HttpClientBuilder;
-use Timeular\Http\Builder\RequestFactoryBuilder;
-use Timeular\Http\Builder\Serializer\SerializerBuilder;
+use Timeular\Http\Factory\MediaTypeResolverFactory;
+use Timeular\Http\Factory\RequestFactoryFactory;
+use Timeular\Http\Factory\ResponseHandlerFactory;
+use Timeular\Http\Factory\SerializerFactory;
 use Timeular\Http\HttpClient;
 use Timeular\Http\MediaTypeResolver;
 use Timeular\Http\RequestFactory;
@@ -25,9 +27,10 @@ use Timeular\Http\Serializer\JsonEncoder;
 use Timeular\Http\Serializer\Serializer;
 
 #[CoversClass(AuthApi::class)]
-#[UsesClass(HttpClientBuilder::class)]
-#[UsesClass(RequestFactoryBuilder::class)]
-#[UsesClass(SerializerBuilder::class)]
+#[UsesClass(MediaTypeResolverFactory::class)]
+#[UsesClass(RequestFactoryFactory::class)]
+#[UsesClass(ResponseHandlerFactory::class)]
+#[UsesClass(SerializerFactory::class)]
 #[UsesClass(HttpClient::class)]
 #[UsesClass(MediaTypeResolver::class)]
 #[UsesClass(RequestFactory::class)]
@@ -45,7 +48,7 @@ class AuthApiTest extends TestCase
         $this->api = new AuthApi(
             'api_key',
             'api_secret',
-            (new HttpClientBuilder())->withPsrClient($this->client)->build(),
+            (new HttpClientFactory($this->client))->create(),
         );
     }
 

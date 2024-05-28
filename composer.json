@@ -31,8 +31,6 @@
         "psr-mock/http-client-implementation": "^1.0",
         "psr-mock/http-factory-implementation": "^1.0",
         "psr-mock/http-message-implementation": "^1.0",
-        "symfony/config": "^7.0",
-        "symfony/dependency-injection": "^7.0",
         "symfony/dotenv": "^7.0"
     },
     "autoload": {
@@ -54,10 +52,10 @@
         "sort-packages": true
     },
     "scripts": {
-        "tests:unit": "vendor/bin/phpunit",
-        "tests:mutation": "vendor/bin/infection --threads=4 --show-mutations",
         "cs:check": "vendor/bin/php-cs-fixer fix --dry-run --diff --ansi",
         "cs:fix": "vendor/bin/php-cs-fixer fix --diff --ansi",
-        "qa:phpstan": "vendor/bin/phpstan analyse --ansi"
+        "qa:phpstan": "vendor/bin/phpstan analyse --ansi",
+        "tests:mutation": "vendor/bin/infection --threads=4 --show-mutations",
+        "tests:unit": "vendor/bin/phpunit"
     }
 }

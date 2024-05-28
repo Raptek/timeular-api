@@ -11,19 +11,16 @@ use Timeular\Http\Serializer\SerializerInterface;
 
 readonly class SerializerFactory implements SerializerFactoryInterface
 {
-    private array $encoders;
-
-    public function __construct()
-    {
-        $this->encoders = [
-            'application/json' => new JsonEncoder(),
-            'text/csv' => new PassthroughEncoder(),
-            'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' => new PassthroughEncoder(),
-        ];
-    }
+    public function __construct(private array $encoders = []) {}
 
     public function create(): SerializerInterface
     {
-        return new Serializer($this->encoders);
+        return new Serializer(
+            [
+                'application/json' => new JsonEncoder(),
+                'text/csv' => new PassthroughEncoder(),
+                'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' => new PassthroughEncoder(),
+            ] + $this->encoders,
+        );
     }
 }

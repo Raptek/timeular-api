@@ -12,9 +12,11 @@ use PsrMock\Psr18\Client;
 use PsrMock\Psr18\Contracts\ClientContract;
 use PsrMock\Psr7\Response;
 use PsrMock\Psr7\Stream;
-use Timeular\Http\Builder\HttpClientBuilder;
-use Timeular\Http\Builder\RequestFactoryBuilder;
-use Timeular\Http\Builder\Serializer\SerializerBuilder;
+use Tests\Unit\Timeular\HttpClientFactory;
+use Timeular\Http\Factory\MediaTypeResolverFactory;
+use Timeular\Http\Factory\RequestFactoryFactory;
+use Timeular\Http\Factory\ResponseHandlerFactory;
+use Timeular\Http\Factory\SerializerFactory;
 use Timeular\Http\HttpClient;
 use Timeular\Http\MediaTypeResolver;
 use Timeular\Http\RequestFactory;
@@ -27,9 +29,10 @@ use Timeular\TimeTracking\Model\Mention;
 use Timeular\TimeTracking\Model\Tag;
 
 #[CoversClass(TagsAndMentionsApi::class)]
-#[UsesClass(HttpClientBuilder::class)]
-#[UsesClass(RequestFactoryBuilder::class)]
-#[UsesClass(SerializerBuilder::class)]
+#[UsesClass(MediaTypeResolverFactory::class)]
+#[UsesClass(RequestFactoryFactory::class)]
+#[UsesClass(ResponseHandlerFactory::class)]
+#[UsesClass(SerializerFactory::class)]
 #[UsesClass(HttpClient::class)]
 #[UsesClass(MediaTypeResolver::class)]
 #[UsesClass(RequestFactory::class)]
@@ -46,7 +49,7 @@ class TagsAndMentionsApiTest extends TestCase
     protected function setUp(): void
     {
         $this->client = new Client();
-        $this->api = new TagsAndMentionsApi((new HttpClientBuilder())->withPsrClient($this->client)->build());
+        $this->api = new TagsAndMentionsApi((new HttpClientFactory($this->client))->create());
     }
 
     #[Test]

@@ -12,9 +12,11 @@ use PsrMock\Psr18\Client;
 use PsrMock\Psr18\Contracts\ClientContract;
 use PsrMock\Psr7\Response;
 use PsrMock\Psr7\Stream;
-use Timeular\Http\Builder\HttpClientBuilder;
-use Timeular\Http\Builder\RequestFactoryBuilder;
-use Timeular\Http\Builder\Serializer\SerializerBuilder;
+use Tests\Unit\Timeular\HttpClientFactory;
+use Timeular\Http\Factory\MediaTypeResolverFactory;
+use Timeular\Http\Factory\RequestFactoryFactory;
+use Timeular\Http\Factory\ResponseHandlerFactory;
+use Timeular\Http\Factory\SerializerFactory;
 use Timeular\Http\HttpClient;
 use Timeular\Http\HttpClientInterface;
 use Timeular\Http\MediaTypeResolver;
@@ -25,31 +27,24 @@ use Timeular\Http\Serializer\JsonEncoder;
 use Timeular\Http\Serializer\Serializer;
 
 #[CoversClass(HttpClient::class)]
+#[UsesClass(MediaTypeResolverFactory::class)]
+#[UsesClass(RequestFactoryFactory::class)]
+#[UsesClass(ResponseHandlerFactory::class)]
+#[UsesClass(SerializerFactory::class)]
 #[UsesClass(MediaTypeResolver::class)]
 #[UsesClass(RequestFactory::class)]
 #[UsesClass(ResponseHandler::class)]
 #[UsesClass(JsonEncoder::class)]
 #[UsesClass(Serializer::class)]
-#[UsesClass(HttpClientBuilder::class)]
-#[UsesClass(RequestFactoryBuilder::class)]
-#[UsesClass(SerializerBuilder::class)]
 class HttpClientTest extends TestCase
 {
     private HttpClientInterface $httpClient;
     private ClientContract $client;
-    private RequestFactoryInterface $requestFactory;
 
     protected function setUp(): void
     {
         $this->client = new Client();
-        $this->requestFactory = (new RequestFactoryBuilder())->build();
-        $this->httpClient = (new HttpClientBuilder())
-            ->withApiKey('test')
-            ->withApiSecret('test')
-            ->withPsrClient($this->client)
-            ->withRequestFactory($this->requestFactory)
-            ->build()
-        ;
+        $this->httpClient = (new HttpClientFactory($this->client))->create();
     }
 
     #[Test]

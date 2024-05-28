@@ -9,8 +9,8 @@ use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\Attributes\UsesClass;
 use PHPUnit\Framework\TestCase;
-use Timeular\Http\Builder\RequestFactoryBuilder;
-use Timeular\Http\Builder\Serializer\SerializerBuilder;
+use Tests\Unit\Timeular\RequestFactoryFactory;
+use Timeular\Http\Factory\SerializerFactory;
 use Timeular\Http\MediaTypeResolver;
 use Timeular\Http\RequestFactory;
 use Timeular\Http\RequestFactoryInterface;
@@ -22,8 +22,7 @@ use Timeular\Http\Serializer\SerializerInterface;
 #[UsesClass(MediaTypeResolver::class)]
 #[UsesClass(JsonEncoder::class)]
 #[UsesClass(Serializer::class)]
-#[UsesClass(RequestFactoryBuilder::class)]
-#[UsesClass(SerializerBuilder::class)]
+#[UsesClass(SerializerFactory::class)]
 class RequestFactoryTest extends TestCase
 {
     private RequestFactoryInterface $requestFactory;
@@ -56,7 +55,7 @@ class RequestFactoryTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->requestFactory = (new RequestFactoryBuilder())->build();
-        $this->serializer = (new SerializerBuilder())->build();
+        $this->requestFactory = (new RequestFactoryFactory())->create();
+        $this->serializer = (new SerializerFactory())->create();
     }
 }

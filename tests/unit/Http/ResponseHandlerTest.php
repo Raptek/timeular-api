@@ -11,7 +11,6 @@ use PHPUnit\Framework\Attributes\UsesClass;
 use PHPUnit\Framework\TestCase;
 use PsrMock\Psr7\Response;
 use PsrMock\Psr7\Stream;
-use Timeular\Http\Builder\Serializer\SerializerBuilder;
 use Timeular\Http\Exception\AccessDeniedException;
 use Timeular\Http\Exception\BadRequestException;
 use Timeular\Http\Exception\ConflictException;
@@ -21,6 +20,9 @@ use Timeular\Http\Exception\MultipleContentTypeValuesException;
 use Timeular\Http\Exception\NotFoundException;
 use Timeular\Http\Exception\UnauthorizedException;
 use Timeular\Http\Exception\UnsupportedMediaTypeException;
+use Timeular\Http\Factory\MediaTypeResolverFactory;
+use Timeular\Http\Factory\ResponseHandlerFactory;
+use Timeular\Http\Factory\SerializerFactory;
 use Timeular\Http\MediaTypeResolver;
 use Timeular\Http\ResponseHandler;
 use Timeular\Http\ResponseHandlerInterface;
@@ -43,7 +45,9 @@ use Timeular\Http\Serializer\Serializer;
 #[UsesClass(HttpException::class)]
 #[UsesClass(Serializer::class)]
 #[UsesClass(JsonEncoder::class)]
-#[UsesClass(SerializerBuilder::class)]
+#[UsesClass(MediaTypeResolverFactory::class)]
+#[UsesClass(ResponseHandlerFactory::class)]
+#[UsesClass(SerializerFactory::class)]
 class ResponseHandlerTest extends TestCase
 {
     private ResponseHandlerInterface $responseHandler;
@@ -66,10 +70,7 @@ class ResponseHandlerTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->responseHandler = new ResponseHandler(
-            new MediaTypeResolver(),
-            (new SerializerBuilder())->build(),
-        );
+        $this->responseHandler = (new ResponseHandlerFactory())->create();
     }
 
     #[Test]
