@@ -14,9 +14,14 @@ When working on multiple projects, depending on habits, sometimes it's hard to t
 
 Timeular application is great, but it lacks few features which would improve my workflow greatly. I wanted to create small app fulfilling all my requirements, but it was impossible to find time for it. And here comes [100 commitów](https://100commitow.pl/) - commit to making small changes for 100 days in a row. I didn't find any PHP library to use Timeular API, so I created one.
 
-# WIP
-
 ## Installation
+
+Package can be installed using [Composer](https://getcomposer.org/) by running command
+
+```bash
+composer require raptek/timeular-api
+```
+
 
 1. Create `.env` file and fill it with credentials from https://profile.timeular.com/
 

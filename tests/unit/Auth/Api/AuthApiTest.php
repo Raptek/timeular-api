@@ -46,8 +46,6 @@ class AuthApiTest extends TestCase
     {
         $this->client = new Client();
         $this->api = new AuthApi(
-            'api_key',
-            'api_secret',
             (new HttpClientFactory($this->client))->create(),
         );
     }
@@ -67,7 +65,7 @@ BODY,
         ;
         $this->client->addResponse('POST', RequestFactoryInterface::BASE_URI . '/developer/sign-in', $response);
 
-        $token = $this->api->signIn();
+        $token = $this->api->signIn('test', 'test');
 
         self::assertIsString($token);
     }

@@ -9,22 +9,20 @@ use Timeular\Http\HttpClient;
 readonly class AuthApi
 {
     public function __construct(
-        private string $apiKey,
-        private string $apiSecret,
         private HttpClient $httpClient,
     ) {}
 
     /**
      * @see https://developers.timeular.com/#12de6e46-4b3a-437b-94b2-39b7782eb24c
      */
-    public function signIn(): string
+    public function signIn(string $apiKey, string $apiSecret): string
     {
         $response = $this->httpClient->request(
             'POST',
             'developer/sign-in',
             [
-                'apiKey' => $this->apiKey,
-                'apiSecret' => $this->apiSecret,
+                'apiKey' => $apiKey,
+                'apiSecret' => $apiSecret,
             ],
         );
 
