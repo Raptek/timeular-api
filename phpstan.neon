@@ -6,5 +6,4 @@ parameters:
     level: 3
     paths:
         - src
-        - examples
         - tests

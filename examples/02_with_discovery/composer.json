@@ -1,0 +1,11 @@
+{
+  "require": {
+    "symfony/dotenv": "^7.1",
+    "raptek/timeular-api": "dev-main"
+  },
+  "config": {
+    "allow-plugins": {
+      "php-http/discovery": true
+    }
+  }
+}

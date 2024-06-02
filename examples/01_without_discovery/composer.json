@@ -1,0 +1,7 @@
+{
+  "require": {
+    "guzzlehttp/guzzle": "^7.8",
+    "symfony/dotenv": "^7.1",
+    "raptek/timeular-api": "dev-main"
+  }
+}

@@ -1,4 +1,4 @@
-examples/.env
+.env
 .cache/
 vendor/
 docker-compose.override.yml

@@ -14,6 +14,7 @@
     "require": {
         "php": "^8.3",
         "composer-runtime-api": "^2.0",
+        "php-http/discovery": "^1.19",
         "psr/http-client-implementation": "^1.0",
         "psr/http-factory-implementation": "^1.0",
         "psr/http-message-implementation": "^1.0"
@@ -22,7 +23,6 @@
         "ergebnis/composer-normalize": "^2.42",
         "friendsofphp/php-cs-fixer": "^3.56",
         "infection/infection": "^0.28",
-        "php-http/discovery": "^1.19",
         "phpstan/phpstan": "^1.11",
         "phpstan/phpstan-phpunit": "^1.4",
         "phpstan/phpstan-strict-rules": "^1.6",
@@ -46,16 +46,9 @@
         "allow-plugins": {
             "ergebnis/composer-normalize": true,
             "infection/extension-installer": true,
-            "php-http/discovery": true
+            "php-http/discovery": false
         },
         "sort-packages": true
-    },
-    "extra": {
-        "discovery": {
-            "Psr\\Http\\Client\\ClientInterface": "PsrMock\\Psr18\\Client",
-            "Psr\\Http\\Message\\RequestFactoryInterface": "PsrMock\\Psr17\\RequestFactory",
-            "Psr\\Http\\Message\\StreamFactoryInterface": "PsrMock\\Psr17\\StreamFactory"
-        }
     },
     "scripts": {
         "cs:check": "vendor/bin/php-cs-fixer fix --dry-run --diff --ansi",
