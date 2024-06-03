@@ -22,6 +22,12 @@ Package can be installed using [Composer](https://getcomposer.org/) by running c
 composer require raptek/timeular-api
 ```
 
+## Usage
+
+There is a `Timeular` class which acts as a facade for all API classes that requires `HttpClient` instance. But nothing stops You from using specific API class.
+
+This package relies on [virtual packages](https://getcomposer.org/doc/04-schema.md#provide) and not specific package(s) providing PSR implementations. If You want to use this library in project which already uses at least one implementation (PSR-7, PSR-17, PSR-18) you can manually configure all required dependencies (as shown in example 01) or You can leverage `php-http/discovery`, which will try to automatically find best installed implementation OR will install it for You, if plugin is enabled (example 02).
+
 ## License
 
 [MIT](LICENSE)
