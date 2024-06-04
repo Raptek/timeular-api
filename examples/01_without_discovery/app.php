@@ -12,8 +12,8 @@ use Timeular\Timeular;
 $requestFactory = (new RequestFactoryFactory(new HttpFactory(), new HttpFactory()));
 
 $httpClient = (new HttpClientFactory(
-    getenv('API_KEY'),
-    getenv('API_SECRET'),
+    $_ENV['API_KEY'],
+    $_ENV['API_SECRET'],
     new Client(),
     $requestFactory,
 ))->create();

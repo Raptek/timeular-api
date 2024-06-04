@@ -13,6 +13,7 @@ use PsrMock\Psr18\Contracts\ClientContract;
 use PsrMock\Psr7\Response;
 use PsrMock\Psr7\Stream;
 use Tests\Unit\Timeular\HttpClientFactory;
+use Timeular\Auth\Api\AuthApi;
 use Timeular\Http\Factory\MediaTypeResolverFactory;
 use Timeular\Http\Factory\RequestFactoryFactory;
 use Timeular\Http\Factory\ResponseHandlerFactory;
@@ -36,6 +37,7 @@ use Timeular\Http\Serializer\Serializer;
 #[UsesClass(ResponseHandler::class)]
 #[UsesClass(JsonEncoder::class)]
 #[UsesClass(Serializer::class)]
+#[UsesClass(AuthApi::class)]
 class HttpClientTest extends TestCase
 {
     private HttpClientInterface $httpClient;

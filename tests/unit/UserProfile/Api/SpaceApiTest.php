@@ -13,6 +13,7 @@ use PsrMock\Psr18\Contracts\ClientContract;
 use PsrMock\Psr7\Response;
 use PsrMock\Psr7\Stream;
 use Tests\Unit\Timeular\HttpClientFactory;
+use Timeular\Auth\Api\AuthApi;
 use Timeular\Http\Factory\MediaTypeResolverFactory;
 use Timeular\Http\Factory\RequestFactoryFactory;
 use Timeular\Http\Factory\ResponseHandlerFactory;
@@ -43,6 +44,7 @@ use Timeular\UserProfile\Model\User;
 #[UsesClass(RetiredUser::class)]
 #[UsesClass(Space::class)]
 #[UsesClass(User::class)]
+#[UsesClass(AuthApi::class)]
 class SpaceApiTest extends TestCase
 {
     private SpaceApi $api;

@@ -6,6 +6,7 @@ namespace Timeular\Http;
 
 use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\RequestInterface;
+use Timeular\Auth\Api\AuthApi;
 
 readonly class HttpClient implements HttpClientInterface
 {
@@ -19,7 +20,7 @@ readonly class HttpClient implements HttpClientInterface
 
     public function request(string $method, string $uri, array $payload = []): string|array
     {
-        $request = $this->requestFactory->create($method, $uri);
+        $request = $this->requestFactory->create($method, $uri, $payload);
         $request = $this->handleAuthorization($request);
         $response = $this->httpClient->sendRequest($request);
 
@@ -32,14 +33,8 @@ readonly class HttpClient implements HttpClientInterface
             return $request;
         }
 
-        $authRequest = $this->requestFactory->create('POST', 'developer/sign-in', [
-            'apiKey' => $this->apiKey,
-            'apiSecret' => $this->apiSecret,
-        ]);
+        $authApi = new AuthApi($this);
 
-        $response = $this->httpClient->sendRequest($authRequest);
-        $data = $this->responseHandler->handle($response);
-
-        return $request->withHeader('Authorization', sprintf('Bearer %s', $data['token']));
+        return $request->withHeader('Authorization', sprintf('Bearer %s', $authApi->signIn($this->apiKey, $this->apiSecret)));
     }
 }

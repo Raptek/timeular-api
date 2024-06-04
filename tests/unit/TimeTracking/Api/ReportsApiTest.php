@@ -13,6 +13,7 @@ use PsrMock\Psr18\Contracts\ClientContract;
 use PsrMock\Psr7\Response;
 use PsrMock\Psr7\Stream;
 use Tests\Unit\Timeular\HttpClientFactory;
+use Timeular\Auth\Api\AuthApi;
 use Timeular\Http\Factory\MediaTypeResolverFactory;
 use Timeular\Http\Factory\RequestFactoryFactory;
 use Timeular\Http\Factory\ResponseHandlerFactory;
@@ -49,6 +50,7 @@ use Timeular\TimeTracking\Model\ReportTimeEntry;
 #[UsesClass(Mention::class)]
 #[UsesClass(Note::class)]
 #[UsesClass(ReportTimeEntry::class)]
+#[UsesClass(AuthApi::class)]
 class ReportsApiTest extends TestCase
 {
     private ReportsApi $api;

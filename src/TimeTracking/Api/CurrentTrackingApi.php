@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Timeular\TimeTracking\Api;
 
-use Timeular\Http\HttpClient;
+use Timeular\Http\HttpClientInterface;
 use Timeular\TimeTracking\Exception\TooShortTimeEntryException;
 use Timeular\TimeTracking\Model\ActiveTimeEntry;
 use Timeular\TimeTracking\Model\TimeEntry;
@@ -12,7 +12,7 @@ use Timeular\TimeTracking\Model\TimeEntry;
 readonly class CurrentTrackingApi
 {
     public function __construct(
-        private HttpClient $httpClient,
+        private HttpClientInterface $httpClient,
     ) {}
 
     /**

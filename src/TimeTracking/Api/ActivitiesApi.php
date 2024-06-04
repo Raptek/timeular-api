@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Timeular\TimeTracking\Api;
 
-use Timeular\Http\HttpClient;
+use Timeular\Http\HttpClientInterface;
 use Timeular\TimeTracking\Model\Activity;
 
 readonly class ActivitiesApi
 {
     public function __construct(
-        private HttpClient $httpClient,
+        private HttpClientInterface $httpClient,
     ) {}
 
     /**

@@ -9,6 +9,7 @@ use Timeular\Http\Exception\AccessDeniedException;
 use Timeular\Http\Exception\BadRequestException;
 use Timeular\Http\Exception\ConflictException;
 use Timeular\Http\Exception\HttpException;
+use Timeular\Http\Exception\InternalServerErrorException;
 use Timeular\Http\Exception\MissingContentTypeHeaderException;
 use Timeular\Http\Exception\MultipleContentTypeValuesException;
 use Timeular\Http\Exception\NotFoundException;
@@ -27,6 +28,11 @@ readonly class ResponseHandler implements ResponseHandlerInterface
     public function handle(ResponseInterface $response): string|array
     {
         $statusCode = $response->getStatusCode();
+
+        if (500 === $statusCode) {
+            // At this moment, this exception doesn't have Content-Type header, so media type can't be resolved. Also, plain text is returned instead of json
+            throw InternalServerErrorException::withMessage();
+        }
 
         if (401 === $statusCode) {
             throw UnauthorizedException::withMessage();

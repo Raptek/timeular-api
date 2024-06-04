@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace Timeular\Webhooks\Api;
 
-use Timeular\Http\HttpClient;
+use Timeular\Http\HttpClientInterface;
 use Timeular\Webhooks\Model\Event;
 use Timeular\Webhooks\Model\Subscription;
 
 readonly class WebhooksApi
 {
     public function __construct(
-        private HttpClient $httpClient,
+        private HttpClientInterface $httpClient,
     ) {}
 
     /**

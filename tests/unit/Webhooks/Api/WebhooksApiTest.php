@@ -13,6 +13,7 @@ use PsrMock\Psr18\Contracts\ClientContract;
 use PsrMock\Psr7\Response;
 use PsrMock\Psr7\Stream;
 use Tests\Unit\Timeular\HttpClientFactory;
+use Timeular\Auth\Api\AuthApi;
 use Timeular\Http\Factory\MediaTypeResolverFactory;
 use Timeular\Http\Factory\RequestFactoryFactory;
 use Timeular\Http\Factory\ResponseHandlerFactory;
@@ -40,6 +41,7 @@ use Timeular\Webhooks\Model\Subscription;
 #[UsesClass(ResponseHandlerFactory::class)]
 #[UsesClass(SerializerFactory::class)]
 #[UsesClass(Subscription::class)]
+#[UsesClass(AuthApi::class)]
 class WebhooksApiTest extends TestCase
 {
     private WebhooksApi $api;

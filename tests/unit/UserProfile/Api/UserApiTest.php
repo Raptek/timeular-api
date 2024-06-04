@@ -13,6 +13,7 @@ use PsrMock\Psr18\Contracts\ClientContract;
 use PsrMock\Psr7\Response;
 use PsrMock\Psr7\Stream;
 use Tests\Unit\Timeular\HttpClientFactory;
+use Timeular\Auth\Api\AuthApi;
 use Timeular\Http\Factory\MediaTypeResolverFactory;
 use Timeular\Http\Factory\RequestFactoryFactory;
 use Timeular\Http\Factory\ResponseHandlerFactory;
@@ -39,6 +40,7 @@ use Timeular\UserProfile\Model\Me;
 #[UsesClass(ResponseHandlerFactory::class)]
 #[UsesClass(SerializerFactory::class)]
 #[UsesClass(Me::class)]
+#[UsesClass(AuthApi::class)]
 class UserApiTest extends TestCase
 {
     private UserApi $api;
@@ -78,6 +80,7 @@ BODY,
 
         $user = $this->api->me();
 
+        self::assertTrue(true);
         self::assertInstanceOf(Me::class, $user);
     }
 }

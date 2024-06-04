@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Timeular\UserProfile\Api;
 
-use Timeular\Http\HttpClient;
+use Timeular\Http\HttpClientInterface;
 use Timeular\UserProfile\Model\Space;
 
 readonly class SpaceApi
 {
     public function __construct(
-        private HttpClient $httpClient,
+        private HttpClientInterface $httpClient,
     ) {}
 
     /**

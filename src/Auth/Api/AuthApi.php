@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Timeular\Auth\Api;
 
-use Timeular\Http\HttpClient;
+use Timeular\Http\HttpClientInterface;
 
 readonly class AuthApi
 {
     public function __construct(
-        private HttpClient $httpClient,
+        private HttpClientInterface $httpClient,
     ) {}
 
     /**

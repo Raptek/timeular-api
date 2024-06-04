@@ -7,8 +7,8 @@ use Timeular\Http\Factory\DiscoverableHttpClientFactory;
 use Timeular\Timeular;
 
 $httpClient = (new DiscoverableHttpClientFactory(
-    getenv('API_KEY'),
-    getenv('API_SECRET'),
+    $_ENV['API_KEY'],
+    $_ENV['API_SECRET'],
 ))->create();
 
 $timeular = new Timeular($httpClient);
