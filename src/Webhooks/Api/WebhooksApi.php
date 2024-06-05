@@ -4,7 +4,13 @@ declare(strict_types=1);
 
 namespace Timeular\Webhooks\Api;
 
+use Timeular\Http\Exception\BadRequestException;
+use Timeular\Http\Exception\NotFoundException;
 use Timeular\Http\HttpClientInterface;
+use Timeular\Webhooks\Exception\InvalidEventException;
+use Timeular\Webhooks\Exception\InvalidUrlException;
+use Timeular\Webhooks\Exception\MaximumSubscriptionsReachedException;
+use Timeular\Webhooks\Exception\SubscriptionNotFoundException;
 use Timeular\Webhooks\Model\Event;
 use Timeular\Webhooks\Model\Subscription;
 
@@ -29,17 +35,31 @@ readonly class WebhooksApi
 
     /**
      * @see https://developers.timeular.com/#f3ed186d-288f-4a7e-9a35-31c849f936c2
+     *
+     * @throws InvalidEventException
+     * @throws InvalidUrlException
+     * @throws MaximumSubscriptionsReachedException
+     * @throws BadRequestException
      */
     public function subscribe(string $event, string $targetUrl): Subscription
     {
-        $response = $this->httpClient->request(
-            'POST',
-            'webhooks/subscription',
-            [
-                'event' => $event,
-                'target_url' => $targetUrl,
-            ],
-        );
+        try {
+            $response = $this->httpClient->request(
+                'POST',
+                'webhooks/subscription',
+                [
+                    'event' => $event,
+                    'target_url' => $targetUrl,
+                ],
+            );
+        } catch (BadRequestException $exception) {
+            throw match ($exception->getMessage()) {
+                'invalid event provided' => InvalidEventException::fromEvent($event),
+                'invalid URL provided' => InvalidUrlException::fromUrl($targetUrl),
+                'maximum subscriptions per event exceeded' => MaximumSubscriptionsReachedException::fromEvent($event),
+                default => $exception,
+            };
+        }
 
         return Subscription::fromArray(
             [
@@ -52,13 +72,19 @@ readonly class WebhooksApi
 
     /**
      * @see https://developers.timeular.com/#49f4cefd-7e39-437d-b411-469335b6cb15
+     *
+     * @throws SubscriptionNotFoundException
      */
     public function unsubscribe(string $id): void
     {
-        $this->httpClient->request(
-            'DELETE',
-            sprintf('webhooks/subscription/%s', $id),
-        );
+        try {
+            $this->httpClient->request(
+                'DELETE',
+                sprintf('webhooks/subscription/%s', $id),
+            );
+        } catch (NotFoundException) {
+            throw SubscriptionNotFoundException::fromId($id);
+        }
     }
 
     /**
