@@ -15,6 +15,7 @@ use Timeular\Http\Exception\AccessDeniedException;
 use Timeular\Http\Exception\BadRequestException;
 use Timeular\Http\Exception\ConflictException;
 use Timeular\Http\Exception\HttpException;
+use Timeular\Http\Exception\InternalServerErrorException;
 use Timeular\Http\Exception\MissingContentTypeHeaderException;
 use Timeular\Http\Exception\MultipleContentTypeValuesException;
 use Timeular\Http\Exception\NotFoundException;
@@ -26,6 +27,7 @@ use Timeular\Http\Factory\SerializerFactory;
 use Timeular\Http\MediaTypeResolver;
 use Timeular\Http\ResponseHandler;
 use Timeular\Http\ResponseHandlerInterface;
+use Timeular\Http\Serializer\DeserializeException;
 use Timeular\Http\Serializer\JsonEncoder;
 use Timeular\Http\Serializer\MissingEncoderException;
 use Timeular\Http\Serializer\Serializer;
@@ -42,7 +44,9 @@ use Timeular\Http\Serializer\Serializer;
 #[UsesClass(MultipleContentTypeValuesException::class)]
 #[UsesClass(MediaTypeResolver::class)]
 #[UsesClass(MissingEncoderException::class)]
+#[UsesClass(InternalServerErrorException::class)]
 #[UsesClass(HttpException::class)]
+#[UsesClass(DeserializeException::class)]
 #[UsesClass(Serializer::class)]
 #[UsesClass(JsonEncoder::class)]
 #[UsesClass(MediaTypeResolverFactory::class)]
@@ -64,7 +68,7 @@ class ResponseHandlerTest extends TestCase
         yield '"404" for "NotFoundException"' => [404, NotFoundException::class];
         yield '"409" for "ConflictException"' => [409, ConflictException::class];
 
-        $statusCode = rand(500, 599);
+        $statusCode = rand(501, 599);
         yield sprintf('"%s" for "HttpException"', $statusCode) => [$statusCode, HttpException::class];
     }
 
@@ -90,14 +94,52 @@ class ResponseHandlerTest extends TestCase
     }
 
     #[Test]
+    public function it_handles_logout(): void
+    {
+        $response = (new Response())
+            ->withHeader('Set-Cookie', '')
+        ;
+
+        $handledData = $this->responseHandler->handle($response);
+
+        self::assertEquals('', $handledData);
+    }
+
+    #[Test]
+    public function it_handles_incorrect_credentials(): void
+    {
+        $response = (new Response(401))
+            ->withHeader('Content-Type', 'application/json')
+            ->withBody(new Stream('{"message": "foo"}'))
+        ;
+
+        self::expectExceptionObject(UnauthorizedException::withMessage('foo'));
+
+        $this->responseHandler->handle($response);
+    }
+
+    #[Test]
     public function it_throws_unauthorized_exception(): void
     {
         $response = (new Response())
-            ->withHeader('Content-Type', 'application/json')
+            // Intentionally "break" this as that's how it's handled on server side :/
+//            ->withHeader('Content-Type', 'application/json')
             ->withStatus(401)
         ;
 
         self::expectExceptionObject(UnauthorizedException::withMessage());
+
+        $this->responseHandler->handle($response);
+    }
+
+    #[Test]
+    public function it_throws_internal_server_exception(): void
+    {
+        $response = (new Response())
+            ->withStatus(500)
+        ;
+
+        self::expectExceptionObject(InternalServerErrorException::withMessage());
 
         $this->responseHandler->handle($response);
     }
@@ -121,6 +163,19 @@ class ResponseHandlerTest extends TestCase
         ;
 
         self::expectExceptionObject(BadRequestException::withMessage('Using multiple "Content-Type" headers is not supported.'));
+
+        $this->responseHandler->handle($response);
+    }
+
+    #[Test]
+    public function it_throws_bad_request_exception_on_deserialization_error(): void
+    {
+        $response = (new Response())
+            ->withHeader('Content-Type', 'application/json')
+            ->withBody(new Stream(''))
+        ;
+
+        self::expectException(BadRequestException::class);
 
         $this->responseHandler->handle($response);
     }
