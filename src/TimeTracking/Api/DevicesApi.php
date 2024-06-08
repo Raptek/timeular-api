@@ -4,7 +4,11 @@ declare(strict_types=1);
 
 namespace Timeular\TimeTracking\Api;
 
+use Timeular\Http\Exception\ConflictException;
+use Timeular\Http\Exception\NotFoundException;
 use Timeular\Http\HttpClientInterface;
+use Timeular\TimeTracking\Exception\DeviceNotFoundException;
+use Timeular\TimeTracking\Exception\InactiveDeviceException;
 use Timeular\TimeTracking\Model\Device;
 
 readonly class DevicesApi
@@ -41,13 +45,22 @@ readonly class DevicesApi
 
     /**
      * @see https://developers.timeular.com/#59928e50-d695-4118-8d71-13079f4ae9d9
+     *
+     * @throws DeviceNotFoundException
+     * @throws InactiveDeviceException
      */
     public function deactivate(string $serial): Device
     {
-        $response = $this->httpClient->request(
-            'POST',
-            sprintf('devices/%s/deactivate', $serial),
-        );
+        try {
+            $response = $this->httpClient->request(
+                'POST',
+                sprintf('devices/%s/deactivate', $serial),
+            );
+        } catch (NotFoundException) {
+            throw DeviceNotFoundException::fromSerial($serial);
+        } catch (ConflictException) {
+            throw InactiveDeviceException::fromSerial($serial);
+        }
 
         return Device::fromArray($response);
     }

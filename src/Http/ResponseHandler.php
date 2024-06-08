@@ -29,7 +29,7 @@ readonly class ResponseHandler implements ResponseHandlerInterface
     public function handle(ResponseInterface $response): string|array
     {
         $statusCode = $response->getStatusCode();
-
+        $body = $response->getBody()->getContents();
         if (500 === $statusCode) {
             // At this moment, this exception doesn't have Content-Type header, so media type can't be resolved. Also, plain text is returned instead of json
             throw InternalServerErrorException::withMessage();
