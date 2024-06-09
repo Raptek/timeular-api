@@ -2,7 +2,4 @@
 
 namespace Timeular\TimeTracking\Exception;
 
-interface DevicesException extends \Throwable
-{
-
-}
+interface DevicesException extends \Throwable {}
