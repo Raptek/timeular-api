@@ -4,7 +4,13 @@ declare(strict_types=1);
 
 namespace Timeular\TimeTracking\Api;
 
+use Timeular\Http\Exception\AccessDeniedException;
+use Timeular\Http\Exception\BadRequestException;
 use Timeular\Http\HttpClientInterface;
+use Timeular\TimeTracking\Exception\InvalidColorException;
+use Timeular\TimeTracking\Exception\InvalidIntegrationException;
+use Timeular\TimeTracking\Exception\NotSpaceAdminException;
+use Timeular\TimeTracking\Exception\ThirdPartyIntegrationException;
 use Timeular\TimeTracking\Model\Activity;
 
 readonly class ActivitiesApi
@@ -32,19 +38,31 @@ readonly class ActivitiesApi
 
     /**
      * @see https://developers.timeular.com/#591f7ca0-7ec5-4c0e-b0d0-99b6967ce53e
+     *
+     * @throws NotSpaceAdminException
      */
     public function create(string $name, string $color, string $integration, string $spaceId): Activity
     {
-        $response = $this->httpClient->request(
-            'POST',
-            'activities',
-            [
-                'name' => $name,
-                'color' => $color,
-                'integration' => $integration,
-                'spaceId' => $spaceId,
-            ],
-        );
+        try {
+            $response = $this->httpClient->request(
+                'POST',
+                'activities',
+                [
+                    'name' => $name,
+                    'color' => $color,
+                    'integration' => $integration,
+                    'spaceId' => $spaceId,
+                ],
+            );
+        } catch (AccessDeniedException) {
+            throw NotSpaceAdminException::create();
+        } catch (BadRequestException $exception) {
+            throw match ($exception->getMessage()) {
+                "Activity Color is not in hexadecimal representation ('#' followed by 3 or 6 characters, eg. '#a0b2f9'" => InvalidColorException::fromColor($color),
+                "Activity Integration is invalid: valid Activity Integration has from 1 to 50 characters and contains only 'a'-'z', 'A'-'Z', '0'-'9', '-', '_', or '.' (examples: 'jira', 'my.hosted.harvest')" => InvalidIntegrationException::fromIntegration($integration),
+                'Third Party Integrations are not allowed in shared spaces - please use your personal space.' => ThirdPartyIntegrationException::create(),
+            };
+        }
 
         return Activity::fromArray($response);
     }

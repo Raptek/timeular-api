@@ -70,7 +70,7 @@ readonly class ResponseHandler implements ResponseHandlerInterface
             throw BadRequestException::withMessage($exception->getMessage());
         }
 
-        if (200 !== $statusCode) {
+        if (400 <= $statusCode) {
             throw match ($statusCode) {
                 400 => BadRequestException::withMessage($data['message']),
                 401 => UnauthorizedException::withMessage($data['message']), // Providing incorrect key/secret results in 401 with proper message, but probably should return 400
